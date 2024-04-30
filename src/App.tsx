@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
-import Navbar from './Component1/FireAlarmCompo/Navbar';
+import Navbar from './components/FireAlarm/Navbar';
 
 function App() {
   return (
