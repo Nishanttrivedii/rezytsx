@@ -1,47 +1,49 @@
-import fire from "../../assets/firehollow.png"
-import cosensor from "../../assets/cosensor.png"
-import tempsensor from "../../assets/tempsensor.png"
-import watermeters from "../../assets/watermeters.png"
-import arrow from "../../assets/arrow.png"
-
-
-const InstalledDevices = () => {
+import fire from "../assets/firehollow.png"
+import cosensor from "../assets/cosensor.png"
+import tempsensor from "../assets/tempsensor.png"
+import watermeters from "../assets/watermeters.png"
+import arrow from "../assets/arrow.png"
+import tenant from "../assets/tenant.png"
+import phone from "../assets/phone.png"
+import email from "../assets/email.png"
+import unitstatus from "../assets/unitstatus.png"
+const UnitInfo = () => {
   const iconMapping = {
-   fire:fire,
-   cosensor:cosensor,
-   tempsensor:tempsensor,
-   watermeters:watermeters
+    tenant:tenant,
+    phone:phone,
+    email:email,
+   unitstatus:unitstatus
 
    
 };
 
  const devices= [
     {
-      "device_type": "Fire Alarms",
-      "count": 134,
-      "icon":"fire"
+      "device_type": "Tenant Name",
+      "value": "Tenant Name",
+      "icon":"tenant"
     },
     {
-      "device_type": "CO Sensors",
-      "count": 123,
-      "icon":"cosensor"
+      "device_type": "Phone",
+      "value": "+1 142 1791 398",
+      "icon":"phone"
     },
     {
-      "device_type": "Temp/Humidity Sensors",
-      "count": 121,
-      "icon":"tempsensor"
+      "device_type": "Email",
+      "value": "tenant@email.com",
+      "icon":"email"
     },
     {
-      "device_type": "Water Meters",
-      "count": 19,
-      "icon":"watermeters"
+      "device_type": "Status ",
+      "value": "Occupied",
+      "icon":"unitstatus"
     }
   ]
   
   return (
     <>
     <div className='bg-[##EDF1F7] w-[100%]  sm:w-full xs:w-full rounded-lg justify-center flex flex-col items-center '>
-    <div className='w-[95%] h-[2rem] bg-[#01337C] text-white p-1  font-small text-[18px] rounded flex items-center mt-3'>Installed Devices</div>
+    <div className='w-[95%] h-[2rem] bg-[#01337C] text-white p-1  font-small text-[18px] rounded flex items-center mt-3'>Unit Info</div>
 
       <table className="w-[95%] divide-y divide-gray-200 border-separate border-spacing-y-3  mb-[10px] mx-[10px] mt-[1px]">
 
@@ -54,8 +56,8 @@ const InstalledDevices = () => {
                 
                 </td>
               <td style={{ lineHeight: '3px' }} className=" rounded-r-xl xl:pl-6 lg:pl-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] pr-1 ">
-                <div className="flex flex-row items-center gap-2">
-                <div>{item.count}</div>
+                <div className="flex flex-row items-center gap-2 justify-end">
+                <div>{item.value}</div>
                 <img className="h-6 w-6" src={arrow} alt="" />
 
                 </div>
@@ -70,4 +72,4 @@ const InstalledDevices = () => {
   )
 }
 
-export default InstalledDevices
+export default UnitInfo

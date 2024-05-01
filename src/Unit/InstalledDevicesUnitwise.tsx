@@ -1,11 +1,11 @@
-import fire from "../../assets/firehollow.png"
-import cosensor from "../../assets/cosensor.png"
-import tempsensor from "../../assets/tempsensor.png"
-import watermeters from "../../assets/watermeters.png"
-import arrow from "../../assets/arrow.png"
+import fire from "../assets/firehollow.png"
+import cosensor from "../assets/cosensor.png"
+import tempsensor from "../assets/tempsensor.png"
+import watermeters from "../assets/watermeters.png"
+import arrow from "../assets/arrow.png"
 
 
-const InstalledDevices = () => {
+const InstalledDevicesUnitWise = () => {
   const iconMapping = {
    fire:fire,
    cosensor:cosensor,
@@ -18,24 +18,20 @@ const InstalledDevices = () => {
  const devices= [
     {
       "device_type": "Fire Alarms",
-      "count": 134,
+      "count": '02',
       "icon":"fire"
     },
     {
       "device_type": "CO Sensors",
-      "count": 123,
+      "count": '02',
       "icon":"cosensor"
     },
     {
       "device_type": "Temp/Humidity Sensors",
-      "count": 121,
+      "count": '02',
       "icon":"tempsensor"
     },
-    {
-      "device_type": "Water Meters",
-      "count": 19,
-      "icon":"watermeters"
-    }
+  
   ]
   
   return (
@@ -54,7 +50,7 @@ const InstalledDevices = () => {
                 
                 </td>
               <td style={{ lineHeight: '3px' }} className=" rounded-r-xl xl:pl-6 lg:pl-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] pr-1 ">
-                <div className="flex flex-row items-center gap-2">
+                <div className="flex flex-row items-center gap-2 justify-end">
                 <div>{item.count}</div>
                 <img className="h-6 w-6" src={arrow} alt="" />
 
@@ -70,4 +66,4 @@ const InstalledDevices = () => {
   )
 }
 
-export default InstalledDevices
+export default InstalledDevicesUnitWise
