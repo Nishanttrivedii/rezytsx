@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appBar: {
     marginTop: "17px",
     width: "calc(95% - 2rem)",
@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
   },
   navItem: {
     color: "white",
-    // margin: theme.spacing(0, 2), 
     fontWeight: "bold",
     textDecoration: "none",
   },

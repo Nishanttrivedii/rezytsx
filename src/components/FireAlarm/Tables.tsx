@@ -1,4 +1,3 @@
-import react from "react";
 import TempImage from "../../assets/image3.png";
 import DropImage from "../../assets/image4.png";
 import { Accordion, AccordionSummary, Typography } from "@mui/material";
@@ -59,7 +58,6 @@ function Tables({ data }: any) {
               borderRadius: "5px",
             }}
           >
-            {/* ------------------------------------------------ */}
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <div
@@ -110,7 +108,6 @@ function Tables({ data }: any) {
             </div>
           </div>
 
-          {/* ----------------------------------- */}
           <div
             style={{
               height: "40px",
@@ -137,8 +134,6 @@ function Tables({ data }: any) {
             <Typography>{READINGS[0].HUDETAIL}</Typography>
           </div>
         </div>
-
-        {/* ------------------------------ */}
 
         <div
           style={{
@@ -167,7 +162,7 @@ function Tables({ data }: any) {
               padding: "0.5rem",
               borderRadius: "5px",
               marginRight: "0.5rem",
-              width: "8rem", // Set fixed width for battery status box
+              width: "8rem", 
             }}
           >
             <img
@@ -187,7 +182,7 @@ function Tables({ data }: any) {
               }`,
               padding: "0.5rem",
               borderRadius: "5px",
-              width: "6rem", // Set fixed width for online status box
+              width: "6rem", 
             }}
           >
             <Typography>{STATUS[0].ONDETAIL}</Typography>

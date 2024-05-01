@@ -1,4 +1,3 @@
-import React from "react";
 import TempImage from "../../assets/image3.png";
 import DropImage from "../../assets/image4.png";
 import { Accordion, AccordionSummary, Typography } from "@mui/material";
@@ -106,7 +105,6 @@ function BuilTables({ data }: any) {
             </div>
           </div>
 
-          {/* Humidity */}
           <div
             style={{
               height: "40px",

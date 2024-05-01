@@ -1,12 +1,12 @@
 import { Typography, Button, AppBar, Toolbar, Badge } from "@mui/material";
 import { Sort } from "@mui/icons-material";
-import { makeStyles, useTheme } from "@mui/styles";
+import { makeStyles} from "@mui/styles";
 import FireImage from "../../assets/image2.png";
 import Header from "./Header";
 import Tables from "./Tables";
 import { sampleData } from "./Data.tsx";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appBar: {
     marginTop: "1rem",
     backgroundColor: "white",
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
   },
   image: {
-    // marginRight: theme.spacing(1),
     width: 25,
     height: "auto",
   },
@@ -56,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
 
 function FireAlarmNav() {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <>
@@ -96,7 +94,6 @@ function FireAlarmNav() {
                   backgroundColor: "rgba(192, 217, 255, 1)",
                   marginLeft: "89rem",
                   color: "darkblue",
-                  // borderRadius: "2rem",
                 }}
                 endIcon={<Sort />}
               >

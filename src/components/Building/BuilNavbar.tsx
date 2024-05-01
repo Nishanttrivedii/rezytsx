@@ -54,19 +54,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const NavLink = styled(Typography)(({ theme }) => ({
-  cursor: "pointer",
-  padding: "0.5rem",
-  "&:hover": {
-    color: theme.palette.common.white,
-  },
-}));
-
-const Logo = styled("img")(({ theme }) => ({
-  width: "40px",
-  marginRight: theme.spacing(2),
-}));
-
 const Container = styled(Box)(() => ({
   backgroundColor: "rgba(216, 223, 234, 1)",
   minHeight: "100vh",
