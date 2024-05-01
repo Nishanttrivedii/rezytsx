@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { Bar } from 'react-chartjs-2';
 import faker from 'faker';
 import { CategoryScale, Chart } from "chart.js";
 import { registerables } from 'chart.js';
 import { MenuItem, Select } from '@mui/material';
 import { useEffect } from 'react';
-import "./Chart.css"
+import "./c9.css"
 Chart.register(...registerables);
 Chart.register(CategoryScale);
+
 
 const options = {
   responsive: true,
@@ -80,6 +81,7 @@ const generateLabels = (interval) => {
 };
 
 export default function WaterUsageUnitWise() {
+  const chartRef = useRef(null);
   const [interval, setInterval] = useState('weekly');
   const labels = generateLabels(interval);
   const createLinearGradient = (context) => {
@@ -119,10 +121,18 @@ export default function WaterUsageUnitWise() {
     setInterval(newInterval);
   };
 
+  useEffect(() => {
+    const chartInstance = chartRef.current;
+    if (chartInstance) {
+      // Set the height of the canvas
+      chartInstance.canvas.style.height = '200px'; // Adjust this value as needed
+    }
+  }, [interval]);
+
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-    <div className='w-[100%] '>
-    <Bar style={{ backgroundColor: '#FFFF'}} options={options} data={data} />
+    <div className='w-[100%] p-2 '>
+    <Bar ref={chartRef} style={{ backgroundColor: '#FFFF'}} options={options} data={data} />
     
     </div>
     {/* <Select

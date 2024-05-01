@@ -122,7 +122,7 @@ export default function Navbar() {
               &gt;
             </Typography>
             <Typography color="white" sx={{ fontWeight: 600 }}>
-              Fire Alarms
+              {/* Fire Alarms */}
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
