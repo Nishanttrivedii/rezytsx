@@ -6,18 +6,17 @@ const useStyles = makeStyles(() => ({
     marginTop: "17px",
     width: "calc(95% - 2rem)",
     margin: "0 1rem",
-    marginLeft: "10px", 
-    justifyContent:"center"
+    marginLeft: "10px",
+    borderRadius: "10px",
+    height: "3rem",
+    marginBottom: "14px",
+    background:
+      "linear-gradient(182.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
   },
   heading: {
     color: "white",
-    flexGrow: 1,
     textAlign: "center",
-  },
-  navItem: {
-    color: "white",
-    fontWeight: "bold",
-    textDecoration: "none",
+    fontSize: "0.9rem",
   },
 }));
 
@@ -25,38 +24,23 @@ function Header() {
   const classes = useStyles();
 
   return (
-    <AppBar
-      position="static"
-      className={classes.appBar}
-      style={{
-        background:
-            "linear-gradient(182.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
-        marginBottom: "14px",
-        borderRadius: "10px",
-        width:"100%",
-        height:"3rem"
-      }}
-    >
-      <Toolbar>
-        <Typography variant="h6" className={classes.heading} style={{marginLeft:"-7rem"}}>
+    <AppBar position="static" className={classes.appBar}>
+      <Toolbar style={{ display: "flex", justifyContent: "space-between", marginBottom:"2rem" }}>
+        <Typography variant="h6" className={classes.heading}>
           DEVICE ID
         </Typography>
-        <Typography variant="h6" className={classes.heading} style={{marginLeft:"3rem"}}>
+        <Typography variant="h6" className={classes.heading}>
           PROPERTY
         </Typography>
         <Typography variant="h6" className={classes.heading}>
           INSTALLED DATE
         </Typography>
-        <div className={classes.heading} style={{ marginLeft: "5rem" }}>
-          <Typography variant="h6">
-            READINGS
-          </Typography>
-        </div>
-        <div className={classes.heading} style={{ flexGrow: 1, textAlign: "right" }}>
-          <Typography variant="h6" style={{ display: "inline-block" }}>
-            STATUS
-          </Typography>
-        </div>
+        <Typography variant="h6" className={classes.heading}>
+          READINGS
+        </Typography>
+        <Typography variant="h6" className={classes.heading}>
+          STATUS
+        </Typography>
       </Toolbar>
     </AppBar>
   );

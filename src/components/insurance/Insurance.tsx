@@ -36,7 +36,7 @@ const Insurance = () => {
       {data.map((item, index) => (
         <tr key={index} className="bg-[#EDF1F7]">
           <td style={{lineHeight:'3px'}} className="rounded-l-xl xl:px-6 lg:px-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#5C626E] font-inter">{item.category}</td>
-          <td style={{lineHeight:'3px'}}  className="xl:px-6 lg:px-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] font-inter">
+          <td style={{lineHeight:'3px'}}  className="xl:px-6 lg:px-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] font-inter flex justify-end">
             {typeof item.value === 'string' ? item.value : item.value.toString()} 
           </td>
           

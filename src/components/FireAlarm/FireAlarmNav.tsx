@@ -1,6 +1,6 @@
 import { Typography, Button, AppBar, Toolbar, Badge } from "@mui/material";
 import { Sort } from "@mui/icons-material";
-import { makeStyles} from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import FireImage from "../../assets/image2.png";
 import Header from "./Header";
 import Tables from "./Tables";
@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
     height: "auto",
   },
   table: {
-    marginLeft:"-47px",
+    marginLeft: "-47px",
     flexBasis: "calc(100% - -2rem)",
     margin: "1.5rem 48px 0rem",
     borderRadius: "0.5rem",
@@ -49,8 +49,12 @@ const useStyles = makeStyles(() => ({
   },
   dataCount: {
     color: "darkblue",
-    marginLeft: "1rem",
-  },
+    marginLeft: "3rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }
+  
 }));
 
 function FireAlarmNav() {
@@ -86,23 +90,26 @@ function FireAlarmNav() {
                 />
               </svg>
               <img src={FireImage} alt="Your Image" className={classes.image} />
-              <Typography variant="h6">Fire Alarms</Typography>
+              <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
+                Fire Alarms
+              </Typography>
             </div>
-            <Badge color="secondary">
-              <Button
-                style={{
-                  backgroundColor: "rgba(192, 217, 255, 1)",
-                  marginLeft: "89rem",
-                  color: "darkblue",
-                }}
-                endIcon={<Sort />}
-              >
-                Sort By
-              </Button>
-            </Badge>
-            <Typography className={classes.dataCount}>
-              {sampleData.length}
-            </Typography>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Badge color="secondary">
+                <Button
+                  style={{
+                    backgroundColor: "rgba(192, 217, 255, 1)",
+                    color: "darkblue",
+                  }}
+                  endIcon={<Sort />}
+                >
+                  Sort By
+                </Button>
+                <Typography className={classes.dataCount}>
+                  {sampleData.length}
+                </Typography>
+              </Badge>
+            </div>
           </Toolbar>
         </AppBar>
         <div className={classes.content}>

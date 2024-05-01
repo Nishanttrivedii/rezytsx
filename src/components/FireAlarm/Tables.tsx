@@ -67,7 +67,7 @@ function Tables({ data }: any) {
                 backgroundColor: "rgb(240, 240, 240)",
                 padding: "0.5rem",
                 borderRadius: "5px",
-                // width:"1px"
+                
               }}
             >
               {parseInt(READINGS[0].REDETAIL.split(":")[1]) <= 25 ? (
@@ -89,6 +89,7 @@ function Tables({ data }: any) {
                 marginRight: "0.5rem",
                 display: "flex",
                 alignItems: "center",
+                whiteSpace:"nowrap"
               }}
             >
               <div
@@ -129,6 +130,7 @@ function Tables({ data }: any) {
               padding: "0.5rem",
               borderRadius: "5px",
               marginLeft: "0.5rem",
+              whiteSpace:"nowrap"
             }}
           >
             <Typography>{READINGS[0].HUDETAIL}</Typography>

@@ -13,19 +13,17 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
-      align: "end",
-      labels: {
-        boxWidth: 20, // Adjust legend label box width
-        boxHeight: 20, // Adjust legend label box height
-      },
+      display: false, // Hide the legend
     },
     title: {
       display: true,
-      text: 'Water kpi',
+      text: 'Water usage',
       position:'top',
       align:'start',
-      color:'#01337C'
+      color:'#01337C',
+      font:{
+        size:'8px'
+      }
     },
     backgroundColor: '#ffff',
   },
@@ -35,11 +33,11 @@ const options = {
     x: {
         ticks: {
             font: {
-                size: '14px',
+                size: '8px',
                 family:'inter',
                
                 weight:'500',
-                lineHeight:'2'
+                lineHeight:'0.5'
                 
             }
         },
@@ -50,16 +48,19 @@ const options = {
     y: {
         ticks: {
             font: {
-              size: '14px',
+              size: '8px',
               family:'inter',
               
               weight:'500',
+              lineHeight:'0.7'
               
-            }
+            },
+            maxTicksLimit: 4, 
         },
         grid: {
           display: false,
-        },
+        }
+      
     }                       
 }
 };
@@ -68,7 +69,7 @@ const options = {
 const generateLabels = (interval) => {
   switch (interval) {
     case 'weekly':
-      return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+      return ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
     case 'monthly':
       return ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
     case 'yearly':
@@ -78,31 +79,34 @@ const generateLabels = (interval) => {
   }
 };
 
-export default function NewGraph() {
+export default function WaterUsageUnitWise() {
   const [interval, setInterval] = useState('weekly');
   const labels = generateLabels(interval);
+  const createLinearGradient = (context) => {
+    const ctx = context.chart.ctx;
+    const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+    gradient.addColorStop(0, 'rgba(1, 58, 140, 1)');
+    gradient.addColorStop(0.5, 'rgba(1, 51, 124, 1)');
+    gradient.addColorStop(1, 'rgba(0, 193, 123, 1)');
+    return gradient;
+  }
+  
 
   const data = {
     labels,
     datasets: [
       {
         label: 'Estimated Usages',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        backgroundColor: '#00C17B',
-        barThickness: 20,
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 500 })),
+        backgroundColor: createLinearGradient,
+        barThickness: 25,
         borderWidth: 4, // Set border width
         borderRadius: 8,
-        borderColor: '#ffff',
+        borderColor: '#ffff', 
+        
+        
       },
-      {
-        label: 'Current Usages',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        backgroundColor: '#01337C',
-        barThickness: 20,
-        borderWidth: 4, // Set border width
-        borderRadius: 8,
-        borderColor: '#ffff',
-      },
+     
     ],
   };
 
