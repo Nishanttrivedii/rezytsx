@@ -6,8 +6,8 @@ import Header from "./Header.tsx";
 import Tables from "./Tables.tsx";
 import { sampleData } from "./Data.tsx";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import FilterIcon from "../../assets/filterIcon.png"
-import IconButton from '@mui/material/IconButton';
+import FilterIcon from "../../assets/filterIcon.png";
+import IconButton from "@mui/material/IconButton";
 
 const useStyles = makeStyles(() => ({
   appBar: {
@@ -68,7 +68,7 @@ function FireAlarm() {
 
   return (
     <>
-      <div>
+      <div style={{  }}>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.heading}>
@@ -92,7 +92,9 @@ function FireAlarm() {
                 Fire Alarms
               </Typography>
             </div>
-            <div style={{ display: "flex", alignItems: "center", color:"black" }}>
+            <div
+              style={{ display: "flex", alignItems: "center", color: "black" }}
+            >
               {isSmallScreen ? (
                 <IconButton color="inherit" sx={{ padding: "8px" }}>
                   <img
@@ -120,7 +122,14 @@ function FireAlarm() {
             </div>
           </Toolbar>
         </AppBar>
-        <div className={classes.content} style={isSmallScreen ? { backgroundColor: 'transparent' } : { backgroundColor: 'rgba(237, 241, 247, 1)' }}>
+        <div
+          className={classes.content}
+          style={
+            isSmallScreen
+              ? { backgroundColor: "transparent", marginLeft: "2rem", width: "111%" }
+              : { backgroundColor: "rgba(237, 241, 247, 1)" }
+          }
+        >
           <Header />
           {[...Array(10)].map((_, index) => (
             <div key={index} className={classes.table}>

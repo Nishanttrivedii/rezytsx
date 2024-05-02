@@ -38,13 +38,13 @@ function App() {
   }, [dispatch]);
 
 
-
+  
   return (
   <>
    
     
     <BrowserRouter>
-   {isLargeScreen ? <TopNavBar/> :<MobileNavbar />}
+   <TopNavBar/>
       <Routes>
        { isLargeScreen ? <Route path="/" element={<Home />} /> :  <Route path="/" element={<MobileHome />} /> }
        

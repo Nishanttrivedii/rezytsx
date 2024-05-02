@@ -10,8 +10,9 @@ import { Provider } from 'react-redux'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   
   <React.StrictMode>
-  <ThemeProvider theme={theme}>
+
      <Provider store={store}>
+     <ThemeProvider theme={theme}>
      <App />
   </ThemeProvider>,
      </Provider>
