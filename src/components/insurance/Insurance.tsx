@@ -30,7 +30,7 @@ const Insurance = () => {
   return (
   <div className='bg-white w-[100%] lg:w-[100%] xl:w-[50%] 2xl:w-[50%] sm:w-full xs:w-full rounded-lg '>
     <div className='m-2 text-[#01337C]'>Insurance Index</div>
-      <table className=" divide-y divide-gray-200 border-separate border-spacing-y-3 font-inter  m-4 w-[95%] ">
+      <table className=" divide-y divide-gray-200 border-separate border-spacing-y-3 font-inter  m-4 w-[92%] ">
     
     <tbody className="divide-y divide-gray-200">
       {data.map((item, index) => (
