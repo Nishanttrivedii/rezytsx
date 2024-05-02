@@ -4,7 +4,11 @@ import arrow from "../../assets/icon.png"
 import yellowarrow from "../../assets/yellow.png"
 import drop from "../../assets/drop.png"
 import Alerts from './Alerts.js'
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 const ActiveAlerts = () => {
+  const {isLargeScreen } = useSelector((state: RootState) => state.screenSize);
+
     const iconMapping = {
         fire: fire,
         drop: drop,
@@ -16,8 +20,8 @@ const ActiveAlerts = () => {
     };
   return (
   <>
-<div className='m-4'>
-<div className='w-[100%] h-[2rem] bg-[#01337C] text-white p-1 font-[inter] font-small text-[18px] rounded flex items-center'>Active Alerts</div>
+<div className={`${isLargeScreen ? 'm-4' : 'm-2'}`}>
+<div className='w-[100%] h-[2rem] bg-[#01337C] text-white  font-[inter] font-small text-[18px] rounded flex items-center '>Active Alerts</div>
   <ul>
   {Alerts.map((alert) => (
     <li key={alert.issue}  className={`w-[100%] h-[3rem] bg-[${alert.bg}] mt-2 items-center flex rounded justify-between`} style={{backgroundColor:alert.bg}} >

@@ -7,13 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSmallScreen, setLargeScreen } from './components/Slices/ScreenSizeSlice';
 import { RootState } from './store';
 import MobileNavbar from './components/MobileNavbar';
-
+import MobileUnit from './Unit/MobileUnit';
 import { useEffect } from 'react';
 import MobileFooter from './components/MobileFooter';
 import MobileHome from './components/MobileHome';
 import HomeMoreInfo from './components/HomeMoreInfo';
+import UnitMoreInfo from './Unit/UnitMoreInfo';
 function App() {
-  const { isSmallScreen, isLargeScreen } = useSelector((state: RootState) => state.screenSize);
+  const { isLargeScreen } = useSelector((state: RootState) => state.screenSize);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,9 +43,11 @@ function App() {
    {isLargeScreen ? <Navbar /> :<MobileNavbar />}
       <Routes>
        { isLargeScreen ? <Route path="/" element={<Home />} /> :  <Route path="/" element={<MobileHome />} /> }
-       
-        <Route path="/unit" element={<Unit />} />
+       { isLargeScreen ? <Route path="/unit" element={<Unit />} /> :  <Route path="/unit" element={<MobileUnit />} /> }
         <Route path="/homemoreinfo" element ={<HomeMoreInfo />} /> 
+        <Route path="/unitmoreinfo" element ={<UnitMoreInfo />} /> 
+
+
       </Routes>
       {isLargeScreen ? "" :<MobileFooter />}
 

@@ -3,9 +3,13 @@ import cosensor from "../../assets/cosensor.png"
 import tempsensor from "../../assets/tempsensor.png"
 import watermeters from "../../assets/watermeters.png"
 import arrow from "../../assets/arrow.png"
-
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 const InstalledDevices = () => {
+
+  const {isLargeScreen } = useSelector((state: RootState) => state.screenSize);
+
   const iconMapping = {
    fire:fire,
    cosensor:cosensor,
@@ -41,10 +45,9 @@ const InstalledDevices = () => {
   return (
     <>
     <div className='bg-[##EDF1F7] w-[100%]  sm:w-full xs:w-full rounded-lg justify-center flex flex-col items-center '>
-    <div className='w-[95%] h-[2rem] bg-[#01337C] text-white p-1  font-small text-[18px] rounded flex items-center mt-3'>Installed Devices</div>
+    <div className={`w-[95%] h-[2rem] bg-[#01337C] text-white p-1  font-small text-[18px] rounded flex items-center ${isLargeScreen ? 'mt-3' : ''}`}>Installed Devices</div>
 
-      <table className="w-[95%] divide-y divide-gray-200 border-separate border-spacing-y-3  mb-[10px] mx-[10px] mt-[1px]">
-
+    <table className={`w-[95%] divide-y divide-gray-200 border-separate border-spacing-y-3 mb-[10px] mt-[1px] ${isLargeScreen ? 'mx-[10px]' : ''}`}>
         <tbody className="divide-y divide-gray-200">
           {devices.map((item, index) => (
             <tr key={index} className="bg-[#FFFFFF] h-[42px]">
