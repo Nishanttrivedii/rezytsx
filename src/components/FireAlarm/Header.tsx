@@ -1,10 +1,12 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from "@mui/material/styles"; 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     marginTop: "17px",
-    width: "calc(95% - 2rem)",
+    width: "calc(96% - 2rem)",
     margin: "0 1rem",
     marginLeft: "10px",
     borderRadius: "10px",
@@ -15,32 +17,50 @@ const useStyles = makeStyles(() => ({
   },
   heading: {
     color: "white",
-    textAlign: "center",
     fontSize: "0.9rem",
+    padding: "0.5rem",
+    textAlign: "left",
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
   },
 }));
 
 function Header() {
   const classes = useStyles();
+  const theme = useTheme(); 
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg')); 
+
+  if (isSmallScreen) {
+    return null; 
+  }
 
   return (
-    <AppBar position="static" className={classes.appBar}>
-      <Toolbar style={{ display: "flex", justifyContent: "space-between", marginBottom:"2rem" }}>
-        <Typography variant="h6" className={classes.heading}>
-          DEVICE ID
-        </Typography>
-        <Typography variant="h6" className={classes.heading}>
-          PROPERTY
-        </Typography>
-        <Typography variant="h6" className={classes.heading}>
-          INSTALLED DATE
-        </Typography>
-        <Typography variant="h6" className={classes.heading}>
-          READINGS
-        </Typography>
-        <Typography variant="h6" className={classes.heading}>
-          STATUS
-        </Typography>
+    <AppBar position="static" className={classes.appBar} style={{ width: "96%" }}>
+      <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
+        <table style={{ width: "100%" }}>
+          <thead>
+            <tr>
+              <th style={{ padding: "0.5rem" }} colSpan={2}></th>
+              <th style={{ width: "14%" }} className={classes.heading}>
+                DEVICES
+              </th>
+              <th style={{ width: "12%" }} className={classes.heading}>
+                PROPERTY
+              </th>
+
+              <th style={{ padding: "0.5rem" }} colSpan={2}></th>
+              <th style={{ width: "16%" }} className={classes.heading}>
+                INSTALLED DATE
+              </th>
+              <th style={{ width: "40%" }} className={classes.heading}>
+                READINGS
+              </th>
+              <th style={{ width: "1%" }} className={classes.heading}>
+                STATUS
+              </th>
+            </tr>
+          </thead>
+        </table>
       </Toolbar>
     </AppBar>
   );

@@ -2,24 +2,30 @@ import { Typography, Button, AppBar, Toolbar, Badge } from "@mui/material";
 import { Sort } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import FireImage from "../../assets/image2.png";
-import Header from "./Header";
-import Tables from "./Tables";
+import Header from "./Header.tsx";
+import Tables from "./Tables.tsx";
 import { sampleData } from "./Data.tsx";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import FilterIcon from "../../assets/filterIcon.png"
+import IconButton from '@mui/material/IconButton';
 
 const useStyles = makeStyles(() => ({
   appBar: {
-    marginTop: "1rem",
+    marginTop: "3rem",
     backgroundColor: "white",
     borderRadius: "0.7rem",
-    width: "calc(100% - 2rem)",
-    margin: "0.5rem 48px 1rem",
-    marginLeft: "1px",
+    width: "calc(98% - 2rem)",
+    margin: "0 1rem",
+    marginLeft: "auto",
     boxShadow: "none",
   },
+
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
   },
   heading: {
     display: "flex",
@@ -27,9 +33,8 @@ const useStyles = makeStyles(() => ({
     color: "black",
   },
   content: {
-    marginLeft: "21px",
-    marginRight: "23px",
-    backgroundColor: "rgba(237, 241, 247, 1)",
+    marginLeft: "1rem",
+    marginRight: "1rem",
     minHeight: "calc(100vh - 4rem)",
     display: "flex",
     justifyContent: "center",
@@ -39,39 +44,32 @@ const useStyles = makeStyles(() => ({
   image: {
     width: 25,
     height: "auto",
+    color: "black",
   },
   table: {
-    marginLeft: "-47px",
+    marginLeft: "-6px",
     flexBasis: "calc(100% - -2rem)",
-    margin: "1.5rem 48px 0rem",
+    margin: "1.5rem 0",
     borderRadius: "0.5rem",
     marginRight: "1rem",
   },
   dataCount: {
     color: "darkblue",
-    marginLeft: "3rem",
+    marginLeft: "1rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  }
-  
+  },
 }));
 
-function FireAlarmNav() {
+function FireAlarm() {
   const classes = useStyles();
+  const isSmallScreen = useMediaQuery("(max-width: 960px)");
 
   return (
     <>
       <div>
-        <AppBar
-          position="static"
-          className={classes.appBar}
-          style={{
-            width: "100%",
-            marginBottom: "0px",
-            boxShadow: "none",
-          }}
-        >
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.heading}>
               <svg
@@ -94,25 +92,35 @@ function FireAlarmNav() {
                 Fire Alarms
               </Typography>
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Badge color="secondary">
-                <Button
-                  style={{
-                    backgroundColor: "rgba(192, 217, 255, 1)",
-                    color: "darkblue",
-                  }}
-                  endIcon={<Sort />}
-                >
-                  Sort By
-                </Button>
-                <Typography className={classes.dataCount}>
-                  {sampleData.length}
-                </Typography>
-              </Badge>
+            <div style={{ display: "flex", alignItems: "center", color:"black" }}>
+              {isSmallScreen ? (
+                <IconButton color="inherit" sx={{ padding: "8px" }}>
+                  <img
+                    src={FilterIcon}
+                    alt="Filter"
+                    style={{ width: "46px", height: "46px", color: "darkblue" }}
+                  />
+                </IconButton>
+              ) : (
+                <Badge color="secondary">
+                  <Button
+                    style={{
+                      backgroundColor: "rgba(192, 217, 255, 1)",
+                      color: "darkblue",
+                    }}
+                    endIcon={<Sort />}
+                  >
+                    Sort By
+                  </Button>
+                  <Typography className={classes.dataCount}>
+                    {sampleData.length}
+                  </Typography>
+                </Badge>
+              )}
             </div>
           </Toolbar>
         </AppBar>
-        <div className={classes.content}>
+        <div className={classes.content} style={isSmallScreen ? { backgroundColor: 'transparent' } : { backgroundColor: 'rgba(237, 241, 247, 1)' }}>
           <Header />
           {[...Array(10)].map((_, index) => (
             <div key={index} className={classes.table}>
@@ -125,4 +133,4 @@ function FireAlarmNav() {
   );
 }
 
-export default FireAlarmNav;
+export default FireAlarm;

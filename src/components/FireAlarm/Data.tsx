@@ -93,7 +93,7 @@ export const sampleData = [
     // 6
     {
         "DEVICE_ID": "1726389EF182",
-        "PROPERTY": "Beldon, Building A, Unit 01",
+        "PROPERTY": "Building A, Unit 01",
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
