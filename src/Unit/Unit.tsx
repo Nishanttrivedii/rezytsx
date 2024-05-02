@@ -5,7 +5,7 @@ import Sensors from './Sensors';
 const Unit = () => {
   return (
  <>
- <div className='flex flex-row bg-[#D8DFEA] h-[100vh] gap-3 overflow-scroll'>
+ <div className='flex flex-row bg-[#D8DFEA] gap-3 '>
  <div className="bg-[#EDF1F7] w-[calc(100%-25rem)]  h-[fit-content] my-4 ml-4 rounded-md" id="sensors">
      <Sensors />
     </div>

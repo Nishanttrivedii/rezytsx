@@ -48,7 +48,7 @@ const InstalledDevices = () => {
         <tbody className="divide-y divide-gray-200">
           {devices.map((item, index) => (
             <tr key={index} className="bg-[#FFFFFF] h-[42px]">
-              <td style={{ lineHeight: '3px' }} className="rounded-l-xl px-6 py-4 whitespace-nowrap text-sm font-medium text-[#5C626E] flex flex-row gap-2 items-center pl-1">
+<td style={{ lineHeight: '3px', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem' }} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#5C626E] flex flex-row gap-2 items-center pl-1 rounded-l-xl">
               <img className="h-6 w-6" src={iconMapping[item.icon]} alt="" />                 
             <div>    {item.device_type}</div>
                 
