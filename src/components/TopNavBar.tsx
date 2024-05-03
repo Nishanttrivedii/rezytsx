@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import filterImg from "../assets/filter.png";
 import ArrowRight from "../assets/rightarrow.png";
 import PropertyImage from "../assets/property.png";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -75,7 +76,7 @@ const Container = styled(Box)(() => ({
 
 export default function TopNavBar() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-
+  const Screen = useMediaQuery("(max-width: 600px)"); 
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
@@ -87,17 +88,19 @@ export default function TopNavBar() {
     };
   }, []);
 
+ 
   return (
     <Container>
       <AppBar
         position="fixed"
         style={{
           height: "5rem",
-          background:
-            "linear-gradient(184.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
+          background: "linear-gradient(184.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
           fontFamily: "Roboto, Helvetica, Arial, sans-serif",
           borderRadius: isSmallScreen ? "1rem" : 0,
-        }}
+          width: isSmallScreen ? "94%" : "100%",
+          marginRight: isSmallScreen ? "1rem" : "-1px", 
+        }}        
       >
         <Toolbar>
           {isSmallScreen && (

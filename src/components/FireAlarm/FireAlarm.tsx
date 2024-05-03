@@ -14,12 +14,11 @@ const useStyles = makeStyles(() => ({
     marginTop: "3rem",
     backgroundColor: "white",
     borderRadius: "0.7rem",
-    width: "calc(98% - 2rem)",
+    width: "99%",
     margin: "0 1rem",
-    marginLeft: "auto",
+    marginLeft: "1rem",
     boxShadow: "none",
   },
-
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
@@ -49,7 +48,7 @@ const useStyles = makeStyles(() => ({
   table: {
     marginLeft: "-6px",
     flexBasis: "calc(100% - -2rem)",
-    margin: "1.5rem 0",
+    margin: "-0.5rem 0",
     borderRadius: "0.5rem",
     marginRight: "1rem",
   },
@@ -64,12 +63,12 @@ const useStyles = makeStyles(() => ({
 
 function FireAlarm() {
   const classes = useStyles();
-  const isSmallScreen = useMediaQuery("(max-width: 960px)");
+  const isSmallScreen = useMediaQuery("(max-width: 600px)"); 
 
   return (
     <>
-      <div style={{  }}>
-        <AppBar position="static" className={classes.appBar}>
+      <div style={{}}>
+        <AppBar position="static" className={classes.appBar} style={{ width: isSmallScreen ? "92%" : "98%" }}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.heading}>
               <svg
@@ -81,27 +80,17 @@ function FireAlarm() {
                 stroke="currentColor"
                 className="w-6 h-6"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
               </svg>
               <img src={FireImage} alt="Your Image" className={classes.image} />
               <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
                 Fire Alarms
               </Typography>
             </div>
-            <div
-              style={{ display: "flex", alignItems: "center", color: "black" }}
-            >
+            <div style={{ display: "flex", alignItems: "center", color: "black" }}>
               {isSmallScreen ? (
                 <IconButton color="inherit" sx={{ padding: "8px" }}>
-                  <img
-                    src={FilterIcon}
-                    alt="Filter"
-                    style={{ width: "46px", height: "46px", color: "darkblue" }}
-                  />
+                  <img src={FilterIcon} alt="Filter" style={{ width: "46px", height: "46px", color: "darkblue" }} />
                 </IconButton>
               ) : (
                 <Badge color="secondary">
@@ -114,9 +103,7 @@ function FireAlarm() {
                   >
                     Sort By
                   </Button>
-                  <Typography className={classes.dataCount}>
-                    {sampleData.length}
-                  </Typography>
+                  <Typography className={classes.dataCount}>{sampleData.length}</Typography>
                 </Badge>
               )}
             </div>
@@ -126,7 +113,7 @@ function FireAlarm() {
           className={classes.content}
           style={
             isSmallScreen
-              ? { backgroundColor: "transparent", marginLeft: "2rem", width: "111%" }
+              ? { backgroundColor: "transparent", marginLeft: "0.5rem", width: "100%" }
               : { backgroundColor: "rgba(237, 241, 247, 1)" }
           }
         >

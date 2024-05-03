@@ -10,152 +10,339 @@ function Tables({ data }: any) {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   return (
-    <Accordion
-      style={{
-        backgroundColor: "white",
-        marginBottom: "1rem",
-        marginLeft: "24px",
-        marginRight: "24px",
-        marginTop: "-3.5rem",
-        width: "calc(99% - 49px)",
-      }}
-    >
-      <AccordionSummary
-        id="myc"
-        style={{
-          marginTop: "3.5rem",
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderRadius: "1.5rem",
-          padding: "0 12px",
-        }}
-      >
-        {isSmallScreen ? (
-          <div
+    <div>
+      {!isSmallScreen && (
+        <Accordion
+          style={{
+            backgroundColor: "white",
+            marginBottom: "1rem",
+            marginLeft: "12px",
+            marginRight: "12px",
+            marginTop: "1rem",
+            width: "calc(99% - 24px)",
+            borderRadius: "1.5rem",
+          }}
+        >
+          <AccordionSummary
+            id="myc"
             style={{
+              width: "101%",
+              marginRight: "-13rem",
+              marginLeft: "0rem",
+              backgroundColor: "white",
               display: "flex",
-              flexDirection: "column",
-              padding: "1rem",
-              borderRadius: "5px",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 12px",
             }}
           >
-            <Typography
-              style={{
-                padding: "0.5rem",
-                fontWeight: "400",
-                marginLeft: "-1rem",
-              }}
-            >
+            <div style={{ width: "100%" }}>
+              {" "}
+              {/* Modified */}
+              <table style={{ width: "100%" }}>
+                <thead>
+                  <tr>
+                    <th
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: "400",
+                        flex: "1 1 100px",
+                      }}
+                    >
+                      {DEVICE_ID}
+                    </th>
+                    <th style={{ width: "6%" }}></th>
+                    <th
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: "400",
+                        flex: "1 1 200px",
+                      }}
+                    >
+                      {PROPERTY}
+                    </th>
+                    <th style={{ width: "6%" }}></th> 
+                    <th
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: "400",
+                        flex: "1 1 150px",
+                      }}
+                    >
+                      {INSTALLED_DATE}
+                    </th>
+                    <th style={{ width: "10%" }}></th> 
+                    <th
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: "400",
+                        flex: "1 1 280px",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <div
+                          style={{
+                            marginRight: "1rem",
+                            backgroundColor: "rgb(240, 240, 240)",
+                            padding: "0.75rem",
+                            borderRadius: "5px",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          {parseInt(READINGS[0].REDETAIL.split(":")[1]) <=
+                          25 ? (
+                            <img
+                              src={RedTempImg}
+                              alt="Image"
+                              style={{ width: "20px", height: "20px" }}
+                            />
+                          ) : (
+                            <img
+                              src={TempImage}
+                              alt="Another Image"
+                              style={{ width: "20px", height: "20px" }}
+                            />
+                          )}
+                          <Typography
+                            style={{
+                              marginLeft: "0.5rem",
+                              marginRight: "0.5rem",
+                              fontSize: "1.2rem",
+                            }}
+                          >
+                            <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>
+                            <span style={{ color: "rgba(0, 193, 123, 1)" }}>
+                              {READINGS[0].REDETAIL.split(":")[1]}
+                            </span>
+                          </Typography>
+                        </div>
+                        <div
+                          style={{
+                            backgroundColor: "rgb(240, 240, 240)",
+                            padding: "0.75rem",
+                            borderRadius: "5px",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={DropImage}
+                            alt="Image"
+                            style={{ width: "20px", height: "20px" }}
+                          />
+                          <Typography
+                            style={{
+                              marginLeft: "0.5rem",
+                              marginRight: "0.5rem",
+                              fontSize: "1.2rem",
+                            }}
+                          >
+                            {READINGS[0].HUDETAIL}
+                          </Typography>
+                        </div>
+                      </div>
+                    </th>
+                    <th style={{ width: "20px" }}></th> {/* Space */}
+                    <th
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: "400",
+                        flex: "1 1 120px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          marginRight: "-3rem",
+                          display: "flex",
+                          alignItems: "center",
+                          fontSize: "10px",
+                          color: "white",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            backgroundColor: `${
+                              STATUS[0].ONDETAIL === "ONLINE"
+                                ? STATUS[0].STDETAIL === "Battery 100"
+                                  ? "#00C17B"
+                                  : STATUS[0].STDETAIL === "Battery 42"
+                                  ? "rgba(255, 153, 0, 1)"
+                                  : STATUS[0].STDETAIL === "Battery 18"
+                                  ? "rgba(240, 83, 72, 1)"
+                                  : "#f0f0f0"
+                                : "rgb(0, 193, 123,1)"
+                            }`,
+                            padding: "0.5rem",
+                            borderRadius: "5px",
+                            marginRight: "0.5rem",
+                            width: "8rem",
+                          }}
+                        >
+                          <img
+                            src={batteryImg}
+                            alt="Battery"
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              marginRight: "0.5rem",
+                            }}
+                          />
+                          <Typography>{STATUS[0].STDETAIL}</Typography>
+                        </div>
+                        <div
+                          style={{
+                            backgroundColor: `${
+                              STATUS[0].ONDETAIL === "ONLINE"
+                                ? "#00C17B"
+                                : "rgba(255, 153, 0, 1)"
+                            }`,
+                            padding: "0.5rem",
+                            borderRadius: "5px",
+                            // width: "10rem",
+                          }}
+                        >
+                          <Typography>{STATUS[0].ONDETAIL}</Typography>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </AccordionSummary>
+        </Accordion>
+      )}
+      {isSmallScreen && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: "2rem",
+          }}
+        >
+          <div
+            style={{
+              marginRight:"-3rem",
+              marginLeft: "1rem",
+              display: "flex",
+              flexDirection: "column",
+              padding: "2rem",
+              borderRadius: "5px",
+              backgroundColor: "white",
+              width: "92%",
+              maxWidth: "400px",
+            }}
+          >
+            <Typography style={{ padding: "0.5rem", fontWeight: "400" }}>
               <b>ID: {DEVICE_ID}</b>
             </Typography>
             <div
               style={{
+                marginRight: "-1rem",
                 display: "flex",
-                flexDirection: "row",
                 justifyContent: "space-between",
+                marginBottom: "0.5rem",
               }}
             >
               <Typography
                 style={{
-                  marginBottom: "0.5rem",
                   marginLeft: "-1rem",
                   borderRadius: "4px",
                   padding: "0.5rem",
-                  paddingRight: "5rem",
+                  paddingRight: "0rem",
                   fontWeight: "400",
                   backgroundColor: "var(--Shades-25, #EDF1F7)",
-                  marginRight: "0.5rem",
-                  width: "auto",
+                  width: "calc(59% - 0.375rem)",
                 }}
               >
                 {PROPERTY}
               </Typography>
               <Typography
                 style={{
-                  marginBottom: "0.5rem",
                   borderRadius: "4px",
                   padding: "0.5rem",
-                  paddingRight: "4rem",
+                  paddingRight: "0rem",
                   fontWeight: "400",
                   backgroundColor: "var(--Shades-25, #EDF1F7)",
-                  width: "auto",
+                  width: "calc(50% - 0.375rem)",
+                  whiteSpace: "nowrap",
+                  marginLeft: "0.5rem",
                 }}
               >
                 {INSTALLED_DATE}
               </Typography>
             </div>
-            <div style={{ width: "106%", position: "static" }}>
-              <Typography
-                style={{
-                  marginLeft: "-1rem",
-                  borderRadius: "4px",
-                  width: "100%",
-                  maxWidth: "400px",
-                  padding: "0.5rem",
-                  fontWeight: "400",
-                  backgroundColor: "var(--Shades-25, #EDF1F7)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  {parseInt(READINGS[0].REDETAIL.split(":")[1]) <= 25 ? (
-                    <img
-                      src={RedTempImg}
-                      alt="Temperature"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  ) : (
-                    <img
-                      src={TempImage}
-                      alt="Temperature"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  )}
-                  <Typography style={{ marginRight: "0.5rem", fontSize:"large" }}>
-                    <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>{" "}
-                    <span style={{ color: "rgba(0, 193, 123, 1)" }}>
-                      {READINGS[0].REDETAIL.split(":")[1]}
-                    </span>
-                  </Typography>
-                </div>
-              </Typography>
-              <Typography
-                style={{
-                  marginLeft: "-1rem",
-                  borderRadius: "4px",
-                  width: "100%",
-                  maxWidth: "400px",
-                  padding: "0.5rem",
-                  fontWeight: "400",
-                  backgroundColor: "var(--Shades-25, #EDF1F7)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              style={{
+                marginLeft: "-1rem",
+                marginRight: "-1rem",
+                borderRadius: "4px",
+                padding: "0.5rem",
+                fontWeight: "400",
+                backgroundColor: "var(--Shades-25, #EDF1F7)",
+                marginBottom: "0.5rem",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                {parseInt(READINGS[0].REDETAIL.split(":")[1]) <= 25 ? (
                   <img
-                    src={DropImage}
-                    alt="Humidity"
+                    src={RedTempImg}
+                    alt="Temperature"
                     style={{
                       width: "20px",
                       height: "20px",
                       marginRight: "0.5rem",
                     }}
                   />
-                  <Typography style={{ fontSize:"large" }}>{READINGS[0].HUDETAIL}</Typography>
-                </div>
-              </Typography>
-            </div>
+                ) : (
+                  <img
+                    src={TempImage}
+                    alt="Temperature"
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      marginRight: "0.5rem",
+                    }}
+                  />
+                )}
+                <Typography style={{ fontSize: "large" }}>
+                  <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>{" "}
+                  <span style={{ color: "rgba(0, 193, 123, 1)" }}>
+                    {READINGS[0].REDETAIL.split(":")[1]}
+                  </span>
+                </Typography>
+              </div>
+            </Typography>
             <Typography
               style={{
-                marginLeft: "-1.5rem",
+                marginLeft: "-1rem",
+                marginRight: "-1rem",
+                borderRadius: "4px",
                 padding: "0.5rem",
-                display: "flex",
-                justifyContent: "center",
-                marginRight: "1rem",
+                fontWeight: "400",
+                backgroundColor: "var(--Shades-25, #EDF1F7)",
+                marginBottom: "0.5rem",
               }}
             >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={DropImage}
+                  alt="Humidity"
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    marginRight: "0.5rem",
+                  }}
+                />
+                <Typography style={{ fontSize: "large" }}>
+                  {READINGS[0].HUDETAIL}
+                </Typography>
+              </div>
+            </Typography>
+            <Typography style={{ padding: "0.5rem", fontWeight: "400" }}>
               <div
                 style={{
                   display: "flex",
@@ -178,10 +365,11 @@ function Tables({ data }: any) {
                           : "#f0f0f0"
                         : "rgb(0, 193, 123,1)"
                     }`,
+                    marginLeft: "-1rem",
                     padding: "0.5rem",
                     borderRadius: "5px",
                     marginRight: "0.5rem",
-                    width: "11rem",
+                    width: "13rem",
                     color: "white",
                   }}
                 >
@@ -203,7 +391,6 @@ function Tables({ data }: any) {
                         ? "#00C17B"
                         : "rgba(255, 153, 0, 1)"
                     }`,
-                    marginRight: "-2rem",
                     padding: "0.5rem",
                     borderRadius: "5px",
                     width: "13rem",
@@ -215,180 +402,9 @@ function Tables({ data }: any) {
               </div>
             </Typography>
           </div>
-        ) : (
-          <table style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th
-                  style={{
-                    padding: "0.5rem",
-                    fontWeight: "400",
-                    flex: "1 1 100px",
-                  }}
-                >
-                  {DEVICE_ID}
-                </th>
-                <th style={{ width: "6%" }}></th> {/* Space */}
-                <th
-                  style={{
-                    padding: "0.5rem",
-                    fontWeight: "400",
-                    flex: "1 1 200px",
-                  }}
-                >
-                  {PROPERTY}
-                </th>
-                <th style={{ width: "6%" }}></th> {/* Space */}
-                <th
-                  style={{
-                    padding: "0.5rem",
-                    fontWeight: "400",
-                    flex: "1 1 150px",
-                  }}
-                >
-                  {INSTALLED_DATE}
-                </th>
-                <th style={{ width: "10%" }}></th> {/* Space */}
-                <th
-                  style={{
-                    padding: "0.5rem",
-                    fontWeight: "400",
-                    flex: "1 1 280px",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <div
-                      style={{
-                        marginRight: "1rem",
-                        backgroundColor: "rgb(240, 240, 240)",
-                        padding: "0.75rem",
-                        borderRadius: "5px",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {parseInt(READINGS[0].REDETAIL.split(":")[1]) <= 25 ? (
-                        <img
-                          src={RedTempImg}
-                          alt="Image"
-                          style={{ width: "20px", height: "20px" }}
-                        />
-                      ) : (
-                        <img
-                          src={TempImage}
-                          alt="Another Image"
-                          style={{ width: "20px", height: "20px" }}
-                        />
-                      )}
-                      <Typography
-                        style={{
-                          marginLeft: "0.5rem",
-                          marginRight: "0.5rem",
-                          fontSize: "1.2rem", 
-                        }}
-                      >
-                        <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>
-                        <span style={{ color: "rgba(0, 193, 123, 1)" }}>
-                          {READINGS[0].REDETAIL.split(":")[1]}
-                        </span>
-                      </Typography>
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor: "rgb(240, 240, 240)",
-                        padding: "0.75rem", // Adjust padding to accommodate larger font size
-                        borderRadius: "5px",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img
-                        src={DropImage}
-                        alt="Image"
-                        style={{ width: "20px", height: "20px" }}
-                      />
-                      <Typography
-                        style={{
-                          marginLeft: "0.5rem",
-                          marginRight: "0.5rem",
-                          fontSize: "1.2rem", // Set your desired font size here
-                        }}
-                      >
-                        {READINGS[0].HUDETAIL}
-                      </Typography>
-                    </div>
-                  </div>
-                </th>
-                <th style={{ width: "20px" }}></th> {/* Space */}
-                <th
-                  style={{
-                    padding: "0.5rem",
-                    fontWeight: "400",
-                    flex: "1 1 120px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        backgroundColor: `${
-                          STATUS[0].ONDETAIL === "ONLINE"
-                            ? STATUS[0].STDETAIL === "Battery 100"
-                              ? "#00C17B"
-                              : STATUS[0].STDETAIL === "Battery 42"
-                              ? "rgba(255, 153, 0, 1)"
-                              : STATUS[0].STDETAIL === "Battery 18"
-                              ? "rgba(240, 83, 72, 1)"
-                              : "#f0f0f0"
-                            : "rgb(0, 193, 123,1)"
-                        }`,
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        marginRight: "0.5rem",
-                        width: "8rem",
-                      }}
-                    >
-                      <img
-                        src={batteryImg}
-                        alt="Battery"
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          marginRight: "0.5rem",
-                        }}
-                      />
-                      <Typography>{STATUS[0].STDETAIL}</Typography>
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor: `${
-                          STATUS[0].ONDETAIL === "ONLINE"
-                            ? "#00C17B"
-                            : "rgba(255, 153, 0, 1)"
-                        }`,
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        width: "10rem",
-                      }}
-                    >
-                      <Typography>{STATUS[0].ONDETAIL}</Typography>
-                    </div>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-          </table>
-        )}
-      </AccordionSummary>
-    </Accordion>
+        </div>
+      )}
+    </div>
   );
 }
 

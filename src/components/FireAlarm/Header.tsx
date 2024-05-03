@@ -16,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
       "linear-gradient(182.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
   },
   heading: {
+    fontWeight:"400",
     color: "white",
-    fontSize: "0.9rem",
+    // fontSize: "0.9rem",
     padding: "0.5rem",
     textAlign: "left",
     paddingLeft: "1rem",
@@ -35,7 +36,8 @@ function Header() {
   }
 
   return (
-    <AppBar position="static" className={classes.appBar} style={{ width: "96%" }}>
+    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '0rem',
+      width: '98%' }}>
       <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>
