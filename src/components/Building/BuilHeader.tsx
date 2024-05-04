@@ -1,65 +1,72 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from "@mui/material/styles"; 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     marginTop: "17px",
-    width: "calc(95% - 2rem)",
+    width: "calc(96% - 2rem)",
     margin: "0 1rem",
-    marginLeft: "10px", 
-    justifyContent:"center"
+    marginLeft: "10px",
+    borderRadius: "10px",
+    height: "3rem",
+    marginBottom: "14px",
+    background:
+      "linear-gradient(182.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
   },
   heading: {
+    fontWeight:"400",
     color: "white",
-    flexGrow: 1,
-    textAlign: "center",
-  },
-  navItem: {
-    color: "white",
-    fontWeight: "bold",
-    textDecoration: "none",
+    // fontSize: "0.9rem",
+    padding: "0.5rem",
+    textAlign: "left",
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
   },
 }));
 
-function BuilHeader() {
+function Header() {
   const classes = useStyles();
+  const theme = useTheme(); 
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg')); 
+
+  if (isSmallScreen) {
+    return null; 
+  }
 
   return (
-    <AppBar
-      position="static"
-      className={classes.appBar}
-      style={{
-        background:
-            "linear-gradient(182.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
-        marginBottom: "14px",
-        borderRadius: "10px",
-        width:"100%",
-        height:"3rem"
-      }}
-    >
-      <Toolbar>
-        <Typography variant="h6" className={classes.heading} style={{marginLeft:"-7rem"}}>
-          UNIT
-        </Typography>
-        <Typography variant="h6" className={classes.heading} style={{marginLeft:"3rem"}}>
-          DEVICES
-        </Typography>
-        <Typography variant="h6" className={classes.heading}>
-          INSTALLED DATE
-        </Typography>
-        <div className={classes.heading} style={{ marginLeft: "5rem" }}>
-          <Typography variant="h6">
-            READINGS
-          </Typography>
-        </div>
-        <div className={classes.heading} style={{ flexGrow: 1, textAlign: "right" }}>
-          <Typography variant="h6" style={{ display: "inline-block" }}>
-            TENANT NAME
-          </Typography>
-        </div>
+    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '1rem',
+      width: '100%' }}>
+      <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
+        <table style={{ width: "100%" }}>
+          <thead>
+            <tr>
+              <th style={{ padding: "0.5rem" }} colSpan={2}></th>
+              <th style={{ width: "14%" }} className={classes.heading}>
+                UNIT
+              </th>
+              <th style={{ width: "22%" }} className={classes.heading}>
+                DEVICES
+              </th>
+
+              <th style={{ padding: "0.5rem" }} colSpan={2}></th>
+              <th style={{ width: "22%" }} className={classes.heading}>
+                INSTALLED DATE
+              </th>
+              <th style={{ width: "43%" }} className={classes.heading}>
+                READINGS
+              </th>
+              <th style={{ width: "1%" }} className={classes.heading}>
+                TENANT
+              </th>
+            </tr>
+          </thead>
+        </table>
       </Toolbar>
     </AppBar>
   );
 }
 
-export default BuilHeader;
+export default Header;
+

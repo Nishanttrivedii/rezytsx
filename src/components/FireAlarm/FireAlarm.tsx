@@ -63,7 +63,7 @@ const useStyles = makeStyles(() => ({
 
 function FireAlarm() {
   const classes = useStyles();
-  const isSmallScreen = useMediaQuery("(max-width: 600px)"); 
+  const isSmallScreen = useMediaQuery("(max-width: 600px)"); // Adjust this value based on your design needs
 
   return (
     <>
@@ -103,7 +103,7 @@ function FireAlarm() {
                   >
                     Sort By
                   </Button>
-                  <Typography className={classes.dataCount}>{sampleData.length}</Typography>
+                  <Typography className={classes.dataCount} style={{marginLeft:"0.5rem"}}>{sampleData.length}</Typography>
                 </Badge>
               )}
             </div>
@@ -112,9 +112,9 @@ function FireAlarm() {
         <div
           className={classes.content}
           style={
-            isSmallScreen
+            !isSmallScreen
               ? { backgroundColor: "transparent", marginLeft: "0.5rem", width: "100%" }
-              : { backgroundColor: "rgba(237, 241, 247, 1)" }
+              : { }
           }
         >
           <Header />

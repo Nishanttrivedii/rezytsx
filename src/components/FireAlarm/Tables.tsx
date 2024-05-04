@@ -26,14 +26,12 @@ function Tables({ data }: any) {
           <AccordionSummary
             id="myc"
             style={{
-              width: "101%",
-              marginRight: "-13rem",
-              marginLeft: "0rem",
               backgroundColor: "white",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
               padding: "0 12px",
+              width: "100%", // Added width
             }}
           >
             <div style={{ width: "100%" }}>
@@ -61,7 +59,7 @@ function Tables({ data }: any) {
                     >
                       {PROPERTY}
                     </th>
-                    <th style={{ width: "6%" }}></th> 
+                    <th style={{ width: "6%" }}></th>
                     <th
                       style={{
                         padding: "0.5rem",
@@ -71,7 +69,7 @@ function Tables({ data }: any) {
                     >
                       {INSTALLED_DATE}
                     </th>
-                    <th style={{ width: "10%" }}></th> 
+                    <th style={{ width: "10%" }}></th>
                     <th
                       style={{
                         padding: "0.5rem",
@@ -153,7 +151,7 @@ function Tables({ data }: any) {
                     >
                       <div
                         style={{
-                          marginRight: "-3rem",
+                          marginRight: "-1rem",
                           display: "flex",
                           alignItems: "center",
                           fontSize: "10px",
@@ -221,12 +219,14 @@ function Tables({ data }: any) {
             display: "flex",
             alignItems: "center",
             marginTop: "2rem",
+            marginLeft: "1rem",
+            marginRight: "1rem",
           }}
         >
           <div
             style={{
-              marginRight:"-3rem",
-              marginLeft: "1rem",
+              marginRight: "-3rem",
+              marginLeft: "1.5rem",
               display: "flex",
               flexDirection: "column",
               padding: "2rem",

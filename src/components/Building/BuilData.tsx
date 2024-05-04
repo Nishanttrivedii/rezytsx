@@ -30,7 +30,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -48,7 +48,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -66,7 +66,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -84,7 +84,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -102,7 +102,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -120,7 +120,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -138,7 +138,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -156,7 +156,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],
@@ -174,7 +174,7 @@ export const sampleData = [
         "INSTALLED_DATE": "02-06-2024",
         "READINGS": [
             {
-                "REDETAIL": "Temperature: 123",
+                "REDETAIL": "Temperature: 25.2",
                 "HUDETAIL":"Humidity: 84%"
             },
         ],

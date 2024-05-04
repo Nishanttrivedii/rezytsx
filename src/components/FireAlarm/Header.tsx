@@ -36,8 +36,8 @@ function Header() {
   }
 
   return (
-    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '0rem',
-      width: '98%' }}>
+    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '-2rem',
+      width: '96%' }}>
       <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>
