@@ -49,7 +49,7 @@ const MobileNavbar = () => {
 
 
 
-          {currentRoute == "/" || currentRoute == "/unit" ?
+          {currentRoute == "/" || currentRoute == "/unit"?
             (
               <Link className="order-2 " to={currentRoute === "/" ? "/homemoreinfo" : "/unitmoreinfo"}>
                 <button className='bg-[#FFFFFF] flex flex-row gap-1 rounded items-center '>

@@ -1,33 +1,21 @@
 
 import sensorData from './Sensordata';
-import danger from "../assets/warning.png"
-import safe from "../assets/icon.png"
-import full from "../assets/fullbattery.png"
-import half from "../assets/halfbattery.png"
-import low from "../assets/lowbattery.png"
-import high from "../assets/hightemperature.png"
-import humidity from "../assets/humidity.png"
-import calender from "../assets/calender.png"
-import right from "../assets/right.png"
-import thumbnail from "../assets/thumbnail.png"
-import back from "../assets/back.png"
+import danger from "../../assets/warning.png"
+import safe from "../../assets/icon.png"
+import full from "../../assets/fullbattery.png"
+import half from "../../assets/halfbattery.png"
+import low from "../../assets/lowbattery.png"
+import high from "../../assets/hightemperature.png"
+import humidity from "../../assets/humidity.png"
+import calender from "../../assets/calender.png"
+import right from "../../assets/right.png"
+import thumbnail from "../../assets/thumbnail.png"
+import back from "../../assets/back.png"
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '../../store';
 const Sensors = () => {
 
     const {isLargeScreen } = useSelector((state: RootState) => state.screenSize);
-
-    const dangerMapping = {
-        danger:danger,
-        safe:safe
-       
-    };
-
-    const batteryMapping={
-        full:full,
-        half:half,
-        low:low
-    }
 
     const sensormapping={
         temperature:high,

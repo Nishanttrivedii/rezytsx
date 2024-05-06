@@ -1,4 +1,4 @@
-import InstalledDevices from "../components/InstalledDevices/InstalledDevices"
+import InstalledDevices from "../InstalledDevices/InstalledDevices"
 import UnitInfo from "./UnitInfo"
 
 const UnitMoreInfo = () => {

@@ -65,11 +65,16 @@ const PropertyInfo = () => {
         <tbody className="divide-y divide-gray-200">
           {devices.map((item, index) => (
             <tr key={index} className="bg-[#FFFFFF] h-[42px]">
-              <td style={{ lineHeight: '3px' }} className="rounded-l-xl px-6 py-4 whitespace-nowrap text-sm font-medium text-[#5C626E] flex flex-row gap-2 items-center pl-1">
-              <img className="h-6 w-6" src={iconMapping[item.icon]} alt="" />                 
-            <div>    {item.device_type}</div>
-                
-                </td>
+     <td style={{ lineHeight: '3px', verticalAlign: 'middle' }} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#5C626E] gap-2 items-center pl-1 rounded-l-xl">
+    <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+        <img className="h-6 w-6 inline-block align-middle" style={{ marginRight: '8px' }} src={iconMapping[item.icon]} alt="" />
+        <div className="inline-block align-middle">{item.device_type}</div>
+    </div>
+</td>
+
+
+
+
               <td style={{ lineHeight: '3px' }} className=" rounded-r-xl xl:pl-6 lg:pl-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] pr-1  ">
                 <div className="flex flex-row items-center gap-2 justify-end">
                 <div>{item.count}</div>

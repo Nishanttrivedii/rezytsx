@@ -10,7 +10,7 @@ import PropertyInfo from './PropertyInfo/PropertyInfo';
 const Home = () => {
   return (
     <>
-      <div id="mainContainer" className="bg-[#D8DFEA] flex flex-row gap-4">
+      <div id="mainContainer" className="bg-[#D8DFEA] flex flex-row gap-4 relative top-[6rem]">
         <div id="leftContainer" style={{ width: 'calc(100% - 25rem)' }} className="flex flex-col gap-6 bg-[#EDF1F7] p-4 rounded-lg w-[calc(100% - 25rem)] ">
           <NewGraph />
           <div id="tablecontainer" className="flex sm:flex-col xl:flex-row lg:flex-col flex-col gap-6 sm:items-center md:items-center items-center ">

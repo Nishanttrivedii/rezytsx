@@ -1,12 +1,8 @@
-import fire from "../assets/firehollow.png"
-import cosensor from "../assets/cosensor.png"
-import tempsensor from "../assets/tempsensor.png"
-import watermeters from "../assets/watermeters.png"
-import arrow from "../assets/arrow.png"
-import tenant from "../assets/tenant.png"
-import phone from "../assets/phone.png"
-import email from "../assets/email.png"
-import unitstatus from "../assets/unitstatus.png"
+import arrow from "../../assets/arrow.png"
+import tenant from "../../assets/tenant.png"
+import phone from "../../assets/phone.png"
+import email from "../../assets/email.png"
+import unitstatus from "../../assets/unitstatus.png"
 const UnitInfo = () => {
   const iconMapping = {
     tenant:tenant,
@@ -50,11 +46,16 @@ const UnitInfo = () => {
         <tbody className="divide-y divide-gray-200">
           {devices.map((item, index) => (
             <tr key={index} className="bg-[#FFFFFF] h-[42px]">
-              <td style={{ lineHeight: '3px' }} className="rounded-l-xl px-6 py-4 whitespace-nowrap text-sm font-medium text-[#5C626E] flex flex-row gap-2 items-center pl-1">
-              <img className="h-6 w-6" src={iconMapping[item.icon]} alt="" />                 
-            <div>    {item.device_type}</div>
-                
-                </td>
+            <td style={{ lineHeight: '3px', verticalAlign: 'middle' }} className="rounded-l-xl pr-6 pl-2 py-4 whitespace-nowrap text-sm font-medium text-[#5C626E]">
+    <div style={{ display: 'inline-block', marginRight: '8px', verticalAlign: 'middle' }}>
+        <img className="h-6 w-6" src={iconMapping[item.icon]} alt="" />
+    </div>
+    <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+        {item.device_type}
+    </div>
+</td>
+
+
               <td style={{ lineHeight: '3px' }} className=" rounded-r-xl xl:pl-6 lg:pl-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] pr-1 ">
                 <div className="flex flex-row items-center gap-2 justify-end">
                 <div>{item.value}</div>
