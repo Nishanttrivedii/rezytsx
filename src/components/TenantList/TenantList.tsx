@@ -85,7 +85,12 @@ const TenantList = () => {
                         </div>
                         </div>
                         </td>
-                      <td style={{ lineHeight: '3px' }} className="xl:px-6 lg:px-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm text-gray-800 rounded-r-xl flex justify-end items-center"><div className="flex flex-row gap-2"><img className="h-6 w-6" src={dustbin} alt="" /><img className="h-6 w-6" src={box} alt="" /></div></td>
+                        <td style={{ lineHeight: '3px', verticalAlign: 'middle', textAlign: 'right' }} className="xl:px-6 lg:px-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm text-gray-800 rounded-r-xl">
+    <div className="flex flex-row-reverse gap-2">
+        <img className="h-6 w-6" src={dustbin} alt="" style={{ margin: '0', padding: '0' }} />
+        <img className="h-6 w-6" src={box} alt="" style={{ margin: '0', padding: '0' }} />
+    </div>
+</td>
 
                     </tr>
                   ))}

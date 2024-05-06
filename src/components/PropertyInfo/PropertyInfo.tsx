@@ -75,7 +75,7 @@ const PropertyInfo = () => {
 
 
 
-              <td style={{ lineHeight: '3px' }} className=" rounded-r-xl xl:pl-6 lg:pl-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] pr-1  ">
+              <td style={{ lineHeight: '3px',verticalAlign: 'middle' }} className=" rounded-r-xl xl:pl-6 lg:pl-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm font-medium text-[#01337C] pr-1  ">
                 <div className="flex flex-row items-center gap-2 justify-end">
                 <div>{item.count}</div>
                 <img className="h-6 w-6" src={arrow} alt="" />
