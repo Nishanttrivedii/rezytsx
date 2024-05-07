@@ -1,5 +1,4 @@
 export const sampleData = [
-    // 1
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -17,8 +16,6 @@ export const sampleData = [
             },
         ]
     },
-
-    // 2
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -36,7 +33,6 @@ export const sampleData = [
             },
         ]
     },
-    // 3
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -54,7 +50,6 @@ export const sampleData = [
             },
         ]
     },
-    // 4
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -72,7 +67,6 @@ export const sampleData = [
             },
         ]
     },
-    // 5
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -90,7 +84,6 @@ export const sampleData = [
             },
         ]
     },
-    // 6
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -108,7 +101,6 @@ export const sampleData = [
             },
         ]
     },
-    // 7
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -126,7 +118,6 @@ export const sampleData = [
             },
         ]
     },
-    // 8
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -144,7 +135,6 @@ export const sampleData = [
             },
         ]
     },
-    // 9
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",
@@ -162,7 +152,6 @@ export const sampleData = [
             },
         ]
     },
-    // 10
     {
         "DEVICE_ID": "1726389EF182",
         "PROPERTY": "Building A, Unit 01",

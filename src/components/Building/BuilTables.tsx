@@ -9,6 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import MobileImg from "../../assets/mobile.png";
 import DDectorImage from "../../assets/smokedtec.png";
 import DTempImage from "../../assets/tempdtec.png";
+import Tempside from "../../assets/tempside.png";
 
 function getDeviceBackgroundColor(deviceType: string) {
   switch (deviceType) {
@@ -68,8 +69,11 @@ function BuilTables({ data }: any) {
                 style={{ width: "24px", marginRight: "8px" }}
               />
               <Typography style={{ padding: "0.5rem", color: "black" }}>
-                <span style={{ fontWeight: "normal" }}>{UNIT}</span>
+                <span style={{ fontWeight: "normal", fontSize: "1.3rem" }}>
+                  {UNIT}
+                </span>
               </Typography>
+
               <img
                 src={RightArrow}
                 alt="RightArrow"
@@ -96,9 +100,9 @@ function BuilTables({ data }: any) {
                 <img
                   src={DDectorImage}
                   alt="Detector Icon"
-                  style={{ width: "24px", marginRight: "8px" }}
+                  style={{ width: "19px", marginRight: "8px" }}
                 />
-                <span style={{ fontSize: "small", marginLeft: "0rem" }}>
+                <span style={{ marginLeft: "0rem", fontSize: "0.9rem" }}>
                   {DEVICES[0].DDector}
                 </span>
               </Typography>
@@ -116,12 +120,21 @@ function BuilTables({ data }: any) {
                 }}
               >
                 <img
+                  src={Tempside}
+                  alt="Temp side"
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    marginRight: "-21px",
+                  }}
+                />
+                <img
                   src={DTempImage}
                   alt="Temperature Icon"
                   style={{ width: "24px", marginRight: "8px" }}
                 />
-                <span style={{ fontSize: "small", marginLeft: "-1rem" }}>
-                  {DEVICES[0].DTemp}
+                <span style={{ fontSize: "0.9rem", marginLeft: "0rem" }}>
+                  Temp/Humidity
                 </span>
               </Typography>
             </div>
@@ -131,7 +144,6 @@ function BuilTables({ data }: any) {
                 marginLeft: "0rem",
                 marginRight: "0rem",
                 borderRadius: "4px",
-                padding: "0.5rem",
                 fontWeight: "400",
                 backgroundColor: "var(--Shades-25, #EDF1F7)",
                 marginBottom: "0.5rem",
@@ -159,12 +171,35 @@ function BuilTables({ data }: any) {
                     }}
                   />
                 )}
-                <Typography style={{ fontSize: "large" }}>
-                  <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>{" "}
-                  <span style={{ color: "rgba(0, 193, 123, 1)" }}>
-                    {READINGS[0].REDETAIL.split(":")[1]}
-                  </span>
-                </Typography>
+               <div
+                style={{
+                  marginRight: "0.5rem",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: "#f0f0f0",
+                    padding: "0.5rem",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <Typography style={{fontSize:"large"}}>
+                    <span>{READINGS[0].REDETAIL.split(":")[0]}: </span>
+                    <span
+                      style={{
+                        color:
+                          parseFloat(READINGS[0].REDETAIL.split(":")[1]) <= 25.2
+                            ? "#00C17B"
+                            : "red",
+                      }}
+                    >
+                      {READINGS[0].REDETAIL.split(":")[1]}
+                    </span>
+                  </Typography>
+                </div>
+              </div>
               </div>
             </Typography>
             <Typography
@@ -172,7 +207,6 @@ function BuilTables({ data }: any) {
                 marginLeft: "0rem",
                 marginRight: "0rem",
                 borderRadius: "4px",
-                padding: "0.5rem",
                 fontWeight: "400",
                 backgroundColor: "var(--Shades-25, #EDF1F7)",
                 marginBottom: "0.5rem",
@@ -188,9 +222,30 @@ function BuilTables({ data }: any) {
                     marginRight: "0.5rem",
                   }}
                 />
-                <Typography style={{ fontSize: "large" }}>
-                  {READINGS[0].HUDETAIL}
-                </Typography>
+                <div
+                  style={{
+                    backgroundColor: "#f0f0f0",
+                    padding: "0.5rem",
+                    borderRadius: "5px",
+                    marginLeft: "0.5rem",
+                  }}
+                >
+                  <Typography style={{fontSize:"large"}}>
+                    <span>{READINGS[0].HUDETAIL.split(":")[0]}: </span>
+                    <span
+                      style={{
+                        color:
+                          parseFloat(
+                            READINGS[0].HUDETAIL.split(":")[1].replace("%", "")
+                          ) <= 84
+                            ? "#00C17B"
+                            : "black",
+                      }}
+                    >
+                      {READINGS[0].HUDETAIL.split(":")[1]}
+                    </span>
+                  </Typography>
+                </div>
               </div>
             </Typography>
 
@@ -210,14 +265,14 @@ function BuilTables({ data }: any) {
                     fontWeight: "400",
                     backgroundColor: "var(--Shades-25, #EDF1F7)",
                     marginBottom: "0.5rem",
-                    color:"#5C6970",
+                    color: "#5C6970",
                   }}
                 >
                   Installed Date
                 </Typography>
                 <Typography
                   style={{
-                    marginTop:"-1rem",
+                    marginTop: "-1.5rem",
                     borderRadius: "4px",
                     padding: "0.5rem",
                     fontWeight: "400",
@@ -243,14 +298,14 @@ function BuilTables({ data }: any) {
                     fontWeight: "400",
                     backgroundColor: "var(--Shades-25, #EDF1F7)",
                     marginBottom: "0.5rem",
-                    color:"#5C6970",
+                    color: "#5C6970",
                   }}
                 >
                   Tenant Name
                 </Typography>
                 <Typography
                   style={{
-                    marginTop:"-1rem",
+                    marginTop: "-1.5rem",
                     borderRadius: "4px",
                     padding: "0.5rem",
                     fontWeight: "400",
@@ -332,6 +387,15 @@ function BuilTables({ data }: any) {
                       }}
                     >
                       <img
+                        src={Tempside}
+                        alt="Temp side"
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          marginRight: "-21px",
+                        }}
+                      />
+                      <img
                         src={getDeviceImage(device.DTemp)}
                         alt="Device Image"
                         style={{
@@ -406,8 +470,15 @@ function BuilTables({ data }: any) {
                   }}
                 >
                   <Typography>
-                    <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>
-                    <span style={{ color: "rgba(0, 193, 123, 1)" }}>
+                    <span>{READINGS[0].REDETAIL.split(":")[0]}: </span>
+                    <span
+                      style={{
+                        color:
+                          parseFloat(READINGS[0].REDETAIL.split(":")[1]) <= 25.2
+                            ? "#00C17B"
+                            : "red",
+                      }}
+                    >
                       {READINGS[0].REDETAIL.split(":")[1]}
                     </span>
                   </Typography>
@@ -438,7 +509,21 @@ function BuilTables({ data }: any) {
                   marginLeft: "0.5rem",
                 }}
               >
-                <Typography>{READINGS[0].HUDETAIL}</Typography>
+                <Typography>
+                  <span>{READINGS[0].HUDETAIL.split(":")[0]}: </span>
+                  <span
+                    style={{
+                      color:
+                        parseFloat(
+                          READINGS[0].HUDETAIL.split(":")[1].replace("%", "")
+                        ) <= 84
+                          ? "#00C17B"
+                          : "black",
+                    }}
+                  >
+                    {READINGS[0].HUDETAIL.split(":")[1]}
+                  </span>
+                </Typography>
               </div>
             </div>
 

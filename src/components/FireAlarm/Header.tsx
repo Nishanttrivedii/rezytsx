@@ -1,9 +1,9 @@
-import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
+import { AppBar, Toolbar} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from "@mui/material/styles"; 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appBar: {
     marginTop: "17px",
     width: "calc(96% - 2rem)",
@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontWeight:"400",
     color: "white",
-    // fontSize: "0.9rem",
     padding: "0.5rem",
     textAlign: "left",
     paddingLeft: "1rem",
@@ -36,8 +35,8 @@ function Header() {
   }
 
   return (
-    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '-2rem',
-      width: '96%' }}>
+    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '-1rem',
+      width: '96%', height:"3.5rem" }}>
       <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>
@@ -54,7 +53,7 @@ function Header() {
               <th style={{ width: "18%" }} className={classes.heading}>
                 INSTALLED DATE
               </th>
-              <th style={{ width: "45%" }} className={classes.heading}>
+              <th style={{ width: "53%" }} className={classes.heading}>
                 READINGS
               </th>
               <th style={{ width: "1%" }} className={classes.heading}>

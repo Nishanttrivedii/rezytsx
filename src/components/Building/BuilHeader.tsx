@@ -1,9 +1,9 @@
-import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
+import { AppBar, Toolbar} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from "@mui/material/styles"; 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appBar: {
     marginTop: "17px",
     width: "calc(96% - 2rem)",
@@ -37,7 +37,7 @@ function Header() {
 
   return (
     <AppBar position="static" className={classes.appBar} style={{ marginLeft: '1rem',
-      width: '100%' }}>
+      width: '100%', height:"3.5rem" }}>
       <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>

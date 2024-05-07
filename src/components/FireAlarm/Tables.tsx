@@ -14,34 +14,35 @@ function Tables({ data }: any) {
       {!isSmallScreen && (
         <Accordion
           style={{
+            height: "3.5rem",
             backgroundColor: "white",
-            marginBottom: "1rem",
-            marginLeft: "12px",
-            marginRight: "12px",
+            marginBottom: "2rem",
+            marginLeft: "21px",
+            marginRight: "21px",
             marginTop: "1rem",
-            width: "calc(99% - 24px)",
-            borderRadius: "1.5rem",
+            width: "calc(99% - 1rem)",
           }}
         >
           <AccordionSummary
             id="myc"
             style={{
+              marginTop: "1.2rem",
               backgroundColor: "white",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              width: "100%",
               padding: "0 12px",
-              width: "100%", // Added width
             }}
           >
             <div style={{ width: "100%" }}>
               {" "}
-              {/* Modified */}
               <table style={{ width: "100%" }}>
                 <thead>
                   <tr>
                     <th
                       style={{
+                        marginLeft:"-1rem",
                         padding: "0.5rem",
                         fontWeight: "400",
                         flex: "1 1 100px",
@@ -72,20 +73,27 @@ function Tables({ data }: any) {
                     <th style={{ width: "10%" }}></th>
                     <th
                       style={{
+                        whiteSpace:"nowrap",
                         padding: "0.5rem",
                         fontWeight: "400",
                         flex: "1 1 280px",
                       }}
                     >
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginRight: "17rem",
+                          marginLeft: "auto",
+                        }}
+                      >
                         <div
                           style={{
-                            marginRight: "1rem",
+                            height: "40px",
+                            marginRight: "-6px",
                             backgroundColor: "rgb(240, 240, 240)",
-                            padding: "0.75rem",
+                            padding: "0.5rem",
                             borderRadius: "5px",
-                            display: "flex",
-                            alignItems: "center",
                           }}
                         >
                           {parseInt(READINGS[0].REDETAIL.split(":")[1]) <=
@@ -102,26 +110,49 @@ function Tables({ data }: any) {
                               style={{ width: "20px", height: "20px" }}
                             />
                           )}
-                          <Typography
-                            style={{
-                              marginLeft: "0.5rem",
-                              marginRight: "0.5rem",
-                              fontSize: "1.2rem",
-                            }}
-                          >
-                            <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>
-                            <span style={{ color: "rgba(0, 193, 123, 1)" }}>
-                              {READINGS[0].REDETAIL.split(":")[1]}
-                            </span>
-                          </Typography>
                         </div>
+
                         <div
                           style={{
-                            backgroundColor: "rgb(240, 240, 240)",
-                            padding: "0.75rem",
-                            borderRadius: "5px",
+                            marginRight: "0.5rem",
                             display: "flex",
                             alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#f0f0f0",
+                              padding: "0.5rem",
+                              borderRadius: "5px",
+                            }}
+                          >
+                            <Typography>
+                              <span>
+                                {READINGS[0].REDETAIL.split(":")[0]}:{" "}
+                              </span>
+                              <span
+                                style={{
+                                  color:
+                                    parseFloat(
+                                      READINGS[0].REDETAIL.split(":")[1]
+                                    ) <= 25.2
+                                      ? "#00C17B"
+                                      : "red",
+                                }}
+                              >
+                                {READINGS[0].REDETAIL.split(":")[1]}
+                              </span>
+                            </Typography>
+                          </div>
+                        </div>
+
+                        <div
+                          style={{
+                            height: "40px",
+                            marginRight: "-14px",
+                            backgroundColor: "rgb(240, 240, 240)",
+                            padding: "0.5rem",
+                            borderRadius: "5px",
                           }}
                         >
                           <img
@@ -129,19 +160,38 @@ function Tables({ data }: any) {
                             alt="Image"
                             style={{ width: "20px", height: "20px" }}
                           />
-                          <Typography
-                            style={{
-                              marginLeft: "0.5rem",
-                              marginRight: "0.5rem",
-                              fontSize: "1.2rem",
-                            }}
-                          >
-                            {READINGS[0].HUDETAIL}
+                        </div>
+
+                        <div
+                          style={{
+                            backgroundColor: "#f0f0f0",
+                            padding: "0.5rem",
+                            borderRadius: "5px",
+                            marginLeft: "0.5rem",
+                          }}
+                        >
+                          <Typography>
+                            <span>{READINGS[0].HUDETAIL.split(":")[0]}: </span>
+                            <span
+                              style={{
+                                color:
+                                  parseFloat(
+                                    READINGS[0].HUDETAIL.split(":")[1].replace(
+                                      "%",
+                                      ""
+                                    )
+                                  ) <= 84
+                                    ? "#00C17B"
+                                    : "black",
+                              }}
+                            >
+                              {READINGS[0].HUDETAIL.split(":")[1]}
+                            </span>
                           </Typography>
                         </div>
                       </div>
                     </th>
-                    <th style={{ width: "20px" }}></th> {/* Space */}
+                    <th style={{ width: "20px" }}></th> 
                     <th
                       style={{
                         padding: "0.5rem",
@@ -199,7 +249,6 @@ function Tables({ data }: any) {
                             }`,
                             padding: "0.5rem",
                             borderRadius: "5px",
-                            // width: "10rem",
                           }}
                         >
                           <Typography>{STATUS[0].ONDETAIL}</Typography>
@@ -236,7 +285,7 @@ function Tables({ data }: any) {
               maxWidth: "400px",
             }}
           >
-            <Typography style={{ padding: "0.5rem", fontWeight: "400" }}>
+            <Typography style={{ padding: "0.5rem", fontWeight: "400", marginLeft:"-1.3rem" }}>
               <b>ID: {DEVICE_ID}</b>
             </Typography>
             <div
@@ -308,12 +357,35 @@ function Tables({ data }: any) {
                     }}
                   />
                 )}
-                <Typography style={{ fontSize: "large" }}>
-                  <span>{READINGS[0].REDETAIL.split(":")[0]}:</span>{" "}
-                  <span style={{ color: "rgba(0, 193, 123, 1)" }}>
-                    {READINGS[0].REDETAIL.split(":")[1]}
-                  </span>
-                </Typography>
+                <div
+                  style={{
+                    marginRight: "0.5rem",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#f0f0f0",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <Typography style={{fontSize: "large"}}>
+                      <span>{READINGS[0].REDETAIL.split(":")[0]}: </span>
+                      <span
+                        style={{
+                          color:
+                            parseFloat(READINGS[0].REDETAIL.split(":")[1]) <=
+                            25.2
+                              ? "#00C17B"
+                              : "red",
+                        }}
+                      >
+                        {READINGS[0].REDETAIL.split(":")[1]}
+                      </span>
+                    </Typography>
+                  </div>
+                </div>
               </div>
             </Typography>
             <Typography
@@ -365,7 +437,7 @@ function Tables({ data }: any) {
                           : "#f0f0f0"
                         : "rgb(0, 193, 123,1)"
                     }`,
-                    marginLeft: "-1rem",
+                    marginLeft: "-1.5rem",
                     padding: "0.5rem",
                     borderRadius: "5px",
                     marginRight: "0.5rem",
@@ -391,6 +463,7 @@ function Tables({ data }: any) {
                         ? "#00C17B"
                         : "rgba(255, 153, 0, 1)"
                     }`,
+                    marginRight:"-1.5rem",
                     padding: "0.5rem",
                     borderRadius: "5px",
                     width: "13rem",

@@ -39,7 +39,6 @@ const useStyles = makeStyles(() => ({
   content: {
     marginLeft: "21px",
     marginRight: "23px",
-    // backgroundColor: "rgba(237, 241, 247, 1)",
     minHeight: "calc(100vh - 4rem)",
     display: "flex",
     justifyContent: "center",
@@ -79,6 +78,7 @@ function BuilNav() {
             width: "98%",
             marginBottom: "0px",
             boxShadow: "none",
+            
           }}
         >
           <Toolbar className={classes.toolbar}>
@@ -95,7 +95,7 @@ function BuilNav() {
                   </Typography>
                   <Typography
                     variant="subtitle1"
-                    style={{ marginLeft: "8px", color: "darkblue" }}
+                    style={{ marginLeft: "8px", color: "darkblue", fontSize:"1.3rem"}}
                   >
                     {sampleData.length}
                   </Typography>

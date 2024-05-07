@@ -63,7 +63,7 @@ const useStyles = makeStyles(() => ({
 
 function FireAlarm() {
   const classes = useStyles();
-  const isSmallScreen = useMediaQuery("(max-width: 600px)"); // Adjust this value based on your design needs
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <>
