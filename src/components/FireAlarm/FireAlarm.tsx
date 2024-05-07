@@ -68,7 +68,11 @@ function FireAlarm() {
   return (
     <>
       <div style={{}}>
-        <AppBar position="static" className={classes.appBar} style={{ width: isSmallScreen ? "92%" : "98%" }}>
+        <AppBar
+          position="static"
+          className={classes.appBar}
+          style={{ width: isSmallScreen ? "92%" : "98%" }}
+        >
           <Toolbar className={classes.toolbar}>
             <div className={classes.heading}>
               <svg
@@ -80,17 +84,27 @@ function FireAlarm() {
                 stroke="currentColor"
                 className="w-6 h-6"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                />
               </svg>
               <img src={FireImage} alt="Your Image" className={classes.image} />
               <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
                 Fire Alarms
               </Typography>
             </div>
-            <div style={{ display: "flex", alignItems: "center", color: "black" }}>
+            <div
+              style={{ display: "flex", alignItems: "center", color: "black" }}
+            >
               {isSmallScreen ? (
                 <IconButton color="inherit" sx={{ padding: "8px" }}>
-                  <img src={FilterIcon} alt="Filter" style={{ width: "46px", height: "46px", color: "darkblue" }} />
+                  <img
+                    src={FilterIcon}
+                    alt="Filter"
+                    style={{ width: "46px", height: "46px", color: "darkblue" }}
+                  />
                 </IconButton>
               ) : (
                 <Badge color="secondary">
@@ -103,7 +117,12 @@ function FireAlarm() {
                   >
                     Sort By
                   </Button>
-                  <Typography className={classes.dataCount} style={{marginLeft:"0.5rem"}}>{sampleData.length}</Typography>
+                  <Typography
+                    className={classes.dataCount}
+                    style={{ marginLeft: "0.5rem" }}
+                  >
+                    {sampleData.length}
+                  </Typography>
                 </Badge>
               )}
             </div>
@@ -113,15 +132,18 @@ function FireAlarm() {
           className={classes.content}
           style={
             !isSmallScreen
-              ? { backgroundColor: "transparent", marginLeft: "0.5rem", width: "100%" }
-              : { }
+              ? {
+                  backgroundColor: "transparent",
+                  marginLeft: "0.5rem",
+                  width: "100%",
+                }
+              : {}
           }
         >
           <Header />
-        
-            <div className={classes.table}>
-              <Tables  />
-            </div>
+          <div className={classes.table}>
+            <Tables />
+          </div>
         </div>
       </div>
     </>

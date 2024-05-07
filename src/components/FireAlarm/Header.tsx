@@ -1,7 +1,7 @@
-import { AppBar, Toolbar} from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from "@mui/material/styles"; 
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const useStyles = makeStyles(() => ({
   appBar: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
       "linear-gradient(182.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
   },
   heading: {
-    fontWeight:"400",
+    fontWeight: "400",
     color: "white",
     padding: "0.5rem",
     textAlign: "left",
@@ -27,20 +27,23 @@ const useStyles = makeStyles(() => ({
 
 function Header() {
   const classes = useStyles();
-  const theme = useTheme(); 
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg')); 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
   if (isSmallScreen) {
-    return null; 
+    return null;
   }
 
   return (
-    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '-1rem',
-      width: '96%', height:"3.5rem" }}>
+    <AppBar
+      position="static"
+      className={classes.appBar}
+      style={{ marginLeft: "-1rem", width: "96%", height: "3.5rem" }}
+    >
       <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>
-            <tr style={{justifyContent:"center"}}>
+            <tr style={{ justifyContent: "center" }}>
               <th style={{ padding: "0.5rem" }} colSpan={2}></th>
               <th style={{ width: "14%" }} className={classes.heading}>
                 DEVICES
