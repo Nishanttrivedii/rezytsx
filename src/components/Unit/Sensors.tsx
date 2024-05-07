@@ -35,7 +35,7 @@ const Sensors = ({unitData}) => {
             <div className={`flex justify-between ${isLargeScreen ? 'flex-row' : 'flex-col gap-2 '}`}   >   
             <div className='order-1'>
                  <div className='flex flex-row gap-2'>
-                    {item.reading.temperature.split("°")[0] >=40 || item.reading.humidity.split("%")[0]>=40 ?
+                    {parseInt(item.reading.temperature.split("°")[0]) >=40 || parseInt(item.reading.humidity.split("%")[0])>=40 ?
                     <img src={danger} className='h-6 w-6' alt="" />
                     :
                     <img src={right} className='h-6 w-6' alt="" />
@@ -52,10 +52,10 @@ const Sensors = ({unitData}) => {
      
              <div className='order-2 flex flex-row gap-1'>
                 {item.battery<=100 && item.battery >50 &&
-                     <button className=' bg-[#00C17B] flex flex-row gap-1 items-center  text-neutral-100 rounded-md max-h-[2.4rem]'>
+                     <button className=' bg-[#00C17B] flex flex-row gap-1 items-center  text-neutral-100 rounded-md max-h-[2.4rem] text-sm p-1'>
                      <img className="h-6 w-6" src={full} alt="" />
                      <div>Battery</div>
-                     <div id="percentage">{item.battery}</div>
+                     <div id="percentage" >{item.battery}</div>
                  </button>
                 }
                 {item.battery<=50 && item.battery>25 && 
@@ -72,7 +72,7 @@ const Sensors = ({unitData}) => {
                      <div id="percentage">{item.battery_level}</div>
                  </button>
                 }
-                 <button className='w-[5.5rem] h-[2.4rem]  bg-[#00C17B] text-white rounded-md'>{item.status}</button>
+                 <button className='w-[5.5rem] h-[2.4rem]  bg-[#00C17B] text-white rounded-md'>{item.connection}</button>
              </div>
             </div>
      
