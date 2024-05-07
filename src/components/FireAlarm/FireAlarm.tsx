@@ -118,11 +118,10 @@ function FireAlarm() {
           }
         >
           <Header />
-          {[...Array(10)].map((_, index) => (
-            <div key={index} className={classes.table}>
-              <Tables data={sampleData[index]} />
+        
+            <div className={classes.table}>
+              <Tables  />
             </div>
-          ))}
         </div>
       </div>
     </>

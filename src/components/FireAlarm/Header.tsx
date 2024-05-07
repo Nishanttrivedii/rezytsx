@@ -40,20 +40,20 @@ function Header() {
       <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>
-            <tr>
+            <tr style={{justifyContent:"center"}}>
               <th style={{ padding: "0.5rem" }} colSpan={2}></th>
               <th style={{ width: "14%" }} className={classes.heading}>
                 DEVICES
               </th>
-              <th style={{ width: "14%" }} className={classes.heading}>
+              <th style={{ width: "16%" }} className={classes.heading}>
                 PROPERTY
               </th>
 
               <th style={{ padding: "0.5rem" }} colSpan={2}></th>
-              <th style={{ width: "18%" }} className={classes.heading}>
+              <th style={{ width: "19%" }} className={classes.heading}>
                 INSTALLED DATE
               </th>
-              <th style={{ width: "53%" }} className={classes.heading}>
+              <th style={{ width: "49%" }} className={classes.heading}>
                 READINGS
               </th>
               <th style={{ width: "1%" }} className={classes.heading}>
