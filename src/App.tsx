@@ -17,6 +17,8 @@ import TenantList from './components/TenantList/TenantList';
 import TenantMobile from './components/TenantList/TenantMobile';
 import Building from './components/Buildings/Buildings';
 import BuildingMobile from './components/Buildings/BuildingMobile';
+import BuilNav from './components/Building/BuilNav';
+import FireAlarm from './components/FireAlarm/FireAlarm';
 function App() {
   const { isLargeScreen } = useSelector((state: RootState) => state.screenSize);
   const dispatch = useDispatch();
@@ -53,6 +55,8 @@ function App() {
           {isLargeScreen ? <Route path="/tenant" element={<TenantList />} /> : <Route path="/tenant" element={<TenantMobile />} />}
           {isLargeScreen ? <Route path="/buildings" element={<Building />} /> : <Route path="/buildings" element={<BuildingMobile />} />}
           {/* <Route path="/buildings/:propertyId" */}
+          <Route path="/building/:buildingId" element={<BuilNav />} />
+          <Route path="/firealarm" element={<FireAlarm />}></Route>
 
 
 

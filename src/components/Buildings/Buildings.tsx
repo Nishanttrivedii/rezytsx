@@ -11,6 +11,7 @@ import th from "../../assets/thumbnail.png"
 import back from "../../assets/back.png"
 import axios from "axios";
 import { useEffect ,useState} from "react";
+import { Link } from "react-router-dom";
 
 
 const Building = () => {
@@ -87,29 +88,31 @@ useEffect(()=>{
                
                 <tbody className="divide-y divide-gray-200">
                   {data.map((item, index) => (
-                    <tr key={index} className="bg-[white]">
-                      <td style={{ lineHeight: '3px',color:'rgba(0, 0, 0, 0.8)' }} className="rounded-l-xl px-6 py-4 whitespace-nowrap text-sm font-sm "><div className="flex flex-row items-center gap-1"><img className="h-4 w-4" src={th} alt="" /> <div>Building {item.name}</div></div></td>
-                      <td style={{ lineHeight: '3px',color:'rgba(0, 0, 0, 0.8)' }} className="xl:px-6 lg:px-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm flex justify-end ">
 
-                       <div className="flex flex-row gap-1 items-center">
-                       <div style={{backgroundColor:'rgba(255, 153, 0, 0.2)'}} className="h-10 w-10 bg-[rgba(255, 83, 73, 0.2)] rounded items-center justify-center flex"><img className="h-6 w-6 " src={screws} alt="" /></div>
-                        <div style={{backgroundColor:'rgba(255, 83, 73, 0.2)'}} className="h-10 w-10 bg-[rgba(255, 83, 73, 0.2)] rounded items-center justify-center flex"><img className="h-6 w-6 " src={alarms} alt="" /></div>
-                       <div className="flex flex-row gap-2 bg-[#EDF1F7] h-[2.5rem] items-center justify-center rounded w-[fit-content] p-2">
-                        <div className="flex flex-row gap-1 items-center text-[rgba(92, 98, 110, 0.7)]">
-                        <img className="h-4 w-4" src={buildingunit} alt="" />
-                        <div style={{color:'rgba(92, 98, 110, 0.7)'}} className="text-[rgba(92, 98, 110, 0.7)]">UNITS {item.unitCount}</div>
-                        </div>
-                        <img className="h-4 " src={divide} alt="" />
-                        <div className="flex flex-row gap-1 items-center text-[rgba(92, 98, 110, 0.7)]">
-                        <img className="h-4 w-4" src={devices} alt="" />
-                        <div  style={{color:'rgba(92, 98, 110, 0.7)'}}  className="text-[rgba(92, 98, 110, 0.7)]">Devices {item.deviceCount}</div>
-                        </div>
-                        </div>
-                        <img className="h-6 w-6 " src={arrow} alt="" />
-                       </div>
-                        </td>
+                  <Link to =  {`building/${buildingId}`}> 
+                   <tr key={index} className="bg-[white]">
+                  <td style={{ lineHeight: '3px',color:'rgba(0, 0, 0, 0.8)' }} className="rounded-l-xl px-6 py-4 whitespace-nowrap text-sm font-sm "><div className="flex flex-row items-center gap-1"><img className="h-4 w-4" src={th} alt="" /> <div>Building {item.name}</div></div></td>
+                  <td style={{ lineHeight: '3px',color:'rgba(0, 0, 0, 0.8)' }} className="xl:px-6 lg:px-6 sm:px-2 xs:px-2 py-4 whitespace-nowrap text-sm flex justify-end ">
 
-                    </tr>
+                   <div className="flex flex-row gap-1 items-center">
+                   <div style={{backgroundColor:'rgba(255, 153, 0, 0.2)'}} className="h-10 w-10 bg-[rgba(255, 83, 73, 0.2)] rounded items-center justify-center flex"><img className="h-6 w-6 " src={screws} alt="" /></div>
+                    <div style={{backgroundColor:'rgba(255, 83, 73, 0.2)'}} className="h-10 w-10 bg-[rgba(255, 83, 73, 0.2)] rounded items-center justify-center flex"><img className="h-6 w-6 " src={alarms} alt="" /></div>
+                   <div className="flex flex-row gap-2 bg-[#EDF1F7] h-[2.5rem] items-center justify-center rounded w-[fit-content] p-2">
+                    <div className="flex flex-row gap-1 items-center text-[rgba(92, 98, 110, 0.7)]">
+                    <img className="h-4 w-4" src={buildingunit} alt="" />
+                    <div style={{color:'rgba(92, 98, 110, 0.7)'}} className="text-[rgba(92, 98, 110, 0.7)]">UNITS {item.unitCount}</div>
+                    </div>
+                    <img className="h-4 " src={divide} alt="" />
+                    <div className="flex flex-row gap-1 items-center text-[rgba(92, 98, 110, 0.7)]">
+                    <img className="h-4 w-4" src={devices} alt="" />
+                    <div  style={{color:'rgba(92, 98, 110, 0.7)'}}  className="text-[rgba(92, 98, 110, 0.7)]">Devices {item.deviceCount}</div>
+                    </div>
+                    </div>
+                    <img className="h-6 w-6 " src={arrow} alt="" />
+                   </div>
+                    </td>
+
+                </tr></Link>
                   ))}
                 </tbody>
               </table>
