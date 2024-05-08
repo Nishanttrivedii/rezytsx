@@ -39,6 +39,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     alignItems: "flex-start",
     flexWrap: "wrap",
+    backgroundColor: "#EDF1F7", // Set background color here
   },
   image: {
     width: 25,
@@ -67,11 +68,11 @@ function FireAlarm() {
 
   return (
     <>
-      <div style={{}}>
+      <div style={{ backgroundColor: "#EDF1F7", marginLeft:"1.5rem", marginRight:"1.5rem" }}> {/* Set background color for the entire section */}
         <AppBar
           position="static"
           className={classes.appBar}
-          style={{ width: isSmallScreen ? "92%" : "98%" }}
+          style={{ marginLeft:"0rem", width: isSmallScreen ? "92%" : "100%" }}
         >
           <Toolbar className={classes.toolbar}>
             <div className={classes.heading}>

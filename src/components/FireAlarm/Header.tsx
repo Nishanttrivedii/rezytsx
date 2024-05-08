@@ -38,27 +38,43 @@ function Header() {
     <AppBar
       position="static"
       className={classes.appBar}
-      style={{ marginLeft: "-1rem", width: "96%", height: "3.5rem" }}
+      style={{ marginLeft: "-1rem", width: "96%", height: "49px", verticalAlign:"top" }}
     >
       <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>
             <tr style={{ justifyContent: "center" }}>
-              <th style={{ padding: "0.5rem" }} colSpan={2}></th>
-              <th style={{ width: "14%" }} className={classes.heading}>
+              <th style={{ padding: "-1.5rem" }} colSpan={2}></th>
+              <th
+                style={{ width: "8%", padding: "0.5rem 4.5rem 0.5rem 0.5rem" }}
+                className={classes.heading}
+              >
                 DEVICES
               </th>
-              <th style={{ width: "16%" }} className={classes.heading}>
+              <th
+                style={{ width: "16%", paddingRight: "23rem" }}
+                className={classes.heading}
+              >
                 PROPERTY
               </th>
 
               <th style={{ padding: "0.5rem" }} colSpan={2}></th>
-              <th style={{ width: "19%" }} className={classes.heading}>
+              <th
+                style={{ width: "29%", padding: "0.5rem 0rem 0.5rem 0.5rem" }}
+                className={classes.heading}
+              >
                 INSTALLED DATE
               </th>
-              <th style={{ width: "49%" }} className={classes.heading}>
+              <th
+                style={{
+                  width: "56%",
+                  padding: "0.5rem 22rem 0.5rem 0.5rem"
+                }}
+                className={classes.heading}
+              >
                 READINGS
               </th>
+
               <th style={{ width: "1%" }} className={classes.heading}>
                 STATUS
               </th>

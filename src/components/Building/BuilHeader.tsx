@@ -46,15 +46,15 @@ function Header() {
               <th style={{ width: "14%" }} className={classes.heading}>
                 UNIT
               </th>
-              <th style={{ width: "22%" }} className={classes.heading}>
+              <th style={{ width: "26%" }} className={classes.heading}>
                 DEVICES
               </th>
 
               <th style={{ padding: "0.5rem" }} colSpan={2}></th>
-              <th style={{ width: "22%" }} className={classes.heading}>
+              <th style={{ width: "28%" }} className={classes.heading}>
                 INSTALLED DATE
               </th>
-              <th style={{ width: "43%" }} className={classes.heading}>
+              <th style={{ width: "27%" }} className={classes.heading}>
                 READINGS
               </th>
               <th style={{ width: "1%" }} className={classes.heading}>

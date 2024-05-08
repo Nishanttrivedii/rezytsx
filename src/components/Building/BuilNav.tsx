@@ -74,11 +74,10 @@ function BuilNav() {
           position="static"
           className={classes.appBar}
           style={{
-            marginLeft:"1rem",
+            marginLeft: "1rem",
             width: "98%",
             marginBottom: "0px",
             boxShadow: "none",
-            
           }}
         >
           <Toolbar className={classes.toolbar}>
@@ -95,7 +94,7 @@ function BuilNav() {
                   </Typography>
                   <Typography
                     variant="subtitle1"
-                    style={{ marginLeft: "8px", color: "darkblue", fontSize:"1.3rem"}}
+                    style={{ marginLeft: "8px", color: "darkblue", fontSize: "1.3rem" }}
                   >
                     {sampleData.length}
                   </Typography>
@@ -141,7 +140,6 @@ function BuilNav() {
                 <Badge color="secondary">
                   <Button
                     style={{
-                      marginLeft:"84rem",
                       backgroundColor: "rgba(192, 217, 255, 1)",
                       color: "darkblue",
                     }}
@@ -149,24 +147,22 @@ function BuilNav() {
                   >
                     Sort By
                   </Button>
+                  <Typography
+                    className={classes.dataCount}
+                    style={{ marginLeft: "0.5rem" }}
+                  >
+                    {sampleData.length}
+                  </Typography>
                 </Badge>
-                <Typography
-                  className={classes.dataCount}
-                  style={{ marginLeft: "-9rem" }}
-                >
-                  {sampleData.length}
-                </Typography>
               </>
             )}
           </Toolbar>
         </AppBar>
         <div className={classes.content}>
           <BuilHeader />
-          {[...Array(10)].map((_, index) => (
-            <div key={index} className={classes.table}>
-              <BuilTables data={sampleData[index]} />
-            </div>
-          ))}
+          <div className={classes.table}>
+            <BuilTables />
+          </div>
         </div>
       </div>
     </>

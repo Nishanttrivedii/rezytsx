@@ -159,7 +159,9 @@ function Tables() {
                       }}
                     >
                       <Typography style={{ fontSize: "large" }}>
-                        <span>{item.reading.temperature.split(":")[0]}: </span>
+                        <span>
+                          Temperature: {item.reading.temperature.split(":")[0]}:{" "}
+                        </span>
                         <span
                           style={{
                             color:
@@ -199,7 +201,7 @@ function Tables() {
                     }}
                   />
                   <Typography style={{ fontSize: "large" }}>
-                    {item.reading.humidity}
+                    Humidity: {item.reading.humidity}
                   </Typography>
                 </div>
               </Typography>
@@ -279,6 +281,8 @@ function Tables() {
               <AccordionSummary
                 id="myc"
                 style={{
+                  height:"72px",
+                  borderRadius: "0.5rem",
                   marginTop: "-0.5rem",
                   backgroundColor: "white",
                   display: "flex",
@@ -295,34 +299,36 @@ function Tables() {
                         style={{
                           padding: "0.5rem",
                           fontWeight: "400",
-                          textAlign: "center",
+                          textAlign: "right",
                         }}
                       >
                         {item.id}
                       </th>
                       <th
                         style={{
-                          padding: "0.5rem",
+                          padding: "0.5rem 2rem 0.5rem 0.5rem", // Adjust padding-right for more space
                           fontWeight: "400",
-                          textAlign: "center",
+                          textAlign: "right",
                         }}
                       >
                         {item.propertyName}
                       </th>
+
                       <th
                         style={{
-                          padding: "0.5rem",
+                          padding: "0.5rem 9rem 0.5rem 4.5rem",
                           fontWeight: "400",
-                          textAlign: "center",
+                          textAlign: "right",
                         }}
                       >
                         {new Date(item.installedDate).toLocaleDateString()}
                       </th>
+
                       <th
                         style={{
                           padding: "0.5rem",
                           fontWeight: "400",
-                          textAlign: "center",
+                          textAlign: "right",
                         }}
                       >
                         <div
@@ -409,7 +415,7 @@ function Tables() {
                         style={{
                           padding: "0.5rem",
                           fontWeight: "400",
-                          textAlign: "center",
+                          textAlign: "right",
                         }}
                       >
                         <div
@@ -435,7 +441,7 @@ function Tables() {
                               padding: "0.5rem",
                               borderRadius: "5px",
                               marginRight: "0.5rem",
-                              width: "8rem",
+                              width: "9rem",
                               display: "flex",
                               alignItems: "center",
                             }}
