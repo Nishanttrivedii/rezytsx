@@ -10,12 +10,13 @@ import { useEffect ,useState} from "react";
 import thumbnail from "../../assets/thumbnail.png"
 import drop from "../../assets/drop.png"
 
-const OfflineDevices = () => {
+const OfflineDevices = ({propertyId}) => {
   const { isLargeScreen } = useSelector((state: RootState) => state.screenSize);
  
   const [data,setData] =useState([])
   async function getData(){
-    const response= await axios.get("http://localhost:8080/device/offline")
+    const response= await axios.get(`http://localhost:8080/device/offline/${propertyId}`)
+    
     setData (response.data);
   }
   

@@ -12,15 +12,16 @@ const InstalledDevicesUnitWise = ({ unitData }) => {
     watermeters: watermeters,
   };
 
-  // Extracting device count data from unitData
+ 
   const { deviceCount } = unitData;
 
-  // Mapping device types to icons and counts from deviceCount object
+
   const devices = deviceCount ? Object.keys(deviceCount).map((deviceType) => ({
     device_type: deviceType,
     count: deviceCount[deviceType],
     icon: iconMapping[deviceType.toLowerCase().replace(/\s+/g, "")], // Get the icon based on the device type
   })) : [];
+   
   
 
   return (
