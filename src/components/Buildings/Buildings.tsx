@@ -15,10 +15,49 @@ import { useEffect ,useState} from "react";
 
 const Building = () => {
 const [data,setData] =useState([])
+const [showSortModal,setShowSortModal]=useState(false);
+const [sortCategory, setSortCategory] = useState("");
+const [sortOrder, setSortOrder] = useState("");
 async function getData(){
   const response= await axios.get("http://localhost:8080/building/list")
   setData (response.data);
 }
+
+
+function SortData() {
+  if (sortCategory && sortOrder) {
+    let sortedData = [...data];
+    switch (sortCategory) {
+      case "buildings":
+        sortedData.sort((a, b) => {
+          if (sortOrder === "Ascending") {
+            return a.name.localeCompare(b.name);
+          } else if (sortOrder === "Descending") {
+            return b.name.localeCompare(a.name);
+          }
+          return 0;
+        });
+        break;
+      
+      case "units":
+      case "devices":
+        sortedData.sort((a, b) => {
+          if (sortOrder === "Ascending") {
+            return a[sortCategory] - b[sortCategory];
+          } else if (sortOrder === "Descending") {
+            return b[sortCategory] - a[sortCategory];
+          }
+          return 0;
+        });
+        break;
+      default:
+        break;
+    }
+    setData(sortedData);
+  }
+  setShowSortModal(false);
+}
+
 
 useEffect(()=>{
   getData()
@@ -34,10 +73,10 @@ useEffect(()=>{
           </div>
 
           <div className='flex flex-row gap-1 order-2'>
-            <button id="sortBy " className="flex flex-row items-center gap-2 justify-center bg-[#C0D9FF] p-1 rounded items-center justify-center">
-              <div className="bg-[#C0D9FF] text-[#01337C] text-sm ">SORT BY</div>
-              <img className="h-6 w-6 " id="filter" src={bluefilter} alt="" />
-            </button>
+          <button onClick={()=>{setShowSortModal(!showSortModal)}}id="sortBy " className="flex flex-row items-center gap-2 justify-center bg-[#C0D9FF] p-1 rounded items-center justify-center">
+                <div className="bg-[#C0D9FF]" >SORT BY</div>
+                <img className="h-6 w-6 " id="filter" src={bluefilter} alt="" />
+              </button>
             <div id="count"></div>
           </div>
         </header>
@@ -78,6 +117,46 @@ useEffect(()=>{
           </>
         </div>
       </div>
+
+      {showSortModal && (
+        <div className="w-[35rem] min-h-[10rem] bg-neutral-100 absolute top-[10rem] right-[2rem] rounded shadow-lg">
+          <div className="font-semibold m-4 text-xl font-serif">Sorting</div>
+          <div className="flex flex-row justify-center h-full gap-10">
+            <form className="max-w-sm ">
+              <select
+                value={sortCategory}
+                onChange={(e) => setSortCategory(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="">Choose a category</option>
+                <option value="buildings">Building Name</option>
+                <option value="units">Units</option>
+                <option value="devices">Devices</option>
+              </select>
+            </form>
+            <form className="max-w-sm ">
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="">Choose sorting order</option>
+                <option value="Ascending">Ascending</option>
+                <option value="Descending">Descending</option>
+              </select>
+              <button></button>
+            </form>
+          </div>
+          <div className="flex flex-row gap-2 absolute bottom-1 right-1 m-2">
+            <button onClick={SortData} className="h-8 w-14 bg-blue-700 text-neutral-100 rounded">
+              Apply
+            </button>
+            <button onClick={() => setShowSortModal(false)} className="bg-red-400 rounded h-8 w-14 text-neutral-100">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }

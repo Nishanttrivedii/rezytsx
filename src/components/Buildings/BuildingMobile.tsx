@@ -16,7 +16,7 @@ const BuildingMobile = () => {
 
   const [data,setData] =useState([])
   async function getData(){
-    const response= await axios.get("http://localhost:8080/building/list")
+    const response= await axios.get("http://localhost:8080/property/1/building/list")
     setData (response.data);
   }
   

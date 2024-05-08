@@ -52,7 +52,7 @@ function App() {
           <Route path="/unitmoreinfo" element={<UnitMoreInfo />} />
           {isLargeScreen ? <Route path="/tenant" element={<TenantList />} /> : <Route path="/tenant" element={<TenantMobile />} />}
           {isLargeScreen ? <Route path="/buildings" element={<Building />} /> : <Route path="/buildings" element={<BuildingMobile />} />}
-
+          {/* <Route path="/buildings/:propertyId" */}
 
 
 

@@ -49,13 +49,37 @@ export default function Navbar() {
             <img src={PropertyImage} alt="icon" style={{ height: "20px", width: "20px", marginRight: "5px" }} />
             <div color="lightgray" style={{ fontWeight: 500 }}>Properties</div>
             <Typography color="white" sx={{ mx: 0.5 }}>&gt;</Typography>
-            <div color="lightgray" style={{ fontWeight: 500 }}>Property Name</div>
-            <Typography color="white" sx={{ mx: 0.5 }}>&gt;</Typography>
+
+  <div color="lightgray" style={{ fontWeight: 500 }}>Property Name</div>
+
+        <Typography color="white" sx={{ mx: 0.5 }}>&gt;</Typography>
             {
               currentRoute =="/buildings" &&
           
                <>
               <div color="lightgray" style={{ fontWeight: 500 }}>Buildings</div></>
+              
+            }
+             {
+              currentRoute =="/unit" &&
+          
+               <>
+              <div color="lightgray" style={{ fontWeight: 500 }}>Building x</div>
+              <Typography color="white" sx={{ mx: 0.5 }}>&gt;</Typography>
+              <div color="lightgray" style={{ fontWeight: 500 }}>Unit x</div>
+
+              </>
+              
+            }
+
+{
+              currentRoute =="/tenant" &&
+          
+               <>
+              <div color="lightgray" style={{ fontWeight: 500 }}>Tenants</div>
+              
+
+              </>
               
             }
           </Box>

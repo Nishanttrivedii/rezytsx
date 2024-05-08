@@ -6,8 +6,10 @@ import ActiveAlerts from './ActiveAlerts/ActiveAlerts';
 import OfflineDevices from './OfflineDevices/OfflineDevices';
 import InstalledDevices from './InstalledDevices/InstalledDevices';
 import PropertyInfo from './PropertyInfo/PropertyInfo';
-
+import { useState } from "react";
 const Home = () => {
+
+  const [propertyId,setPropertyId]=useState('1')
   return (
     <>
       <div id="mainContainer" className="bg-[#D8DFEA] flex flex-row gap-4 relative top-[6rem]">
@@ -20,10 +22,10 @@ const Home = () => {
           <FootageContainer />
         </div>
         <div id="rightContainer" className="w-[25rem] bg-[#EDF1F7] flex flex-col gap-4 ">
-          <ActiveAlerts />
-          <OfflineDevices />
-          <InstalledDevices />
-          <PropertyInfo />
+          <ActiveAlerts propertyId={propertyId} />
+          <OfflineDevices propertyId={propertyId} />
+          <InstalledDevices propertyId={propertyId} />
+          <PropertyInfo propertyId={propertyId} />
         </div>
       </div>
     </>

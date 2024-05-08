@@ -6,7 +6,21 @@ import drop from "../../assets/drop.png"
 import Alerts from './Alerts.js'
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
+import { useState,useEffect } from 'react'
+import axios from 'axios'
 const ActiveAlerts = () => {
+const [data,setData]=useState([])
+  async function getData() {
+    try {
+      const response = await axios.get("http://localhost:8080/device/active-alert");
+      console.log(response.data)
+      setData(response.data); 
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  }
+
+  useEffect(()=>{getData()},[])
   const {isLargeScreen } = useSelector((state: RootState) => state.screenSize);
 
     const iconMapping = {
@@ -18,26 +32,40 @@ const ActiveAlerts = () => {
         arrow: arrow,
         yellowarrow: yellowarrow,
     };
+
+
   return (
   <>
 <div className={`${isLargeScreen ? 'm-4' : 'm-2'}`}>
 <div className='w-[100%] h-[2rem] bg-[#01337C] text-white  font-[inter] font-small text-[18px] rounded flex items-center '>Active Alerts</div>
-  <ul>
-  {Alerts.map((alert) => (
-    <li key={alert.issue}  className={`w-[100%] h-[3rem] bg-[${alert.bg}] mt-2 items-center flex rounded justify-between`} style={{backgroundColor:alert.bg}} >
-        <div className='flex flex-row gap-2 ml-2 order-1'>
-        <img className="h-6 w-6" src={iconMapping[alert.im]} alt="" /> 
-                   <div  style={{color:alert.text}}>{alert.issue}</div>
-        </div>
-        <div className='order-2 mr-2 flex flex-row gap-1' style={{color:alert.text}}>
-            <div>Building {alert.building} - Unit {alert.unit}</div>
-            <img className="h-6 w-6" src={imageMapping[alert.imm]} alt="" /> 
-        </div>
-    </li>
-))}
+<ul>
+      {data.map((alert) => {
+        let backgroundColor = 'white'; // Initialize background color variable
 
-   
-  </ul>
+        // Check the value of alert.name and set the background color accordingly
+        if (alert.name === 'Fire Alarm') {
+          backgroundColor = '#FFC7C4';
+         
+        } else if (alert.name === 'Leak') {
+          backgroundColor = '#FFEFD7';
+        }
+
+        return (
+          <li key={alert.name} className={`w-[100%] h-[3rem] mt-2 items-center flex rounded justify-between`} style={{ backgroundColor }}>
+            <div className='flex flex-row gap-2 ml-2 order-1'>
+            <img className="h-6 w-6" src={alert.name === 'Fire Alarm' ? fire : alert.name === 'Leak' ? drop : ''} alt="" />
+
+            <div style={{ color: alert.name === 'Fire Alarm' ? '#F05348' : alert.name === 'Leak' ? '#FF9900' : 'black' }}>
+                {alert.name}</div>
+            </div>
+            <div className='order-2 mr-2 flex flex-row gap-1' style={{ color: '#F05348 '}}>
+              <div>Building {alert.buildingId} - Unit {alert.unitId}</div>
+              <img className="h-6 w-6" src={alert.name === 'Fire Alarm' ? arrow : yellowarrow} alt="" /> 
+            </div>
+          </li>
+        );
+      })}
+    </ul>
 </div>
   </>
   )

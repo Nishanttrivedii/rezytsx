@@ -87,11 +87,14 @@ const generateLabels = (interval) => {
     plugins: {
       legend: {
         position: 'top',
-        align: 'end',
+        align:'end',
+       
         labels: {
           boxWidth: 20, 
           boxHeight: 20, 
+         
         },
+        
       },
       title: {
         display: isLargeScreen ? true :false,
@@ -99,6 +102,8 @@ const generateLabels = (interval) => {
         position: 'top',
         align: 'start',
         color: '#01337C',
+      
+      
       },
       backgroundColor: '#ffff',
     },
@@ -170,18 +175,35 @@ const generateLabels = (interval) => {
     
 </div>  
      }   
+   <div className='bg-[white]'>
+  {
+    isLargeScreen &&
+    <Select 
+    value={interval}
+    onChange={(e) => handleIntervalChange(e.target.value)}
+    variant="outlined"
+    style={{
+      marginLeft: '16px',
+      position: 'relative',
+      color:'#01337C',
+      top: '69px',
+      right: '267px',
+      zIndex: '99999',
+      float: 'right',
+      height:'29px',
+      background: 'linear-gradient(90deg, rgba(22, 109, 236, 0.3), rgba(10, 89, 203, 0.3), rgba(6, 94, 220, 0.3))'
+    }}
+          >
+    <MenuItem value="weekly">Weekly</MenuItem>
+    <MenuItem value="monthly">Monthly</MenuItem>
+    <MenuItem value="ye   arly">Yearly</MenuItem>
+  </Select>
+  }
          <Bar style={{ backgroundColor: '#FFFF' }} options={options} data={data} />
+   </div>
+        
       </div>
-      {/* <Select
-        value={interval}
-        onChange={(e) => handleIntervalChange(e.target.value)}
-        variant="outlined"
-        style={{ marginLeft: '16px', position: 'relative', top: '0', right: '0' }}
-      >
-        <MenuItem value="weekly">Weekly</MenuItem>
-        <MenuItem value="monthly">Monthly</MenuItem>
-        <MenuItem value="ye   arly">Yearly</MenuItem>
-      </Select> */}
+    
     </div>
   );
 }

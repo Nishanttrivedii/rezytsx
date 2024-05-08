@@ -1,6 +1,5 @@
   import tenant from "../../assets/tenantwhole.png"
   import bluefilter from "../../assets/bluefilter.png"
-  import tableData from "./TableData";
   import box from "../../assets/box.png"
   import dustbin from "../../assets/dustbin.png"
   import beldon from "../../assets/belldon.png"
@@ -34,7 +33,6 @@
       try {
         const response = await axios.get("http://localhost:8080/tenant/");
         console.log(response.data)
-        debugger
         setData(response.data); 
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -43,7 +41,6 @@
     const handleDelete = async (id: number) => {
       try {
         await axios.delete(`http://localhost:8080/tenant/${id}`);
-        debugger
         const updatedData = data.filter((item) => item.id !== id);
         setData(updatedData);
       } catch (error) {
