@@ -7,14 +7,13 @@
   import divide from "../../assets/break.png"
   import { useEffect, useState } from "react";
   import axios from 'axios';
-import { useParams } from "react-router-dom"
+
   const TenantList = () => {
 
   const [data,setData]=useState([]);
   const [showSortModal,setShowSortModal]=useState(false);
   const [sortCategory, setSortCategory] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-  const {propertyId}=useParams();
     interface Header {
       name: string;
     }
@@ -32,8 +31,8 @@ import { useParams } from "react-router-dom"
        
     async function getData() {
       try {
-        const response = await axios.get(`http://localhost:8080/tenant/property/${propertyId}`);
-      
+        const response = await axios.get("http://localhost:8080/tenant/");
+        console.log(response.data)
         setData(response.data); 
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -94,7 +93,7 @@ import { useParams } from "react-router-dom"
       }
       setShowSortModal(false);
     }
-     
+    
   
 
 

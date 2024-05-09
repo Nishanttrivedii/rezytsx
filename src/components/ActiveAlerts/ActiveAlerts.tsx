@@ -1,26 +1,37 @@
-
+import React from 'react'
 import fire from "../../assets/fire.png"
 import arrow from "../../assets/icon.png"
 import yellowarrow from "../../assets/yellow.png"
 import drop from "../../assets/drop.png"
+import Alerts from './Alerts.js'
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { useState,useEffect } from 'react'
 import axios from 'axios'
-const ActiveAlerts = ({propertyId}) => {
+const ActiveAlerts = () => {
 const [data,setData]=useState([])
   async function getData() {
     try {
-      const response = await axios.get(`http://localhost:8080/device/active-alert/property/${propertyId}`);
-     
+      const response = await axios.get("http://localhost:8080/device/active-alert");
+      console.log(response.data)
       setData(response.data); 
     } catch (error) {
-      console.log(error)
+      console.error("Error fetching data:", error.message);
     }
   }
 
   useEffect(()=>{getData()},[])
   const {isLargeScreen } = useSelector((state: RootState) => state.screenSize);
+
+    const iconMapping = {
+        fire: fire,
+        drop: drop,
+    };
+
+    const imageMapping = {
+        arrow: arrow,
+        yellowarrow: yellowarrow,
+    };
 
 
   return (

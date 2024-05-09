@@ -3,18 +3,14 @@ import InstalledDevicesUnitwise from './InstalledDevicesUnitwise';
 import UnitInfo from './UnitInfo';
 import Sensors from './Sensors';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 const Unit = () => {
   const [unitData,setUnitData]=useState([]);
-  const { unitId } = useParams();
 
   async function getUnitData(){
-   
-    
-    const response = await axios.get(`http://localhost:8080/unit/info/${unitId}`);   
+   const response = await axios.get("http://localhost:8080/unit/info/1");
    setUnitData(response.data);
-  
+   debugger
   }
 
 

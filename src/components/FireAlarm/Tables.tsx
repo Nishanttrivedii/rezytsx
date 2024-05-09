@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import { Accordion, AccordionSummary, Typography } from "@mui/material";
-import batteryImg from "../../assets/images/Battery.png";
-import RedTempImg from "../../assets/images/image5.png";
-import TempImage from "../../assets/images/image3.png";
-import DropImage from "../../assets/images/image4.png";
+import batteryImg from "../../assets/thumbnail.png";
+import RedTempImg from "../../assets/thumbnail.png";
+import TempImage from "../../assets/thumbnail.png";
+import DropImage from "../../assets/drop.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
 
 interface DeviceInfo {
   id: number;
@@ -25,16 +22,17 @@ interface DeviceInfo {
 
 function Tables() {
   const [data, setData] = useState<DeviceInfo[] | null>(null);
-  const { isSmallScreen } = useSelector((state: RootState) => state.screenSize);
-  const { propertyId, deviceName } = useParams<{ propertyId: string; deviceName: string }>();
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     async function fetchData() {
       try {
-       
-        const response = await axios.get(`http://localhost:8080/device/${deviceName}/info/property/${propertyId}`)
-        setData(response.data);
-    
+        const response = await axios.get(
+          "http://localhost:8080/device/Fire Alarm/info"
+        );
+        const responseData = response.data;
+        setData(responseData);
+        console.log(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -50,11 +48,13 @@ function Tables() {
   return (
     <div>
       {data.map((item: DeviceInfo) => (
-        <div key={item.id}>
+        <div
+          key={item.id}
+          style={{ marginBottom: "-1.2rem", marginTop: "1.5rem" }}
+        >
           {isSmallScreen ? (
             <div
               style={{
-                marginTop: "1.5rem",
                 marginRight: "-3rem",
                 marginLeft: "1.5rem",
                 display: "flex",
@@ -68,10 +68,9 @@ function Tables() {
             >
               <Typography
                 style={{
-                  fontSize: "large",
                   padding: "0.5rem",
                   fontWeight: "400",
-                  marginLeft: "-1rem",
+                  marginLeft: "-1.3rem",
                 }}
               >
                 <b>ID: {item.id}</b>
@@ -79,6 +78,7 @@ function Tables() {
 
               <div
                 style={{
+                  marginRight: "-1rem",
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "0.5rem",
@@ -89,16 +89,16 @@ function Tables() {
                     marginLeft: "-1rem",
                     borderRadius: "4px",
                     padding: "0.5rem",
-                    paddingRight: "2rem",
+                    paddingRight: "0rem",
                     fontWeight: "400",
-                    backgroundColor: "var(--Shades-25, #EDF1F7)"
+                    backgroundColor: "var(--Shades-25, #EDF1F7)",
+                    width: "calc(59% - 0.375rem)",
                   }}
                 >
                   {item.propertyName}
                 </Typography>
                 <Typography
                   style={{
-                    marginRight: "-1rem",
                     borderRadius: "4px",
                     padding: "0.5rem",
                     paddingRight: "0rem",
@@ -114,11 +114,10 @@ function Tables() {
               </div>
               <Typography
                 style={{
-                  height: "40px",
-                  width: "314px",
                   marginLeft: "-1rem",
+                  marginRight: "-1rem",
                   borderRadius: "4px",
-                  padding: "8px",
+                  padding: "0.5rem",
                   fontWeight: "400",
                   backgroundColor: "var(--Shades-25, #EDF1F7)",
                   marginBottom: "0.5rem",
@@ -160,20 +159,21 @@ function Tables() {
                       }}
                     >
                       <Typography style={{ fontSize: "large" }}>
-                        <span> Temperature: </span>
+                        <span>
+                          Temperature: {item.reading.temperature.split(":")[0]}:{" "}
+                        </span>
                         <span
                           style={{
                             color:
                               parseFloat(
                                 item.reading.temperature.split(":")[1]
-                              ) >= 2
+                              ) <= 25.2
                                 ? "#00C17B"
                                 : "red",
                           }}
                         >
-                          {item.reading.temperature.split(":")[0]}{" "}
+                          {item.reading.temperature.split(":")[1]}
                         </span>
-                        <span>{item.reading.temperature.split(":")[1]}</span>
                       </Typography>
                     </div>
                   </div>
@@ -181,23 +181,16 @@ function Tables() {
               </Typography>
               <Typography
                 style={{
-                  height: "40px",
-                  width: "314px",
                   marginLeft: "-1rem",
+                  marginRight: "-1rem",
                   borderRadius: "4px",
-                  padding: "8px",
+                  padding: "0.5rem",
                   fontWeight: "400",
                   backgroundColor: "var(--Shades-25, #EDF1F7)",
                   marginBottom: "0.5rem",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "large",
-                  }}
-                >
+                <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     src={DropImage}
                     alt="Humidity"
@@ -207,18 +200,8 @@ function Tables() {
                       marginRight: "0.5rem",
                     }}
                   />
-                  <span> Humidity: </span>
-                  <Typography
-                    fontSize="large"
-                    sx={{
-                      color:
-                        parseFloat(item.reading.humidity) <= 50
-                          ? "#00C17B"
-                          : "red",
-                      marginRight: "8px",
-                    }}
-                  >
-                    {item.reading.humidity}
+                  <Typography style={{ fontSize: "large" }}>
+                    Humidity: {item.reading.humidity}
                   </Typography>
                 </div>
               </Typography>
@@ -246,12 +229,11 @@ function Tables() {
                           : "#f0f0f0"
                         : "rgb(0, 193, 123,1)"
                     }`,
-                    height: "48px",
-                    padding: "8px",
                     marginRight: "0.5rem",
                     marginLeft: "-1.5rem",
-                    borderRadius: "4px",
-                    width: "228px",
+                    padding: "0.5rem",
+                    borderRadius: "5px",
+                    width: "21rem",
                     color: "white",
                   }}
                 >
@@ -273,12 +255,10 @@ function Tables() {
                         ? "#00C17B"
                         : "rgba(255, 153, 0, 1)"
                     }`,
-                    height: "48px",
-                    padding: "8px",
-                    marginLeft: "8px", 
-                    marginRight: "-1.8rem",
+                    marginRight: "-1.5rem",
+                    padding: "0.5rem",
                     borderRadius: "5px",
-                    width: "228px",
+                    width: "18rem",
                     color: "white",
                   }}
                 >
@@ -289,6 +269,7 @@ function Tables() {
           ) : (
             <Accordion
               style={{
+                height: "-2.5rem",
                 backgroundColor: "white",
                 marginBottom: "2rem",
                 marginLeft: "21px",
@@ -300,8 +281,9 @@ function Tables() {
               <AccordionSummary
                 id="myc"
                 style={{
-                  height: "72px",
-                  marginTop: "1.5rem",
+                  height:"72px",
+                  borderRadius: "0.5rem",
+                  marginTop: "-0.5rem",
                   backgroundColor: "white",
                   display: "flex",
                   justifyContent: "space-between",
@@ -315,20 +297,18 @@ function Tables() {
                     <tr>
                       <th
                         style={{
-                          // padding: "0.5rem",
+                          padding: "0.5rem",
                           fontWeight: "400",
-                          textAlign: "left",
-                          // width: "7%",
-                          width: "200px",
+                          textAlign: "right",
                         }}
                       >
                         {item.id}
                       </th>
                       <th
                         style={{
+                          padding: "0.5rem 2rem 0.5rem 0.5rem", // Adjust padding-right for more space
                           fontWeight: "400",
-                          textAlign: "left",
-                          width: "373px",
+                          textAlign: "right",
                         }}
                       >
                         {item.propertyName}
@@ -336,9 +316,9 @@ function Tables() {
 
                       <th
                         style={{
+                          padding: "0.5rem 9rem 0.5rem 4.5rem",
                           fontWeight: "400",
-                          textAlign: "left",
-                          width: "201px",
+                          textAlign: "right",
                         }}
                       >
                         {new Date(item.installedDate).toLocaleDateString()}
@@ -346,14 +326,16 @@ function Tables() {
 
                       <th
                         style={{
-                          textAlign: "left",
-                          width: "358px",
+                          padding: "0.5rem",
+                          fontWeight: "400",
+                          textAlign: "right",
                         }}
                       >
                         <div
                           style={{
                             display: "flex",
-                            alignItems: "left",
+                            alignItems: "center",
+                            justifyContent: "center",
                           }}
                         >
                           <div
@@ -364,7 +346,6 @@ function Tables() {
                                 ) <= 25.2
                                   ? "#f0f0f0"
                                   : "#f0f0f0",
-
                               borderRadius: "5px",
                               padding: "0.5rem",
                               marginRight: "0.5rem",
@@ -432,14 +413,15 @@ function Tables() {
 
                       <th
                         style={{
-                          textAlign: "left",
-                          width: "358px",
+                          padding: "0.5rem",
+                          fontWeight: "400",
+                          textAlign: "right",
                         }}
                       >
                         <div
                           style={{
                             display: "flex",
-                            justifyContent: "end",
+                            justifyContent: "center",
                             fontSize: "10px",
                             color: "white",
                           }}

@@ -8,13 +8,13 @@ interface KPIData {
   PROJECTION: string | number;
 }
 
-const KPI = ({propertyId}) => {
+const KPI = () => {
   const [kpidata, setKpiData] = useState<KPIData[]>([]);
 
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`http://localhost:8080/kpi/property/${propertyId}`);
+        const response = await axios.get("http://localhost:8080/kpi");
         const mappedData: KPIData[] = response.data.flatMap((item) => [
           {
             KPI: 'Gallons',

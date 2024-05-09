@@ -5,10 +5,6 @@ import { CategoryScale, Chart } from "chart.js";
 import { registerables } from 'chart.js';
 import { MenuItem, Select } from '@mui/material';
 import { useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { RootState } from '../../store'; // Import RootState if not already imported
-import { useSelector } from 'react-redux';
 import "./c9.css"
 Chart.register(...registerables);
 Chart.register(CategoryScale);
@@ -73,11 +69,11 @@ const options = {
 // Function to generate labels based on interval
 const generateLabels = (interval) => {
   switch (interval) {
-    case 'week':
+    case 'weekly':
       return ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    case 'month':
+    case 'monthly':
       return ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-    case 'year':
+    case 'yearly':
       return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     default:
       return [];
@@ -85,11 +81,8 @@ const generateLabels = (interval) => {
 };
 
 export default function WaterUsageUnitWise() {
-  const [apiData, setApiData] = useState([]);
-  const { isLargeScreen } = useSelector((state: RootState) => state.screenSize);
-  const { propertyId } = useParams();
-  const [interval, setInterval] = useState('week');
   const chartRef = useRef(null);
+  const [interval, setInterval] = useState('weekly');
   const labels = generateLabels(interval);
   const createLinearGradient = (context) => {
     const ctx = context.chart.ctx;
@@ -103,30 +96,24 @@ export default function WaterUsageUnitWise() {
 
   const data = {
     labels,
-    datasets: apiData.map((entry, index) => ({
-      label: `${index==0 ? "Estimated Usage" :" Current Usage"}`,
-      data: entry[interval],
-      backgroundColor: createLinearGradient,
-      barThickness: 25,
-      borderWidth: 4, 
-      borderRadius: 8,
-      borderColor: '#ffff', 
-    })),
+    datasets: [
+      {
+        label: 'Estimated Usages',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 500 })),
+        backgroundColor: createLinearGradient,
+        barThickness: 25,
+        borderWidth: 4, // Set border width
+        borderRadius: 8,
+        borderColor: '#ffff', 
+        
+        
+      },
+     
+    ],
   };
-  
-  async function getData(interval) {
-    try {
-      const response = await axios.get(`http://localhost:8080/graph/${interval}/property/1`);
-      debugger
-      setApiData(response.data);
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    }
-  }
 
-  useEffect(() => {
-    getData(interval);
-  }, [interval]);
+
+
 
   
 
@@ -144,34 +131,20 @@ export default function WaterUsageUnitWise() {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-    <div className='bg-[white] w-[100%] p-2 '>
-    {
-            isLargeScreen &&
-            <Select
-              value={interval}
-              onChange={(e) => handleIntervalChange(e.target.value)}
-              variant="outlined"
-              style={{
-                marginLeft: '16px',
-                position: 'relative',
-                color: '#01337C',
-                top: '44px',
-                right: '0',
-                zIndex: '99999',
-                float: 'right',
-                height: '29px',
-                background: 'linear-gradient(90deg, rgba(22, 109, 236, 0.3), rgba(10, 89, 203, 0.3), rgba(6, 94, 220, 0.3))'
-              }}
-            >
-              <MenuItem value="week">Weekly</MenuItem>
-              <MenuItem value="month">Monthly</MenuItem>
-              <MenuItem value="year">Yearly</MenuItem>
-            </Select>
-          }
+    <div className='w-[100%] p-2 '>
     <Bar ref={chartRef} style={{ backgroundColor: '#FFFF'}} options={options} data={data} />
     
     </div>
-   
+    {/* <Select
+        value={interval}
+        onChange={(e) => handleIntervalChange(e.target.value)}
+        variant="outlined"
+        style={{ marginLeft: '16px',position:"relative",top:'0',right:"0" }}
+      >
+        <MenuItem value="weekly">Weekly</MenuItem>
+        <MenuItem value="monthly">Monthly</MenuItem>
+        <MenuItem value="yearly">Yearly</MenuItem>
+      </Select> */}
     
     </div>
   );

@@ -1,8 +1,7 @@
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, Toolbar} from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from "@mui/material/styles"; 
 
 const useStyles = makeStyles(() => ({
   appBar: {
@@ -17,50 +16,49 @@ const useStyles = makeStyles(() => ({
       "linear-gradient(182.98deg, #01337C 28.19%, #013A8C 28.2%, #013A8C 96.59%, #00C17B 119.39%)",
   },
   heading: {
-    fontWeight: "400",
+    fontWeight:"400",
     color: "white",
+    // fontSize: "0.9rem",
+    padding: "0.5rem",
     textAlign: "left",
-    position: "sticky",
-    top: "0",
-    zIndex: "999",
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
   },
 }));
 
 function Header() {
   const classes = useStyles();
-  const theme = useTheme();
-  const { isSmallScreen } = useSelector((state: RootState) => state.screenSize);
+  const theme = useTheme(); 
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg')); 
 
   if (isSmallScreen) {
-    return null;
+    return null; 
   }
 
   return (
-    <AppBar
-      position="static"
-      className={classes.appBar}
-      style={{ width: "98%" }}
-    >
-      <Toolbar style={{ alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100%", }}>
+    <AppBar position="static" className={classes.appBar} style={{ marginLeft: '1rem',
+      width: '100%', height:"3.5rem" }}>
+      <Toolbar style={{ display: "flex", marginBottom: "2rem" }}>
         <table style={{ width: "100%" }}>
           <thead>
-            <tr style={{justifyContent: "center"}}>
-              <th style={{  width: "106px" }} className={classes.heading}>
+            <tr>
+              <th style={{ padding: "0.5rem" }} colSpan={2}></th>
+              <th style={{ width: "14%" }} className={classes.heading}>
                 UNIT
               </th>
-              <th style={{  width: "170px" }} className={classes.heading}>
+              <th style={{ width: "26%" }} className={classes.heading}>
                 DEVICES
               </th>
-              <th style={{  width: "201px" }} className={classes.heading}>
+
+              <th style={{ padding: "0.5rem" }} colSpan={2}></th>
+              <th style={{ width: "28%" }} className={classes.heading}>
                 INSTALLED DATE
               </th>
-              <th style={{  width: "113px" }} className={classes.heading}>
+              <th style={{ width: "27%" }} className={classes.heading}>
                 READINGS
               </th>
-              <th style={{width: "281px", textAlign: "right" }} className={classes.heading}>
-                TENANT NAME
+              <th style={{ width: "1%" }} className={classes.heading}>
+                TENANT
               </th>
             </tr>
           </thead>
@@ -71,3 +69,4 @@ function Header() {
 }
 
 export default Header;
+

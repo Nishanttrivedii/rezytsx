@@ -1,16 +1,12 @@
 import Sensors from "./Sensors"
 import { useState,useEffect } from "react";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
-
 const MobileUnit = () => {
   const [unitData,setUnitData]=useState([]);
-  const {buildingId} =useParams()
-  
+
   async function getUnitData(){
-    const response = await axios.get(`http://localhost:8080/unit/info/${buildingId}`);
-    debugger
-    setUnitData(response.data);
+   const response = await axios.get("http://localhost:8080/unit/info/1");
+   setUnitData(response.data);
    
   }
 

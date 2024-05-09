@@ -19,7 +19,6 @@ import Building from './components/Buildings/Buildings';
 import BuildingMobile from './components/Buildings/BuildingMobile';
 import BuilNav from './components/Building/BuilNav';
 import FireAlarm from './components/FireAlarm/FireAlarm';
-import { URLParamsProvider } from './UrlParamsContext';
 function App() {
   const { isLargeScreen } = useSelector((state: RootState) => state.screenSize);
   const dispatch = useDispatch();
@@ -45,20 +44,19 @@ function App() {
   return (
     <>
 
-<URLParamsProvider>
+
       <BrowserRouter>
         {isLargeScreen ? <Navbar /> : <MobileNavbar />}
         <Routes>
           {isLargeScreen ? <Route path="/" element={<Home />} /> : <Route path="/" element={<MobileHome />} />}
-          {isLargeScreen ? <Route path="/unit/:unitId" element={<Unit />} /> : <Route path="/unit/:unitId" element={<MobileUnit />} />}
+          {isLargeScreen ? <Route path="/unit" element={<Unit />} /> : <Route path="/unit" element={<MobileUnit />} />}
           <Route path="/homemoreinfo" element={<HomeMoreInfo />} />
           <Route path="/unitmoreinfo" element={<UnitMoreInfo />} />
-          {isLargeScreen ? <Route path="/tenant/:propertyId" element={<TenantList />} /> : <Route path="/homemoreinfo/tenant/:propertyId" element={<TenantMobile />} />}
-          {isLargeScreen ? <Route path="/buildings/:propertyId" element={<Building />} /> : <Route path="homemoreinfo/buildings/:propertyId" element={<BuildingMobile />} />}
+          {isLargeScreen ? <Route path="/tenant" element={<TenantList />} /> : <Route path="/tenant" element={<TenantMobile />} />}
+          {isLargeScreen ? <Route path="/buildings" element={<Building />} /> : <Route path="/buildings" element={<BuildingMobile />} />}
           {/* <Route path="/buildings/:propertyId" */}
-          
           <Route path="/building/:buildingId" element={<BuilNav />} />
-          <Route path="/device/:deviceName/info/property/:propertyId" element={<FireAlarm />}></Route>
+          <Route path="/firealarm" element={<FireAlarm />}></Route>
 
 
 
@@ -66,7 +64,6 @@ function App() {
         {isLargeScreen ? "" : <MobileFooter />}
 
       </BrowserRouter>
-      </URLParamsProvider>
 
     </>
   );
