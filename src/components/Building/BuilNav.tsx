@@ -13,7 +13,6 @@ import BuilHeader from "./BuilHeader";
 import BuilTables from "./BuilTables";
 import { sampleData } from "./BuilData";
 import FilterIcon from "../../assets/filterIcon.png";
-// import useMediaQuery from "@mui/material/useMediaQuery";
 import PropertyImg from "../../assets/bluebuil.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store.ts";
@@ -23,7 +22,6 @@ const useStyles = makeStyles(() => ({
   appBar: {
     marginTop: "3rem",
     backgroundColor: "white",
-    // width: "99%",
     margin: "0 1rem",
     marginLeft: "1rem",
     boxShadow: "none",
@@ -45,7 +43,6 @@ const useStyles = makeStyles(() => ({
   content: {
     marginLeft: "1rem",
     marginRight: "1rem",
-    // minHeight: "calc(100vh - 4rem)",
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
@@ -87,11 +84,6 @@ function BuilNav() {
         dataItem.READINGS[0].REDETAIL.split(":")[1].trim();
       return parseInt(temperatureString);
     }
-
-    function getStatusDetail(dataItem: any): string {
-      return dataItem.STATUS[0].STDETAIL;
-    }
-
     if (sortCategory === "UNIT") {
       sortedData.sort((a: any, b: any) =>
         sortOrder === "Ascending"

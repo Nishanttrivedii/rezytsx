@@ -4,7 +4,6 @@ import batteryImg from "../../assets/Battery.png";
 import RedTempImg from "../../assets/image5.png";
 import TempImage from "../../assets/image3.png";
 import DropImage from "../../assets/image4.png";
-// import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -79,7 +78,6 @@ function Tables() {
 
               <div
                 style={{
-                  // marginRight: "-1rem",
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "0.5rem",
@@ -92,8 +90,7 @@ function Tables() {
                     padding: "0.5rem",
                     paddingRight: "2rem",
                     fontWeight: "400",
-                    backgroundColor: "var(--Shades-25, #EDF1F7)",
-                    // width: "calc(59% - 0.375rem)",
+                    backgroundColor: "var(--Shades-25, #EDF1F7)"
                   }}
                 >
                   {item.propertyName}
@@ -328,10 +325,8 @@ function Tables() {
                       </th>
                       <th
                         style={{
-                          // padding: "0.5rem 2rem 0.5rem 0.5rem",
                           fontWeight: "400",
                           textAlign: "left",
-                          // width: "21%",
                           width: "373px",
                         }}
                       >
@@ -340,7 +335,6 @@ function Tables() {
 
                       <th
                         style={{
-                          // padding: "0.5rem 9rem 0.5rem 4.5rem",
                           fontWeight: "400",
                           textAlign: "left",
                           width: "201px",
@@ -351,9 +345,6 @@ function Tables() {
 
                       <th
                         style={{
-                          // whiteSpace:"nowrap",
-                          // padding: "0.5rem",
-                          // fontWeight: "400",
                           textAlign: "left",
                           width: "358px",
                         }}
@@ -362,8 +353,6 @@ function Tables() {
                           style={{
                             display: "flex",
                             alignItems: "left",
-                            // justifyContent: "center",
-                            // width:"100%"
                           }}
                         >
                           <div
@@ -442,8 +431,6 @@ function Tables() {
 
                       <th
                         style={{
-                          // padding: "0.5rem",
-                          // fontWeight: "400",
                           textAlign: "left",
                           width: "358px",
                         }}

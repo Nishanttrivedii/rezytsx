@@ -3,13 +3,9 @@ import axios from "axios";
 import { Accordion, AccordionSummary } from "@mui/material";
 import RightArrow from "../../assets/rightarrowsmokep.png";
 import Tempside from "../../assets/tempside.png";
-// import RedTempImg from "../../assets/image5.png";
 import TempImage from "../../assets/image3.png";
 import DropImage from "../../assets/image4.png";
-// import MobileImg from "../../assets/mobile.png";
-// import DDectorImage from "../../assets/smokedtec.png";
 import DTempImage from "../../assets/tempdtec.png";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -331,8 +327,8 @@ function BuilTables() {
                                 alt="Device Image"
                                 style={{
                                   marginRight: "-1.5rem",
-                                  width: "24px", // Adjust width as needed
-                                  height: "15px", // Adjust height as needed
+                                  width: "24px", 
+                                  height: "15px", 
                                 }}
                               />
                               <img
@@ -340,8 +336,8 @@ function BuilTables() {
                                 alt="Device Image"
                                 style={{
                                   marginRight: "0.5rem",
-                                  width: "24px", // Adjust width as needed
-                                  height: "24px", // Adjust height as needed
+                                  width: "24px", 
+                                  height: "24px", 
                                 }}
                               />
 
@@ -351,7 +347,6 @@ function BuilTables() {
 
                           <th
                             style={{
-                              // padding: "0.5rem 9rem 0.5rem 4.5rem",
                               fontWeight: "400",
                               textAlign: "left",
                               width: "400px",
@@ -363,9 +358,6 @@ function BuilTables() {
                           </th>
                           <th
                             style={{
-                              // whiteSpace:"nowrap",
-                              // padding: "0.5rem",
-                              // fontWeight: "400",
                               textAlign: "left",
                               width: "358px",
                             }}
@@ -374,8 +366,6 @@ function BuilTables() {
                               style={{
                                 display: "flex",
                                 alignItems: "left",
-                                // justifyContent: "center",
-                                // width:"100%"
                               }}
                             >
                               {device.reading?.temperature && (
@@ -442,7 +432,6 @@ function BuilTables() {
                           </th>
                           <th
                             style={{
-                              // padding: "0.5rem",
                                fontWeight: "400",
                               textAlign: "right",
                               width: "322px",
@@ -476,6 +465,3 @@ function BuilTables() {
 }
 
 export default BuilTables;
-
-
-// 

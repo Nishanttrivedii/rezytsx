@@ -1,6 +1,5 @@
 import { AppBar, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-// import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
