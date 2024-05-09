@@ -11,20 +11,36 @@ import filterImg from "../assets/filter.png";
 import { Button } from "@mui/material";
 import PropertyImage from "../assets/property.png";
 import { useLocation } from 'react-router-dom';
-
+import { useParams } from "react-router-dom";
+import { useURLParams } from "../UrlParamsContext"; 
 
 
 export default function Navbar() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const location = useLocation();
-
+  const { propertyId } = useParams();
+ 
   const [currentRoute, setCurrentRoute] = useState(location.pathname);
+  const regex = /(\d+)/;
+const matches =currentRoute.match(regex)
+let id=1;
+if (matches) {
+   id = parseInt(matches[0]); 
+  console.log(id); 
+} 
+
+ 
 
   useEffect(() => {
     setCurrentRoute(location.pathname);
-
+  
+  
   }, [location.pathname])
 
+  useEffect(() => {
+  console.log(propertyId)
+  debugger
+  }, [propertyId])
 
 
   useEffect(() => {
@@ -54,26 +70,26 @@ export default function Navbar() {
 
         <Typography color="white" sx={{ mx: 0.5 }}>&gt;</Typography>
             {
-              currentRoute =="/buildings" &&
+              currentRoute ==`/buildings/${id}` &&
           
                <>
               <div color="lightgray" style={{ fontWeight: 500 }}>Buildings</div></>
               
             }
              {
-              currentRoute =="/unit" &&
+              currentRoute ==`/unit/${id}` &&
           
                <>
-              <div color="lightgray" style={{ fontWeight: 500 }}>Building x</div>
+              <div color="lightgray" style={{ fontWeight: 500 }}>Building {id}</div>
               <Typography color="white" sx={{ mx: 0.5 }}>&gt;</Typography>
-              <div color="lightgray" style={{ fontWeight: 500 }}>Unit x</div>
+              <div color="lightgray" style={{ fontWeight: 500 }}>Unit {id}</div>
 
               </>
               
             }
 
 {
-              currentRoute =="/tenant" &&
+              currentRoute ==`/tenant/${id}` &&
           
                <>
               <div color="lightgray" style={{ fontWeight: 500 }}>Tenants</div>

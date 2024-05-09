@@ -13,8 +13,9 @@ import thumbnail from "../../assets/thumbnail.png"
 import back from "../../assets/back.png"
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { useParams } from 'react-router-dom';
 const Sensors = ({unitData}) => {
-
+const {unitId}=useParams();
     const {isLargeScreen } = useSelector((state: RootState) => state.screenSize);
 
     const sensormapping={
@@ -24,7 +25,7 @@ const Sensors = ({unitData}) => {
     return (
         <>
       {isLargeScreen && <div className='flex flex-row items-center gap-2'> <button><img src={back} className='h-6 w-6' alt="" /></button>
-      <div className=''>  Unit 02</div></div>}
+      <div className=''>  Unit {unitId}</div></div>}
 
         <ul className='gap-[2rem] flex flex-col p-4'>
     

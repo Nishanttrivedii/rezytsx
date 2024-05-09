@@ -6,11 +6,18 @@ import newmsg from "../assets/newmsg.png"
 import newnotification from "../assets/newnotification.png"
 import back from "../assets/whiteback.png"
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const MobileNavbar = () => {
   const location = useLocation();
-
+  const { buildingId } = useParams();
   const [currentRoute, setCurrentRoute] = useState(location.pathname);
-
+  const regex = /(\d+)/;
+  const matches =currentRoute.match(regex)
+  let id=1;
+  if (matches) {
+     id = parseInt(matches[0]); 
+    console.log(id); 
+  } 
   useEffect(() => {
     setCurrentRoute(location.pathname);
 
@@ -28,14 +35,14 @@ const MobileNavbar = () => {
       >
         <div className='flex justify-between items-center h-full px-1'>
 
-          {currentRoute === "/homemoreinfo" ? (
+          {currentRoute === `/homemoreinfo/${id}` ? (
             <div className="flex flex-row gap-2">
               <Link to={"/"}>
                 <button><img className="h-3 w-3" src={back} alt="" /></button>
               </Link>
               <div className='text-white order-1'>More Info</div>
             </div>
-          ) : currentRoute === "/unitmoreinfo" ? (
+          ) : currentRoute ===`/unitmoreinfo/${id}` ? (
             <div className="flex flex-row gap-2">
               <Link to={"unit"}>
                 <button><img className="h-3 w-3" src={back} alt="" /></button>
@@ -49,7 +56,7 @@ const MobileNavbar = () => {
 
 
 
-          {currentRoute == "/" || currentRoute == "/unit"?
+          {currentRoute == "/" || currentRoute == `/unit/${id}`?
             (
               <Link className="order-2 " to={currentRoute === "/" ? "/homemoreinfo" : "/unitmoreinfo"}>
                 <button className='bg-[#FFFFFF] flex flex-row gap-1 rounded items-center '>
@@ -59,7 +66,7 @@ const MobileNavbar = () => {
               </Link>
             )
             :
-            currentRoute == "/homemoreinfo" || currentRoute == "/unitmoreinfo" ?
+            currentRoute == `/homemoreinfo/${id}` || currentRoute == `/unitmoreinfo/${id}` ?
 
               (
                 <></>

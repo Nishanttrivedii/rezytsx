@@ -15,7 +15,7 @@ const OfflineDevices = ({propertyId}) => {
  
   const [data,setData] =useState([])
   async function getData(){
-    const response= await axios.get(`http://localhost:8080/device/offline/${propertyId}`)
+    const response= await axios.get(`http://localhost:8080/device/offline/property/${propertyId}`)
     
     setData (response.data);
   }

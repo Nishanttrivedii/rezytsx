@@ -3,6 +3,7 @@ import bluefilter from "../../assets/bluefilter.png"
 import dust from "../../assets/delete.png"
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { useParams } from "react-router-dom"
 interface Customer {
   name: string;
   role: string;
@@ -12,11 +13,11 @@ interface Customer {
 }
 const TenantMobile = () => {
   const [data, setData] = useState<Customer[]>([]);
-
+  const {propertyId}=useParams();
   async function getData() {
     try {
-      const response = await axios.get<Customer[]>("http://localhost:8080/tenant/");
-      console.log(response.data);
+      const response = await axios.get(`http://localhost:8080/tenant/property/${propertyId}`);
+      
       
       setData(response.data);
     } catch (error) {
