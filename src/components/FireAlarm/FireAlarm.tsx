@@ -153,6 +153,8 @@ function FireAlarm() {
           marginLeft: "1.5rem",
           marginRight: "1.5rem",
           width: "auto",
+          top:'3rem',
+          position:'relative'
         }}
       >
         <Toolbar className={classes.toolbar}>
