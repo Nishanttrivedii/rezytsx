@@ -15,7 +15,7 @@ import PropertyImg from "../../assets/bluebuil.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store.ts";
 import { useEffect, useState } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 interface UnitData {
   id: number;
