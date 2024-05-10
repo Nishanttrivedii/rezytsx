@@ -7,151 +7,49 @@ import {
   IconButton,
 } from "@mui/material";
 import { Sort } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 import FireImage from "../../assets/image2.png";
 import Header from "./Header.tsx";
 import Tables from "./Tables.tsx";
-import { sampleData } from "./Data.tsx";
 import FilterIcon from "../../assets/filterIcon.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store.ts";
 import { useState } from "react";
 
-const useStyles = makeStyles(() => ({
-  appBar: {
-    marginTop: "3rem",
-    backgroundColor: "white",
-    margin: "0 1rem",
-    marginLeft: "1.5rem",
-    marginRight: "1.5rem",
-    boxShadow: "none",
-    borderTopLeftRadius: "0.5rem",
-    borderTopRightRadius: "0.5rem",
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
-  },
-  heading: {
-    display: "flex",
-    alignItems: "center",
-    color: "black",
-  },
-  content: {
-    marginLeft: "1rem",
-    marginRight: "1rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    flexWrap: "wrap",
-  },
-  image: {
-    width: 25,
-    height: "auto",
-    color: "black",
-  },
-  table: {
-    marginLeft: "-6px",
-    flexBasis: "calc(100% - -2rem)",
-    margin: "-0.5rem 0",
-    borderRadius: "0.5rem",
-    marginRight: "1rem",
-  },
-  dataCount: {
-    color: "darkblue",
-    marginLeft: "1rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));
-
 function FireAlarm() {
-  const classes = useStyles();
   const { isSmallScreen } = useSelector((state: RootState) => state.screenSize);
   const [showSortModal, setShowSortModal] = useState(false);
   const [sortCategory, setSortCategory] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-
-  const sortData = () => {
-    let sortedData = [...sampleData];
-
-    function getTemperature(dataItem: any): number {
-      const temperatureString =
-        dataItem.READINGS[0].REDETAIL.split(":")[1].trim();
-      return parseInt(temperatureString);
-    }
-
-    function getStatusDetail(dataItem: any): string {
-      return dataItem.STATUS[0].STDETAIL;
-    }
-
-    if (sortCategory === "DEVICE_ID") {
-      sortedData.sort((a: any, b: any) =>
-        sortOrder === "Ascending"
-          ? a.DEVICE_ID - b.DEVICE_ID
-          : b.DEVICE_ID - a.DEVICE_ID
-      );
-    }
-    if (sortCategory === "PROPERTY") {
-      sortedData.sort((a: any, b: any) => {
-        if (sortOrder === "Ascending") {
-          return a.PROPERTY.localeCompare(b.PROPERTY);
-        } else {
-          return b.PROPERTY.localeCompare(a.PROPERTY);
-        }
-      });
-    } else if (sortCategory === "INSTALLED_DATE") {
-      sortedData.sort((a, b) =>
-        sortOrder === "Ascending"
-          ? new Date(a.INSTALLED_DATE).getTime() - new Date(b.INSTALLED_DATE).getTime()
-          : new Date(b.INSTALLED_DATE).getTime() - new Date(a.INSTALLED_DATE).getTime()
-      );
-    }
-     else if (sortCategory === "READINGS") {
-      sortedData.sort((a: any, b: any) => {
-        const aTemperature = getTemperature(a);
-        const bTemperature = getTemperature(b);
-
-        if (sortOrder === "Ascending") {
-          return aTemperature - bTemperature;
-        } else {
-          return bTemperature - aTemperature;
-        }
-      });
-    }
-
-    if (sortCategory === "STATUS") {
-      sortedData.sort((a: any, b: any) => {
-        const aStatusDetail = getStatusDetail(a);
-        const bStatusDetail = getStatusDetail(b);
-    
-        if (sortOrder === "Ascending") {
-          return aStatusDetail.localeCompare(bStatusDetail);
-        } else {
-          return bStatusDetail.localeCompare(aStatusDetail);
-        }
-      });
-    }
-  };
-
   return (
     <>
       <AppBar
         position="static"
-        className={classes.appBar}
         style={{
           borderRadius: isSmallScreen ? "0.5rem" : "0.5rem 0.5rem 0 0",
           marginLeft: "1.5rem",
           marginRight: "1.5rem",
           width: "auto",
+          backgroundColor: "white",
+          marginTop: "6rem",
+          position: "relative",
+          margin: "70 1rem",
+          boxShadow: "none",
+          borderTopLeftRadius: "0.5rem",
+          borderTopRightRadius: "0.5rem",
         }}
       >
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.heading}>
+        <Toolbar
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+          }}
+        >
+          <div
+            style={{ display: "flex", alignItems: "center", color: "black" }}
+          >
             <svg
               style={{ color: "darkblue", marginRight: "10px" }}
               xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +65,11 @@ function FireAlarm() {
                 d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
               />
             </svg>
-            <img src={FireImage} alt="Your Image" className={classes.image} />
+            <img
+              src={FireImage}
+              alt="Your Image"
+              style={{ width: 25, height: "auto", color: "black" }}
+            />
             <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
               Fire Alarms
             </Typography>
@@ -186,7 +88,7 @@ function FireAlarm() {
             ) : (
               <Badge color="secondary">
                 <Button
-                  onClick={() => setShowSortModal(true)} 
+                  onClick={() => setShowSortModal(true)}
                   style={{
                     backgroundColor: "rgba(192, 217, 255, 1)",
                     color: "darkblue",
@@ -196,11 +98,15 @@ function FireAlarm() {
                   Sort By
                 </Button>
                 <Typography
-                  className={classes.dataCount}
-                  style={{ marginLeft: "0.5rem" }}
-                >
-                  {sampleData.length}
-                </Typography>
+                  style={{
+                    marginLeft: "0.5rem",
+                    color: "darkblue",
+                    // marginLeft: "1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                ></Typography>
               </Badge>
             )}
           </div>
@@ -239,7 +145,7 @@ function FireAlarm() {
           </div>
           <div className="flex flex-row gap-2 absolute bottom-1 right-1 m-2">
             <button
-              onClick={sortData}
+              // onClick={sortData}
               className="h-8 w-14 bg-blue-700 text-neutral-100 rounded"
             >
               Apply
@@ -257,6 +163,7 @@ function FireAlarm() {
       <div
         style={{
           backgroundColor: isSmallScreen ? "" : "#EDF1F7",
+          marginTop:"0.5rem",
           marginLeft: "1.5rem",
           marginRight: "1.5rem",
           overflow: "hidden",
@@ -264,8 +171,25 @@ function FireAlarm() {
         }}
       >
         <Header />
-        <div className={classes.content}>
-          <div className={classes.table}>
+        <div
+          style={{
+            marginLeft: "1rem",
+            marginRight: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
+          }}
+        >
+          <div
+            style={{
+              marginLeft: "-6px",
+              flexBasis: "calc(100% - -2rem)",
+              margin: "-0.5rem 0",
+              borderRadius: "0.5rem",
+              marginRight: "1rem",
+            }}
+          >
             <Tables />
           </div>
         </div>

@@ -7,129 +7,134 @@ import {
   IconButton,
 } from "@mui/material";
 import { Sort } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 import BuilImg from "../../assets/bluebuil.png";
 import BuilHeader from "./BuilHeader";
 import BuilTables from "./BuilTables";
-import { sampleData } from "./BuilData";
 import FilterIcon from "../../assets/filterIcon.png";
 import PropertyImg from "../../assets/bluebuil.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
 
-const useStyles = makeStyles(() => ({
-  appBar: {
-    marginTop: "3rem",
-    backgroundColor: "white",
-    margin: "0 1rem",
-    marginLeft: "1rem",
-    boxShadow: "none",
-    borderTopLeftRadius: "0.5rem",
-    borderTopRightRadius: "0.5rem",
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
-  },
-  heading: {
-    display: "flex",
-    alignItems: "center",
-    color: "black",
-  },
-  content: {
-    marginLeft: "1rem",
-    marginRight: "1rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    flexWrap: "wrap",
-  },
-  image: {
-    width: 25,
-    height: "auto",
-    color: "black",
-  },
-  table: {
-    marginLeft: "-6px",
-    flexBasis: "calc(100% - -2rem)",
-    margin: "-0.5rem 0",
-    borderRadius: "0.5rem",
-    marginRight: "1rem",
-  },
-  dataCount: {
-    color: "darkblue",
-    marginLeft: "1rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));
+interface UnitData {
+  id: number;
+  name: string;
+  installedDate: string;
+  reading: {
+    temperature: string;
+  };
+  tenantName: string;
+}
 
 function BuilNav() {
-  const classes = useStyles();
   const { isSmallScreen } = useSelector((state: RootState) => state.screenSize);
+  const [data, setData] = useState<UnitData[]>([]);
   const [showSortModal, setShowSortModal] = useState(false);
   const [sortCategory, setSortCategory] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get<UnitData[]>(
+        "http://localhost:8080/unit/building/1/list"
+      );
+      setData(response.data);
+    } catch (error: any) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
   const sortData = () => {
-    let sortedData = [...sampleData];
+    if (sortCategory && sortOrder) {
+      let sortedData = [...data];
+      switch (sortCategory) {
+        case "id":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending" ? a.id - b.id : b.id - a.id;
+          });
+          break;
+        case "name":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending"
+              ? a.name.localeCompare(b.name)
+              : b.name.localeCompare(a.name);
+          });
+          break;
+        case "installedDate":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending"
+              ? new Date(a.installedDate).getTime() -
+                  new Date(b.installedDate).getTime()
+              : new Date(b.installedDate).getTime() -
+                  new Date(a.installedDate).getTime();
+          });
+          break;
+        case "tenantName":
+          sortedData.sort((a, b) => {
+            const aName = a.tenantName || "";
+            const bName = b.tenantName || "";
+            return sortOrder === "Ascending"
+              ? aName.localeCompare(bName)
+              : bName.localeCompare(aName);
+          });
+          break;
+        case "reading":
+          sortedData.sort((a, b) => {
+            const aTemperature =
+              a.reading && a.reading.temperature
+                ? parseFloat(a.reading.temperature)
+                : null;
+            const bTemperature =
+              b.reading && b.reading.temperature
+                ? parseFloat(b.reading.temperature)
+                : null;
 
-    function getTemperature(dataItem: any): number {
-      const temperatureString =
-        dataItem.READINGS[0].REDETAIL.split(":")[1].trim();
-      return parseInt(temperatureString);
-    }
-    if (sortCategory === "UNIT") {
-      sortedData.sort((a: any, b: any) =>
-        sortOrder === "Ascending"
-          ? a.DEVICE_ID - b.DEVICE_ID
-          : b.DEVICE_ID - a.DEVICE_ID
-      );
-    }
-    if (sortCategory === "DEVICES") {
-      sortedData.sort((a: any, b: any) => {
-        
-        const unitA = a.DEVICES[0].DDector;
-        const unitB = b.DEVICES[0].DDector;
+            if (aTemperature === null && bTemperature === null) return 0;
+            if (aTemperature === null)
+              return sortOrder === "Ascending" ? 1 : -1;
+            if (bTemperature === null)
+              return sortOrder === "Ascending" ? -1 : 1;
 
-        return sortOrder === "Ascending"
-          ? unitA.localeCompare(unitB)
-          : unitB.localeCompare(unitA);
-      });
-    } else if (sortCategory === "INSTALLED_DATE") {
-      sortedData.sort((a, b) =>
-        sortOrder === "Ascending"
-          ? new Date(a.INSTALLED_DATE).getTime() -
-            new Date(b.INSTALLED_DATE).getTime()
-          : new Date(b.INSTALLED_DATE).getTime() -
-            new Date(a.INSTALLED_DATE).getTime()
-      );
-    } else if (sortCategory === "READINGS") {
-      sortedData.sort((a: any, b: any) => {
-        const aTemperature = getTemperature(a);
-        const bTemperature = getTemperature(b);
+            // Sort based on 'temperature'
+            if (sortOrder === "Ascending") {
+              return aTemperature - bTemperature;
+            } else {
+              return bTemperature - aTemperature;
+            }
+          });
+          sortedData.sort((a, b) => {
+            const aTemperature =
+              a.reading && a.reading.temperature
+                ? parseFloat(a.reading.temperature)
+                : null;
+            const bTemperature =
+              b.reading && b.reading.temperature
+                ? parseFloat(b.reading.temperature)
+                : null;
 
-        if (sortOrder === "Ascending") {
-          return aTemperature - bTemperature;
-        } else {
-          return bTemperature - aTemperature;
-        }
-      });
-    }
+            if (aTemperature === null && bTemperature === null) return 0;
+            if (aTemperature === null)
+              return sortOrder === "Ascending" ? 1 : -1;
+            if (bTemperature === null)
+              return sortOrder === "Ascending" ? -1 : 1;
 
-    if (sortCategory === "TENANT_NAME") {
-      sortedData.sort((a: any, b: any) => {
-        const tenantNameA = a.TENANT_NAME;
-        const tenantNameB = b.TENANT_NAME;
-        return sortOrder === "Ascending" ? tenantNameA.localeCompare(tenantNameB) : tenantNameB.localeCompare(tenantNameA);
-      });
+            if (sortOrder === "Ascending") {
+              return aTemperature - bTemperature;
+            } else {
+              return bTemperature - aTemperature;
+            }
+          });
+          break;
+        default:
+          break;
+      }
+      setData(sortedData);
     }
-    
   };
 
   return (
@@ -137,16 +142,32 @@ function BuilNav() {
       <div>
         <AppBar
           position="static"
-          className={classes.appBar}
           style={{
             borderRadius: isSmallScreen ? "0.5rem" : "0.5rem 0.5rem 0 0",
             marginLeft: "1.5rem",
             marginRight: "1.5rem",
             width: "auto",
+            backgroundColor: "white",
+            position: "relative",
+            marginTop: "3rem",
+            margin: "98 1rem",
+            boxShadow: "none",
+            borderTopLeftRadius: "0.5rem",
+            borderTopRightRadius: "0.5rem",
           }}
         >
-          <Toolbar className={classes.toolbar}>
-            <div className={classes.heading}>
+          <Toolbar
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingLeft: "1rem",
+              paddingRight: "1rem",
+            }}
+          >
+            <div
+              style={{ display: "flex", alignItems: "center", color: "black" }}
+            >
               {isSmallScreen ? (
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
@@ -164,9 +185,7 @@ function BuilNav() {
                       color: "darkblue",
                       fontSize: "1.3rem",
                     }}
-                  >
-                    {sampleData.length}
-                  </Typography>
+                  ></Typography>
                 </div>
               ) : (
                 <>
@@ -188,7 +207,7 @@ function BuilNav() {
                   <img
                     src={BuilImg}
                     alt="Fire Icon"
-                    className={classes.image}
+                    style={{ width: 25, height: "auto", color: "black" }}
                   />{" "}
                   <Typography variant="h6" style={{ marginLeft: "0.5rem" }}>
                     Building A
@@ -208,7 +227,7 @@ function BuilNav() {
               <>
                 <Badge color="secondary">
                   <Button
-                  onClick={() => setShowSortModal(true)} 
+                    onClick={() => setShowSortModal(true)}
                     style={{
                       backgroundColor: "rgba(192, 217, 255, 1)",
                       color: "darkblue",
@@ -218,11 +237,14 @@ function BuilNav() {
                     Sort By
                   </Button>
                   <Typography
-                    className={classes.dataCount}
-                    style={{ marginLeft: "0.5rem" }}
-                  >
-                    {sampleData.length}
-                  </Typography>
+                    style={{
+                      marginLeft: "0.5rem",
+                      color: "darkblue",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  ></Typography>
                 </Badge>
               </>
             )}
@@ -240,13 +262,14 @@ function BuilNav() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option value="">Choose Category</option>
-                  <option value="">UNIT</option>
+                  <option value="id">UNIT</option>
                   <option value="name">Devices</option>
-                  <option value="joined">Installed Date</option>
-                  <option value="propertyName">Readings</option>
-                  <option value="unitName">Tenant Name</option>
+                  <option value="installedDate">Installed Date</option>
+                  <option value="reading">Readings</option>
+                  <option value="tenantName">Tenant Name</option>
                 </select>
               </form>
+
               <form className="max-w-sm ">
                 <select
                   value={sortOrder}
@@ -278,6 +301,7 @@ function BuilNav() {
 
         <div
           style={{
+            marginTop: "0.5rem",
             backgroundColor: isSmallScreen ? "" : "#EDF1F7",
             marginLeft: "1.5rem",
             marginRight: "1.5rem",
@@ -286,9 +310,26 @@ function BuilNav() {
           }}
         >
           <BuilHeader />{" "}
-          <div className={classes.content}>
-            <div className={classes.table}>
-              <BuilTables />
+          <div
+            style={{
+              marginLeft: "1rem",
+              marginRight: "1rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-start",
+              flexWrap: "wrap",
+            }}
+          >
+            <div
+              style={{
+                marginLeft: "-6px",
+                flexBasis: "calc(100% - -2rem)",
+                margin: "-0.5rem 0",
+                borderRadius: "0.5rem",
+                marginRight: "1rem",
+              }}
+            >
+              <BuilTables sortCategory={sortCategory} sortOrder={sortOrder} />
             </div>
           </div>
         </div>

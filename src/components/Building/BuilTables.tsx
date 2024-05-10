@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import currentImg from "../../assets/current.png";
+import smokedtec from "../../assets/smokedtec.png";
 
 interface DeviceInfo {
   id: number;
@@ -29,9 +30,10 @@ interface BuildingInfo {
   name: string;
   deviceList: DeviceInfo[];
   tenantName: string;
+  installedDate: number;
 }
 
-function BuilTables() {
+function BuilTables({ sortCategory, sortOrder }: any) {
   const [buildingData, setBuildingData] = useState<any>(null);
   const { isSmallScreen } = useSelector((state: RootState) => state.screenSize);
 
@@ -50,57 +52,111 @@ function BuilTables() {
     console.log({ buildingData });
     fetchData();
   }, []);
+
+  useEffect(() => {
+    sortData();
+  }, [sortCategory, sortOrder]);
+
+  const sortData = () => {
+    if (sortCategory && sortOrder) {
+      let sortedData = [...buildingData];
+      switch (sortCategory) {
+        case "id":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending" ? a.id - b.id : b.id - a.id;
+          });
+          break;
+        case "name":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending"
+              ? a.name.localeCompare(b.name)
+              : b.name.localeCompare(a.name);
+          });
+          break;
+        case "installedDate":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending"
+              ? new Date(a.installedDate).getTime() -
+                  new Date(b.installedDate).getTime()
+              : new Date(b.installedDate).getTime() -
+                  new Date(a.installedDate).getTime();
+          });
+          break;
+        case "tenantName":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending"
+              ? a.tenantName.localeCompare(b.tenantName)
+              : b.tenantName.localeCompare(a.tenantName);
+          });
+          break;
+        case "reading":
+          sortedData.sort((a, b) => {
+            const aTemperature = parseFloat(a.reading.temperature);
+            const bTemperature = parseFloat(b.reading.temperature);
+            return sortOrder === "Ascending"
+              ? aTemperature - bTemperature
+              : bTemperature - aTemperature;
+          });
+          break;
+        default:
+          break;
+      }
+      setBuildingData(sortedData);
+    }
+  };
   return (
     <div>
       {buildingData?.map((building: BuildingInfo) => (
         <div key={building.id} style={{ marginBottom: "1.5rem" }}>
           {isSmallScreen ? (
             <div>
-              {building.deviceList.map((device: DeviceInfo) => (
-                <div
-                  key={device.id}
+              <div
+                key={building.id}
+                style={{
+                  backgroundColor: "white",
+                  marginTop: "1.5rem",
+                  height: "275px",
+                  width: "336px",
+                  borderRadius: "5px",
+                  padding: "1rem",
+                }}
+              >
+                <Typography
                   style={{
-                    backgroundColor: "white",
-                    marginTop: "1.5rem",
-                    height: "275px",
-                    width: "336px",
-                    borderRadius: "5px",
-                    padding: "1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "large",
+                    padding: "0.5rem",
+                    fontWeight: "400",
+                    width: "200px",
+                    height: "19px",
                   }}
                 >
-                  <Typography
+                  <img
+                    src={currentImg}
+                    alt="Tenant Image"
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "large",
-                      padding: "0.5rem",
-                      fontWeight: "400",
+                      marginRight: "0.5rem",
+                      marginTop: "0.3rem",
+                      width: "30px",
+                      height: "30px",
                     }}
-                  >
-                    <img
-                      src={currentImg}
-                      alt="Tenant Image"
-                      style={{
-                        marginRight: "0.5rem",
-                        marginTop: "0.3rem",
-                        width: "30px",
-                        height: "30px",
-                      }}
-                    />
-                    UNIT {device.id}
-                    <img
-                      src={RightArrow}
-                      alt="Tenant Image"
-                      style={{
-                        marginRight: "0rem",
-                        marginTop: "0.3rem",
-                        width: "32px",
-                        height: "32px",
-                        marginLeft: "auto",
-                      }}
-                    />
-                  </Typography>
+                  />
+                  UNIT {building.id}
+                  <img
+                    src={RightArrow}
+                    alt="Tenant Image"
+                    style={{
+                      marginRight: "0rem",
+                      marginTop: "0.3rem",
+                      width: "32px",
+                      height: "32px",
+                      marginLeft: "auto",
+                    }}
+                  />
+                </Typography>
 
+                {building.deviceList.map((device: DeviceInfo) => (
                   <Typography
                     style={{
                       marginLeft: "0.5rem",
@@ -138,324 +194,365 @@ function BuilTables() {
                     />
                     <span style={{ flex: "1" }}>{device.name}</span>
                   </Typography>
+                ))}
 
-                  {device.reading?.temperature && (
-                    <div
-                      style={{
-                        marginLeft: "0.5rem",
-                        width: "298px",
-                        height: "40px",
-                        backgroundColor: "var(--Shades-25, #EDF1F7)",
-                        padding: "8px",
-                        borderRadius: "5px",
-                        marginTop: "0.5rem",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img
-                        src={TempImage}
-                        alt="Temperature"
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          marginRight: "5px",
-                        }}
-                      />
-                      <span> Humidity: </span>
-                      <span
-                        style={{
-                          fontSize: "large",
-                          color: "red",
-                          marginLeft: "5px",
-                        }}
-                      >
-                        {device.reading.temperature}
-                      </span>
-                    </div>
-                  )}
-                  {device.reading?.humidity && (
-                    <div
-                      style={{
-                        marginLeft: "0.5rem",
-                        width: "298px",
-                        height: "40px",
-                        backgroundColor: "var(--Shades-25, #EDF1F7)",
-                        padding: "8px",
-                        borderRadius: "5px",
-                        marginTop: "0.5rem",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img
-                        src={DropImage}
-                        alt="Humidity"
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          marginRight: "5px",
-                        }}
-                      />
-                      <span> Humidity: </span>
-                      <span
-                        style={{
-                          fontSize: "large",
-                          color: "#00C17B",
-                          marginLeft: "5px",
-                        }}
-                      >
-                        {device.reading.humidity}
-                      </span>
-                    </div>
-                  )}
+                {building.deviceList.map(
+                  (device: DeviceInfo, index: number) => (
+                    <React.Fragment key={index}>
+                      {device.reading && (
+                        <div
+                          style={{
+                            marginLeft: "0.5rem",
+                            width: "298px",
+                            height: "40px",
+                            backgroundColor: "var(--Shades-25, #EDF1F7)",
+                            padding: "8px",
+                            borderRadius: "5px",
+                            marginTop: "0.5rem",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={TempImage}
+                            alt="Temperature"
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              marginRight: "5px",
+                            }}
+                          />
+                          <span>{Object.keys(device.reading)[0]}</span>
+                          <span style={{ marginLeft: "5px", color: "red" }}>
+                            {Object.values(device.reading)[0]}
+                          </span>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  )
+                )}
 
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginBottom: "0.5rem",
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          marginLeft: "0.5rem",
-                          width: "151px",
-                          height: "60px",
-                          marginTop: "0.5rem",
-                          borderRadius: "4px",
-                          padding: "0.5rem",
-                          fontWeight: "400",
-                          backgroundColor: "var(--Shades-25, #EDF1F7)",
-                          color: "black",
-                          textAlign: "left",
-                        }}
-                      >
-                        <span style={{ color: "#5C6970", fontWeight: "500" }}>
-                          Installed Date
-                        </span>
-                        <br />
-                        {new Date(device.installedDate).toLocaleDateString()}
-                      </Typography>
-
-                      <Typography
-                        style={{
-                          marginLeft: "0.5rem",
-                          width: "151px",
-                          height: "60px",
-                          marginTop: "0.5rem",
-                          borderRadius: "4px",
-                          padding: "0.5rem",
-                          fontWeight: "400",
-                          backgroundColor: "var(--Shades-25, #EDF1F7)",
-                          color: "black",
-                          textAlign: "left",
-                        }}
-                      >
-                        <span style={{ color: "#5C6970", fontWeight: "500" }}>
-                          Tenant Name
-                        </span>
-                        <br />
-                        {building.tenantName}
-                      </Typography>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div>
-              {building.deviceList.map((device: DeviceInfo) => (
-                <Accordion
-                  key={device.id}
-                  style={{
-                    backgroundColor: "white",
-                    marginBottom: "2rem",
-                    marginLeft: "21px",
-                    marginRight: "21px",
-                    marginTop: "1rem",
-                    width: "calc(99% - 1rem)",
-                  }}
-                >
-                  <AccordionSummary
-                    id="myc"
+                <div>
+                  <div
                     style={{
-                      height: "72px",
-                      marginTop: "1.5rem",
-                      backgroundColor: "white",
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      width: "100%",
-                      padding: "0 12px",
+                      marginBottom: "0.5rem",
                     }}
                   >
-                    <table style={{ width: "100%" }}>
-                      <tbody>
-                        <tr key={device.id}>
-                          <th
-                            style={{
-                              fontWeight: "400",
-                              textAlign: "left",
-                              width: "200px",
-                            }}
-                          >
-                            {device.id}
-                          </th>
-                          <th
-                            style={{
-                              fontWeight: "400",
-                              textAlign: "left",
-                              width: "333px",
-                            }}
-                          >
-                            <div
-                              style={{
-                                width: "170px",
-                                height: "40px",
-                                display: "flex",
-                                alignItems: "center",
-                                backgroundColor: "#EDF1F7",
-                                padding: "8px",
-                                borderRadius: "4px",
-                              }}
-                            >
-                              <img
-                                src={Tempside}
-                                alt="Device Image"
-                                style={{
-                                  marginRight: "-1.5rem",
-                                  width: "24px", 
-                                  height: "15px", 
-                                }}
-                              />
-                              <img
-                                src={DTempImage}
-                                alt="Device Image"
-                                style={{
-                                  marginRight: "0.5rem",
-                                  width: "24px", 
-                                  height: "24px", 
-                                }}
-                              />
+                    <Typography
+                      style={{
+                        marginLeft: "0.5rem",
+                        width: "151px",
+                        height: "60px",
+                        marginTop: "0.5rem",
+                        borderRadius: "4px",
+                        padding: "0.5rem",
+                        fontWeight: "400",
+                        backgroundColor: "var(--Shades-25, #EDF1F7)",
+                        color: "black",
+                        textAlign: "left",
+                      }}
+                    >
+                      <span style={{ color: "#5C6970", fontWeight: "500" }}>
+                        Installed Date
+                      </span>
+                      <br />
+                      {new Date(building.installedDate).toLocaleDateString()}
+                    </Typography>
 
-                              <span>{device.name}</span>
-                            </div>
-                          </th>
+                    <Typography
+                      style={{
+                        marginLeft: "0.5rem",
+                        width: "151px",
+                        height: "60px",
+                        marginTop: "0.5rem",
+                        borderRadius: "4px",
+                        padding: "0.5rem",
+                        fontWeight: "400",
+                        backgroundColor: "var(--Shades-25, #EDF1F7)",
+                        color: "black",
+                        textAlign: "left",
+                      }}
+                    >
+                      <span style={{ color: "#5C6970", fontWeight: "500" }}>
+                        Tenant Name
+                      </span>
+                      <br />
+                      {building.tenantName}
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <Accordion
+                key={building.id}
+                style={{
+                  backgroundColor: "white",
+                  marginBottom: "2rem",
+                  marginLeft: "21px",
+                  marginRight: "21px",
+                  marginTop: "1rem",
+                  width: "calc(99% - 1rem)",
+                }}
+              >
+                <AccordionSummary
+                  id="myc"
+                  style={{
+                    height: "72px",
+                    marginTop: "1.5rem",
+                    backgroundColor: "white",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                    padding: "0 12px",
+                  }}
+                >
+                  <table style={{ width: "100%" }}>
+                    <tbody>
+                      <tr key={building.id}>
+                        <th
+                          style={{
+                            fontWeight: "400",
+                            textAlign: "left",
+                            width: "220px",
+                            height: "19px",
+                          }}
+                        >
+                          UNIT {building.id}
+                        </th>
+                        <th
+                          style={{
+                            marginBottom: "2rem",
+                            fontWeight: "400",
+                            textAlign: "left",
+                            width: "445px",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          {building.deviceList.map(
+                            (device: DeviceInfo, index: number) => (
+                              <div
+                                key={index}
+                                style={{
+                                  width: "170px",
+                                  height: "40px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  backgroundColor: "#EDF1F7",
+                                  padding: "8px",
+                                  borderRadius: "4px",
+                                  flexDirection: "row",
+                                  marginRight:
+                                    index !== building.deviceList.length - 1
+                                      ? "8px"
+                                      : "",
+                                }}
+                              >
+                                {index === 0 && (
+                                  <div style={{ marginRight: "0.5rem" }}>
+                                    <img
+                                      src={smokedtec}
+                                      alt="Device Image"
+                                      style={{
+                                        width: "24px",
+                                        height: "24px",
+                                      }}
+                                    />
+                                  </div>
+                                )}
 
-                          <th
-                            style={{
-                              fontWeight: "400",
-                              textAlign: "left",
-                              width: "400px",
-                            }}
-                          >
-                            {new Date(
-                              device.installedDate
-                            ).toLocaleDateString()}
-                          </th>
-                          <th
-                            style={{
-                              textAlign: "left",
-                              width: "358px",
-                            }}
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                alignItems: "left",
-                              }}
-                            >
-                              {device.reading?.temperature && (
-                                <div
-                                  style={{
-                                    backgroundColor: "#f0f0f0",
-                                    padding: "0.5rem",
-                                    borderRadius: "5px",
-                                    marginRight: "0.5rem",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    fontWeight: "400",
-                                  }}
-                                >
-                                  <img
-                                    src={TempImage}
-                                    alt="Temperature"
-                                    style={{
-                                      width: "20px",
-                                      height: "20px",
-                                      marginRight: "5px",
-                                    }}
-                                  />
-                                  <span>Temperature:</span>
-                                  <span
-                                    style={{ marginLeft: "5px", color: "red" }}
-                                  >
-                                    {device.reading.temperature}
-                                  </span>
-                                </div>
-                              )}
-                              {device.reading?.humidity && (
+                                {index !== 0 && (
+                                  <div style={{ marginRight: "0.5rem" }}>
+                                    <img
+                                      src={DTempImage}
+                                      alt="Device Image"
+                                      style={{
+                                        width: "24px",
+                                        height: "24px",
+                                      }}
+                                    />
+                                  </div>
+                                )}
+
                                 <span
-                                  style={{
-                                    backgroundColor: "#f0f0f0",
-                                    padding: "0.5rem",
-                                    borderRadius: "5px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    fontWeight: "400",
-                                  }}
+                                  style={{ width: "122px", height: "19px" }}
                                 >
-                                  <img
-                                    src={DropImage}
-                                    alt="Humidity"
-                                    style={{
-                                      width: "20px",
-                                      height: "20px",
-                                      marginRight: "5px",
-                                    }}
-                                  />
-                                  <span>Humidity:</span>
-                                  <span
-                                    style={{
-                                      marginLeft: "5px",
-                                      color: "#00C17B",
-                                    }}
-                                  >
-                                    {device.reading.humidity}
-                                  </span>
+                                  {device.name}
                                 </span>
-                              )}
-                            </div>
-                          </th>
-                          <th
+                              </div>
+                            )
+                          )}
+                        </th>
+
+                        <th
+                          style={{
+                            fontWeight: "400",
+                            textAlign: "left",
+                            width: "225px",
+                            height: "19px",
+                          }}
+                        >
+                          {new Date(
+                            building.installedDate
+                          ).toLocaleDateString()}
+                        </th>
+                        <th
+                          style={{
+                            textAlign: "left",
+                            width: "377px",
+                          }}
+                        >
+                          <div
                             style={{
-                               fontWeight: "400",
-                              textAlign: "right",
-                              width: "322px",
+                              marginTop: "2rem",
+                              display: "flex",
+                              flexDirection: "row",
+                              flexWrap: "wrap",
+                              justifyContent: "space-between",
                             }}
                           >
-                            {building.tenantName}
-                          </th>
-                          <img
-                            src={RightArrow}
-                            alt="Tenant Image"
-                            style={{
-                              marginRight: "0rem",
-                              marginTop: "0.3rem",
-                              width: "32px",
-                              height: "32px",
-                              marginLeft: "auto",
-                            }}
-                          />
-                        </tr>
-                      </tbody>
-                    </table>
-                  </AccordionSummary>
-                </Accordion>
-              ))}
+                            {building.deviceList.map(
+                              (device: DeviceInfo, index: number) => {
+                                if (device.reading) {
+                                  const readingKey = Object.keys(
+                                    device.reading
+                                  )[0];
+                                  return (
+                                    <div
+                                      key={index}
+                                      style={{
+                                        marginBottom: "2rem",
+                                        fontWeight: "400",
+                                        textAlign: "left",
+                                        width: "48%",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems:
+                                          index % 2 === 0
+                                            ? "flex-start"
+                                            : "center",
+                                      }}
+                                    >
+                                      <div
+                                        style={{
+                                          width: "192px",
+                                          height: "40px",
+                                          backgroundColor: "#f0f0f0",
+                                          borderRadius: "5px",
+                                          marginRight: "0.5rem",
+                                          display: "flex",
+                                          alignItems: "center",
+                                          fontWeight: "400",
+                                        }}
+                                      >
+                                        {readingKey === "temperature" ? (
+                                          <>
+                                            <img
+                                              src={TempImage}
+                                              alt="Temperature"
+                                              style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                marginRight: "5px",
+                                              }}
+                                            />
+                                            <span
+                                              style={{
+                                                width: "149",
+                                                height: "19px",
+                                              }}
+                                            >
+                                              {readingKey}:
+                                            </span>
+                                            <span
+                                              style={{
+                                                marginLeft: "5px",
+                                                color: "red",
+                                                width: "149",
+                                                height: "19px",
+                                              }}
+                                            >
+                                              {device.reading[readingKey]}
+                                            </span>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <img
+                                              src={DropImage}
+                                              alt="Humidity"
+                                              style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                marginRight: "5px",
+                                              }}
+                                            />
+                                            <span
+                                              style={{
+                                                width: "149",
+                                                height: "19px",
+                                              }}
+                                            >
+                                              {readingKey}:
+                                            </span>
+                                            <span
+                                              style={{
+                                                marginLeft: "5px",
+                                                color: "rgb(0, 193, 123)",
+                                                width: "149",
+                                                height: "19px",
+                                              }}
+                                            >
+                                              {
+                                                device.reading[
+                                                  readingKey as keyof typeof device.reading
+                                                ] as string
+                                              }
+                                            </span>
+                                          </>
+                                        )}
+                                      </div>
+                                    </div>
+                                  );
+                                }
+                                return null;
+                              }
+                            )}
+                          </div>
+                        </th>
+
+                        <th
+                          style={{
+                            fontWeight: "400",
+                            textAlign: "right",
+                            width: "322px",
+                            height: "19px",
+                          }}
+                        >
+                          {building.tenantName}
+                        </th>
+                        <img
+                          src={RightArrow}
+                          alt="Tenant Image"
+                          style={{
+                            marginRight: "0rem",
+                            marginTop: "1.5rem",
+                            width: "32px",
+                            height: "38px",
+                            marginLeft: "auto",
+                          }}
+                        />
+                      </tr>
+                    </tbody>
+                  </table>
+                </AccordionSummary>
+              </Accordion>
             </div>
           )}
         </div>
