@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Accordion, AccordionSummary } from "@mui/material";
 import RightArrow from "../../assets/rightarrowsmokep.png";
-import Tempside from "../../assets/tempside.png";
+// import Tempside from "../../assets/tempside.png";
 import TempImage from "../../assets/image3.png";
 import DropImage from "../../assets/image4.png";
 import DTempImage from "../../assets/tempdtec.png";
@@ -67,10 +67,12 @@ function BuilTables({ sortCategory, sortOrder }: any) {
           });
           break;
         case "name":
-          sortedData.sort((a, b) => {
-            return sortOrder === "Ascending"
-              ? a.name.localeCompare(b.name)
-              : b.name.localeCompare(a.name);
+          sortedData.forEach((building: BuildingInfo) => {
+            building.deviceList.sort((a, b) => {
+              return sortOrder === "Ascending"
+                ? a.name.localeCompare(b.name)
+                : b.name.localeCompare(a.name);
+            });
           });
           break;
         case "installedDate":
@@ -90,20 +92,37 @@ function BuilTables({ sortCategory, sortOrder }: any) {
           });
           break;
         case "reading":
-          sortedData.sort((a, b) => {
-            const aTemperature = parseFloat(a.reading.temperature);
-            const bTemperature = parseFloat(b.reading.temperature);
-            return sortOrder === "Ascending"
-              ? aTemperature - bTemperature
-              : bTemperature - aTemperature;
+          sortedData.forEach((building: BuildingInfo) => {
+            building.deviceList.sort((a, b) => {
+              const aTemperature = parseFloat(
+                a.reading?.temperature?.replace("°C", "") || ""
+              );
+              const bTemperature = parseFloat(
+                b.reading?.temperature?.replace("°C", "") || ""
+              );
+
+              if (!isNaN(aTemperature) && !isNaN(bTemperature)) {
+                return sortOrder === "Ascending"
+                  ? aTemperature - bTemperature
+                  : bTemperature - aTemperature;
+              } else if (!isNaN(aTemperature)) {
+                return sortOrder === "Ascending" ? -1 : 1;
+              } else if (!isNaN(bTemperature)) {
+                return sortOrder === "Ascending" ? 1 : -1;
+              } else {
+                return 0;
+              }
+            });
           });
           break;
+
         default:
           break;
       }
       setBuildingData(sortedData);
     }
   };
+
   return (
     <div>
       {buildingData?.map((building: BuildingInfo) => (
@@ -128,7 +147,7 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                     fontSize: "large",
                     padding: "0.5rem",
                     fontWeight: "400",
-                    width: "200px",
+                    width: "auto",
                     height: "19px",
                   }}
                 >
@@ -138,8 +157,8 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                     style={{
                       marginRight: "0.5rem",
                       marginTop: "0.3rem",
-                      width: "30px",
-                      height: "30px",
+                      width: "24px",
+                      height: "24px",
                     }}
                   />
                   UNIT {building.id}
@@ -147,7 +166,7 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                     src={RightArrow}
                     alt="Tenant Image"
                     style={{
-                      marginRight: "0rem",
+                      // marginRight: "0rem",
                       marginTop: "0.3rem",
                       width: "32px",
                       height: "32px",
@@ -156,81 +175,170 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                   />
                 </Typography>
 
-                {building.deviceList.map((device: DeviceInfo) => (
-                  <Typography
-                    style={{
-                      marginLeft: "0.5rem",
-                      padding: "8px 10px",
-                      height: "32px",
-                      width: "297px",
-                      borderRadius: "4px",
-                      fontWeight: "400",
-                      backgroundColor: "var(--Shades-25, #EDF1F7)",
-                      marginBottom: "0.5rem",
-                      color: "black",
-                      fontSize: "normal",
-                      textAlign: "left",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src={Tempside}
-                      alt="Device Image"
-                      style={{
-                        marginRight: "-1.5rem",
-                        width: "24px",
-                        height: "15px",
-                      }}
-                    />
-                    <img
-                      src={DTempImage}
-                      alt="Device Image"
-                      style={{
-                        marginRight: "0.5rem",
-                        width: "22px",
-                        height: "22px",
-                      }}
-                    />
-                    <span style={{ flex: "1" }}>{device.name}</span>
-                  </Typography>
-                ))}
+                <div
+                  style={{
+                    marginLeft: "0.5rem",
+                    marginTop: "1rem",
+                    display: "flex",
+                    justifyContent: "spaceBetween",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  {building.deviceList
+                    .slice(0, 2)
+                    .map((device: DeviceInfo, index: number) => (
+                      <div
+                        key={index}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#EDF1F7",
+                          padding: "8px",
+                          borderRadius: "4px",
+                          flexDirection: "row",
+                          marginRight: index !== 1 ? "8px" : "",
+                        }}
+                      >
+                        {index === 0 && (
+                          <div style={{ marginRight: "0.5rem" }}>
+                            <img
+                              src={smokedtec}
+                              alt="Device Image"
+                              style={{
+                                width: "24px",
+                                height: "24px",
+                              }}
+                            />
+                          </div>
+                        )}
 
-                {building.deviceList.map(
-                  (device: DeviceInfo, index: number) => (
-                    <React.Fragment key={index}>
-                      {device.reading && (
-                        <div
+                        {index !== 0 && (
+                          <div style={{ marginRight: "0.5rem" }}>
+                            <img
+                              src={DTempImage}
+                              alt="Device Image"
+                              style={{
+                                width: "24px",
+                                height: "24px",
+                              }}
+                            />
+                          </div>
+                        )}
+
+                        <span
                           style={{
-                            marginLeft: "0.5rem",
-                            width: "298px",
-                            height: "40px",
-                            backgroundColor: "var(--Shades-25, #EDF1F7)",
-                            padding: "8px",
-                            borderRadius: "5px",
-                            marginTop: "0.5rem",
-                            display: "flex",
-                            alignItems: "center",
+                            width: "122px",
+                            height: "19px",
+                            color: "#31353B",
                           }}
                         >
-                          <img
-                            src={TempImage}
-                            alt="Temperature"
+                          {device.name}
+                        </span>
+                      </div>
+                    ))}
+                </div>
+
+                {building.deviceList
+                  .slice(0, 2)
+                  .map((device: DeviceInfo, index: number) => {
+                    if (device.reading) {
+                      const readingKey = Object.keys(device.reading)[0];
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            marginBottom: "0.5rem",
+                            textAlign: "left",
+                            width: "100%",
+                            display: "flex",
+                            alignItems:
+                              index % 2 === 0 ? "flex-start" : "center",
+                          }}
+                        >
+                          <div
                             style={{
-                              width: "20px",
-                              height: "20px",
-                              marginRight: "5px",
+                              marginLeft: "0.5rem",
+                              width: "301px", // Adjusted width
+                              height: "40px", // Adjusted height
+                              backgroundColor: "#EDF1F7",
+                              borderRadius: "5px",
+                              marginRight: "0.5rem",
+                              display: "flex",
+                              alignItems: "center",
+                              fontWeight: "400",
                             }}
-                          />
-                          <span>{Object.keys(device.reading)[0]}</span>
-                          <span style={{ marginLeft: "5px", color: "red" }}>
-                            {Object.values(device.reading)[0]}
-                          </span>
+                          >
+                            {readingKey === "temperature" ? (
+                              <>
+                                <img
+                                  src={TempImage}
+                                  alt="Temperature"
+                                  style={{
+                                    width: "20px",
+                                    height: "20px",
+                                    marginRight: "5px",
+                                  }}
+                                />
+                                <span
+                                  style={{
+                                    width: "149px",
+                                    height: "19px",
+                                    color: "#5C626E",
+                                  }}
+                                >
+                                  {readingKey}:
+                                </span>
+                                <span
+                                  style={{
+                                    marginLeft: "5px",
+                                    color: "red",
+                                    width: "258px",
+                                    height: "19px",
+                                  }}
+                                >
+                                  {device.reading[readingKey]}
+                                </span>
+                              </>
+                            ) : (
+                              readingKey === "humidity" && (
+                                <>
+                                  <img
+                                    src={DropImage}
+                                    alt="Humidity"
+                                    style={{
+                                      width: "20px",
+                                      height: "20px",
+                                      marginRight: "5px",
+                                    }}
+                                  />
+                                  <span
+                                    style={{
+                                      width: "149px",
+                                      height: "19px",
+                                      color: "#5C626E",
+                                    }}
+                                  >
+                                    {readingKey}:
+                                  </span>
+                                  <span
+                                    style={{
+                                      marginLeft: "5px",
+                                      color: "rgb(0, 193, 123)",
+                                      width: "258px",
+                                      height: "19px",
+                                    }}
+                                  >
+                                    {device.reading[readingKey]}
+                                  </span>
+                                </>
+                              )
+                            )}
+                          </div>
                         </div>
-                      )}
-                    </React.Fragment>
-                  )
-                )}
+                      );
+                    }
+                    return null;
+                  })}
 
                 <div>
                   <div
@@ -251,7 +359,7 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                         padding: "0.5rem",
                         fontWeight: "400",
                         backgroundColor: "var(--Shades-25, #EDF1F7)",
-                        color: "black",
+                        color: "#00000",
                         textAlign: "left",
                       }}
                     >
@@ -272,7 +380,7 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                         padding: "0.5rem",
                         fontWeight: "400",
                         backgroundColor: "var(--Shades-25, #EDF1F7)",
-                        color: "black",
+                        color: "#000000",
                         textAlign: "left",
                       }}
                     >
@@ -336,8 +444,9 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                             alignItems: "flex-start",
                           }}
                         >
-                          {building.deviceList.map(
-                            (device: DeviceInfo, index: number) => (
+                          {building.deviceList
+                            .slice(0, 2)
+                            .map((device: DeviceInfo, index: number) => (
                               <div
                                 key={index}
                                 style={{
@@ -350,7 +459,7 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                                   borderRadius: "4px",
                                   flexDirection: "row",
                                   marginRight:
-                                    index !== building.deviceList.length - 1
+                                    index !== 1 // Adjust this index if you want to show only one device
                                       ? "8px"
                                       : "",
                                 }}
@@ -387,8 +496,7 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                                   {device.name}
                                 </span>
                               </div>
-                            )
-                          )}
+                            ))}
                         </th>
 
                         <th
@@ -418,8 +526,9 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                               justifyContent: "space-between",
                             }}
                           >
-                            {building.deviceList.map(
-                              (device: DeviceInfo, index: number) => {
+                            {building.deviceList
+                              .slice(0, 2)
+                              .map((device: DeviceInfo, index: number) => {
                                 if (device.reading) {
                                   const readingKey = Object.keys(
                                     device.reading
@@ -522,8 +631,7 @@ function BuilTables({ sortCategory, sortOrder }: any) {
                                   );
                                 }
                                 return null;
-                              }
-                            )}
+                              })}
                           </div>
                         </th>
 

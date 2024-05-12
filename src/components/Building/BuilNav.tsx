@@ -83,52 +83,30 @@ function BuilNav() {
               : bName.localeCompare(aName);
           });
           break;
-        case "reading":
-          sortedData.sort((a, b) => {
-            const aTemperature =
-              a.reading && a.reading.temperature
-                ? parseFloat(a.reading.temperature)
-                : null;
-            const bTemperature =
-              b.reading && b.reading.temperature
-                ? parseFloat(b.reading.temperature)
-                : null;
-
-            if (aTemperature === null && bTemperature === null) return 0;
-            if (aTemperature === null)
-              return sortOrder === "Ascending" ? 1 : -1;
-            if (bTemperature === null)
-              return sortOrder === "Ascending" ? -1 : 1;
-
-            // Sort based on 'temperature'
-            if (sortOrder === "Ascending") {
-              return aTemperature - bTemperature;
-            } else {
-              return bTemperature - aTemperature;
-            }
-          });
-          sortedData.sort((a, b) => {
-            const aTemperature =
-              a.reading && a.reading.temperature
-                ? parseFloat(a.reading.temperature)
-                : null;
-            const bTemperature =
-              b.reading && b.reading.temperature
-                ? parseFloat(b.reading.temperature)
-                : null;
-
-            if (aTemperature === null && bTemperature === null) return 0;
-            if (aTemperature === null)
-              return sortOrder === "Ascending" ? 1 : -1;
-            if (bTemperature === null)
-              return sortOrder === "Ascending" ? -1 : 1;
-
-            if (sortOrder === "Ascending") {
-              return aTemperature - bTemperature;
-            } else {
-              return bTemperature - aTemperature;
-            }
-          });
+          case "reading":
+            sortedData.sort((a, b) => {
+              const aTemperature =
+                a.reading && a.reading.temperature
+                  ? parseFloat(a.reading.temperature)
+                  : null;
+              const bTemperature =
+                b.reading && b.reading.temperature
+                  ? parseFloat(b.reading.temperature)
+                  : null;
+          
+              if (aTemperature === null && bTemperature === null) return 0;
+              if (aTemperature === null)
+                return sortOrder === "Ascending" ? 1 : -1;
+              if (bTemperature === null)
+                return sortOrder === "Ascending" ? -1 : 1;
+          
+              // Sort based on 'temperature'
+              if (sortOrder === "Ascending") {
+                return aTemperature - bTemperature;
+              } else {
+                return bTemperature - aTemperature;
+              }
+            });          
           break;
         default:
           break;

@@ -21,8 +21,8 @@ interface DeviceInfo {
   installedDate: number;
 }
 
-function Tables() {
-  const [data, setData] = useState<DeviceInfo[] | null>(null);
+function Tables({ sortCategory, sortOrder }: any) {
+  const [buildingData, setBuildingData] = useState<any>(null);
   const { isSmallScreen } = useSelector((state: RootState) => state.screenSize);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function Tables() {
           "http://localhost:8080/device/Fire Alarm/info/property/1"
         );
         const responseData = response.data;
-        setData(responseData);
+        setBuildingData(responseData);
         console.log(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -42,13 +42,76 @@ function Tables() {
     fetchData();
   }, []);
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    sortData();
+  }, [sortCategory, sortOrder]);
+
+  const getTemperature = (item: any) => {
+    return item.reading && item.reading.temperature
+      ? parseFloat(item.reading.temperature.replace("°C", ""))
+      : null;
+  };
+
+  const sortData = () => {
+    if (sortCategory && sortOrder) {
+      let sortedData = [...buildingData];
+      switch (sortCategory) {
+        case "id":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending" ? a.id - b.id : b.id - a.id;
+          });
+          break;
+        case "propertyName":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending"
+              ? a.propertyName.localeCompare(b.propertyName)
+              : b.propertyName.localeCompare(a.propertyName);
+          });
+          break;
+        case "installedDate":
+          sortedData.sort((a, b) => {
+            return sortOrder === "Ascending"
+              ? new Date(a.installedDate).getTime() -
+                  new Date(b.installedDate).getTime()
+              : new Date(b.installedDate).getTime() -
+                  new Date(a.installedDate).getTime();
+          });
+          break;
+        case "reading":
+          sortedData.sort((a, b) => {
+            const aTemperature = getTemperature(a);
+            const bTemperature = getTemperature(b);
+
+            if (aTemperature === null && bTemperature === null) return 0;
+            if (aTemperature === null)
+              return sortOrder === "Ascending" ? 1 : -1;
+            if (bTemperature === null)
+              return sortOrder === "Ascending" ? -1 : 1;
+
+            return sortOrder === "Ascending"
+              ? aTemperature - bTemperature
+              : bTemperature - aTemperature;
+          });
+          break;
+        case "connection":
+          sortedData.sort((a, b) => {
+            const aConnection = a.connection || "";
+            const bConnection = b.connection || "";
+            return sortOrder === "Ascending"
+              ? aConnection.localeCompare(bConnection)
+              : bConnection.localeCompare(aConnection);
+          });
+          break;
+        default:
+          break;
+      }
+      setBuildingData(sortedData);
+    }
+  };
 
   return (
     <div>
-      {data.map((item: DeviceInfo) => (
+      {buildingData?.map((item: DeviceInfo) => (
         <div key={item.id}>
           {isSmallScreen ? (
             <div
@@ -90,7 +153,7 @@ function Tables() {
                     padding: "0.5rem",
                     paddingRight: "2rem",
                     fontWeight: "400",
-                    backgroundColor: "var(--Shades-25, #EDF1F7)"
+                    backgroundColor: "var(--Shades-25, #EDF1F7)",
                   }}
                 >
                   {item.propertyName}
@@ -234,17 +297,14 @@ function Tables() {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    backgroundColor: `${
-                      item.connection === "ONLINE"
-                        ? item.battery === 100
+                    backgroundColor:
+                      item.connection === "online"
+                        ? item.battery > 42
                           ? "#00C17B"
-                          : item.battery === 42
+                          : item.battery > 18
                           ? "rgba(255, 153, 0, 1)"
-                          : item.battery === 18
-                          ? "rgba(240, 83, 72, 1)"
-                          : "#f0f0f0"
-                        : "rgb(0, 193, 123,1)"
-                    }`,
+                          : "rgba(240, 83, 72, 1)"
+                        : "rgb(0, 193, 123,1)",
                     height: "48px",
                     padding: "8px",
                     marginRight: "0.5rem",
@@ -268,13 +328,13 @@ function Tables() {
                 <div
                   style={{
                     backgroundColor: `${
-                      item.connection === "ONLINE"
+                      item.connection === "online"
                         ? "#00C17B"
                         : "rgba(255, 153, 0, 1)"
                     }`,
                     height: "48px",
                     padding: "8px",
-                    marginLeft: "8px", 
+                    marginLeft: "8px",
                     marginRight: "-1.8rem",
                     borderRadius: "5px",
                     width: "228px",
@@ -392,8 +452,8 @@ function Tables() {
                                 style={{
                                   color:
                                     parseFloat(
-                                      item.reading.temperature.split(":")[1]
-                                    ) <= 25.2
+                                      item.reading.temperature.split(":")[0]
+                                    ) <= 25
                                       ? "red"
                                       : "#00C17B",
                                 }}
@@ -421,8 +481,19 @@ function Tables() {
                                 marginRight: "0.5rem",
                               }}
                             />
-                            <Typography>
-                              <span>Humidity: </span>
+                            <span style={{ fontWeight: "400" }}>
+                              Humidity:{" "}
+                            </span>
+                            <Typography
+                              fontSize="large"
+                              sx={{
+                                color:
+                                  parseFloat(item.reading.humidity) <= 50
+                                    ? "#00C17B"
+                                    : "red",
+                                marginRight: "8px",
+                              }}
+                            >
                               {item.reading.humidity}
                             </Typography>
                           </div>
@@ -446,14 +517,12 @@ function Tables() {
                           <div
                             style={{
                               backgroundColor:
-                                item.connection === "ONLINE"
-                                  ? item.battery === 100
+                                item.connection === "online"
+                                  ? item.battery > 42
                                     ? "#00C17B"
-                                    : item.battery === 42
+                                    : item.battery > 18
                                     ? "rgba(255, 153, 0, 1)"
-                                    : item.battery === 18
-                                    ? "rgba(240, 83, 72, 1)"
-                                    : "#f0f0f0"
+                                    : "rgba(240, 83, 72, 1)"
                                   : "rgb(0, 193, 123,1)",
                               padding: "0.5rem",
                               borderRadius: "5px",
@@ -481,7 +550,7 @@ function Tables() {
                           <div
                             style={{
                               backgroundColor:
-                                item.connection === "ONLINE"
+                                item.connection === "online"
                                   ? "#00C17B"
                                   : "rgba(255, 153, 0, 1)",
                               padding: "0.5rem",
